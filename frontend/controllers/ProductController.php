@@ -54,21 +54,24 @@ class ProductController extends Controller
     {
         $products = null;
         $pagination = null;
+        $count = 0;
 
         $search = Yii::$app->request->get('q');
         $arr = explode(' ', $search);
-        $products = Product::find()->where(['like', 'name', $arr]);
+        $products = Product::find()->where(['like', 'name', $arr])->orderBy(['remains' => SORT_DESC]);
 
         if(isset($products)) {
+            $count = $products->count();
             $pagination = new Pagination([
                 'defaultPageSize' => 20,
-                'totalCount' => $products->count(),
+                'totalCount' => $count,
             ]);
             $products = $products->offset($pagination->offset)->limit($pagination->limit)->all();
         }
 
         return $this->render('search', [
             'search' => $search,
+            'count' => $count,
             'products' => $products,
             'pagination' => $pagination,
         ]);

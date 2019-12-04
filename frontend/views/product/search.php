@@ -10,7 +10,7 @@ $this->title = 'Плеяда - результати пошуку';
 <?= widgets\CategoriesAsideWidget::widget()?>
 <div class="main-catalog">
     <? if (isset($products)): ?>
-    <h2 class="inner-title">Результат пошуку: "<?= $search ?>". Знайдено <?= count($products).' '.WriteCorrectly::corecllyResults(count($products))  ?></h2>
+    <h2 class="inner-title">Результат пошуку: "<?= $search ?>". Знайдено <?= $count.' '.WriteCorrectly::corecllyResults($count)  ?></h2>
     <div class="main-outer-goods" style="padding-bottom: 30px">
         <? foreach ($products as $product): ?>
             <div class="main-outer-good">
