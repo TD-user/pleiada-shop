@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Ім\'я автора' ) ?>
 
-    <?= $form->field($model, 'text')->textInput(['maxlength' => true])->label('Текст відгуку') ?>
+    <?= $form->field($model, 'text')->textarea(['maxlength' => true, 'rows' => '12'])->label('Текст відгуку') ?>
 
 <!--    --><?//= $form->field($model, 'created_at')->textInput() ?>
 

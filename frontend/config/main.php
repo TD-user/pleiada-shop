@@ -44,8 +44,8 @@ return [
             'rules' => [
                 'categories' => 'categories/index',
                 'categories/<alias>' => 'categories/view',
+                'product/search' => 'product/search',
                 'product/<alias>' => 'product/view',
-                'product/send-review' => 'product/send-review'
             ],
         ],
     ],

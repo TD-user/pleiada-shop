@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Product;
 use common\models\Reviews;
 use Yii;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -47,6 +48,31 @@ class ProductController extends Controller
             'model' => $model,
             'modelReview' => $modelReview,
         ]);
+    }
+
+    public function actionSearch()
+    {
+        $products = null;
+        $pagination = null;
+
+        $search = Yii::$app->request->get('q');
+        $arr = explode(' ', $search);
+        $products = Product::find()->where(['like', 'name', $arr]);
+
+        if(isset($products)) {
+            $pagination = new Pagination([
+                'defaultPageSize' => 20,
+                'totalCount' => $products->count(),
+            ]);
+            $products = $products->offset($pagination->offset)->limit($pagination->limit)->all();
+        }
+
+        return $this->render('search', [
+            'search' => $search,
+            'products' => $products,
+            'pagination' => $pagination,
+        ]);
+
     }
 
     /**

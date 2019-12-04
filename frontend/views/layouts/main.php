@@ -115,10 +115,10 @@ AppAsset::register($this);
                 </div>
             </div>
             <div class="header-another">
-                <form action="" name="" method="" class="find">
-                    <input type="text" name="" placeholder="Я шукаю...">
+                <form action="<?= Url::to(['/product/search'])?>" method="get" class="find">
+                    <input type="text" name="q" placeholder="Я шукаю..." required>
                     <span class="find-close">&#10006;</span>
-                    <button>Знайти</button>
+                    <button type="submit">Знайти</button>
                 </form>
                 <div class="header-icons">
                     <?php if(!Yii::$app->user->isGuest):?>

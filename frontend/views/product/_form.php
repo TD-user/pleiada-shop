@@ -20,14 +20,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelReview, 'text')->textarea(['maxlength' => true, 'rows' => '12', 'placeholder' => 'Коментар...'])->label(false) ?>
 
-<!--    --><?//= $form->field($modelReview, 'created_at')->textInput() ?>
-
-<!--    --><?//= $form->field($modelReview, 'is_moderated')->textInput() ?>
-
-<!--    --><?//= $form->field($modelReview, 'moderator_id')->textInput() ?>
-
-<!--    --><?//= $form->field($modelReview, 'moderated_at')->textInput() ?>
-
     <div class="form-group">
         <?= Html::submitButton('Відправити', ['class' => 'btn btn-success']) ?>
     </div>

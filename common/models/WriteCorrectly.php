@@ -20,4 +20,13 @@ class WriteCorrectly
         return $review[$variant];
     }
 
+    public static function corecllyResults($number){
+        $keys = array(2, 0, 1, 1, 1, 2);
+        $review = array('товар', 'товари', 'товарів');
+        $mod = $number % 100;
+        $variant = $mod > 4 && $mod < 20 ? 2 : $keys[min($mod%10, 5)];
+
+        return $review[$variant];
+    }
+
 }
