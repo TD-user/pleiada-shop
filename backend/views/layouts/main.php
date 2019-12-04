@@ -36,15 +36,31 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Головна', 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+        $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'Сторінки', 'url' => ['/page/index']];
+        $menuItems[] = ['label' => 'Товари', 'url' => ['/product/index']];
+
+        //$menuItems[] = ['label' => 'Відгуки', 'url' => ['/reviews/index']];
+
+        $menuItems[] = [
+            'label' => 'Відгуки',
+            'items' => [
+                ['label' => 'Нові відгуки', 'url' => ['/reviews/new']],
+                ['label' => 'Усі відгуки', 'url' => ['/reviews/index']]
+            ],
+        ];
+
+
+        $menuItems[] = ['label' => 'Категорії', 'url' => ['/categories/index']];
+
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
+                'Вихід (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
             . Html::endForm()

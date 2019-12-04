@@ -1,19 +1,23 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Htmlpages;
+use common\models\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\data\Pagination;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use frontend\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Categories;
 
 /**
  * Site controller
@@ -74,7 +78,41 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $categories = Categories::getTreeMenuArray();
+
+        $promotionProducts = Product::find()
+            ->where(['not', ['promotionPrice' => null]])
+            ->andWhere(['not', ['promotionPrice' => 0]])
+            ->orderBy(['remains' => SORT_DESC]);
+
+        $paginationPromo = new Pagination([
+            'defaultPageSize' => 8,
+            'totalCount' => $promotionProducts->count(),
+        ]);
+
+        $promotionProducts = $promotionProducts->offset($paginationPromo->offset)->limit($paginationPromo->limit)->all();
+
+        $watchedProducts = null;
+        $cookies = Yii::$app->request->cookies;
+        if ($cookies->has('watchedProducts')) {
+            $watchedProducts = $cookies->getValue('watchedProducts');
+            $watchedProducts = explode(',', $watchedProducts);
+            $watchedProducts = array_unique($watchedProducts);
+            $watchedProducts = array_slice($watchedProducts, 0, 12);
+            $cookies = Yii::$app->response->cookies;
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'watchedProducts',
+                'value' => implode(',', $watchedProducts),
+            ]));
+            $watchedProducts = Product::find()->where(['in', 'id', $watchedProducts])->limit(12)->all();
+        }
+
+        return $this->render('index', [
+            'categories' => $categories,
+            'promotionProducts' => $promotionProducts,
+            'paginationPromo' => $paginationPromo,
+            'watchedProducts' => $watchedProducts,
+        ]);
     }
 
     /**
@@ -119,20 +157,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
+        return $this->goHome();
     }
 
     /**
@@ -142,7 +167,11 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        return $this->render('about');
+        $page = Htmlpages::find()->where(['alias' => 'pro-nas'])->one();
+
+        return $this->render('about', [
+            'page' => $page,
+        ]);
     }
 
     /**
@@ -152,9 +181,13 @@ class SiteController extends Controller
      */
     public function actionSignup()
     {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', 'Дякуємо за реєстрацію на нашому сайті. Залишилось лише скористайтеся формою входу.');
             return $this->goHome();
         }
 
@@ -173,11 +206,11 @@ class SiteController extends Controller
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'На ваш email направлено лист з подальшими інструкціями');
 
                 return $this->goHome();
             } else {
-                Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+                Yii::$app->session->setFlash('error', 'Вибачте, ми не можемо відправити відновлення паролю на вказану вами адресу.');
             }
         }
 
@@ -257,4 +290,52 @@ class SiteController extends Controller
             'model' => $model
         ]);
     }
+    
+     /**
+     * Displays homepage.
+     *
+     * @return mixed
+     */
+    public function actionVacancy()
+    {
+        $page = Htmlpages::find()->where(['alias' => 'vakansii'])->one();
+
+        return $this->render('vacancy', [
+            'page' => $page,
+        ]);
+    }
+    
+    public function actionContacts()
+    {
+        return $this->render('contacts');
+    }    
+    
+    public function actionDeliveryAndPayment()
+    {
+        $page = Htmlpages::find()->where(['alias' => 'dostavka-ta-oplata'])->one();
+
+        return $this->render('delivery', [
+            'page' => $page,
+        ]);
+    }
+    
+    public function actionReturnOfGoods()
+    {
+        $page = Htmlpages::find()->where(['alias' => 'povernennia-tovaru'])->one();
+
+        return $this->render('returnOfGoods', [
+            'page' => $page,
+        ]);
+    }
+    
+    public function actionTermsOfUse()
+    {
+        $page = Htmlpages::find()->where(['alias' => 'umovy-vykorystannia-saitu'])->one();
+
+        return $this->render('termsOfUse', [
+            'page' => $page,
+        ]);
+    }
+    
+    
 }

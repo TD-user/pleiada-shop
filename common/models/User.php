@@ -12,15 +12,30 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  * @property string $username
+ * @property string $email
+ * @property string $phone
+ * @property string $surname
+ * @property string $name
+ * @property string $fathername
+ * @property Date $birthday
+ * @property integer $gender
+ * @property string $city
  * @property string $password_hash
  * @property string $password_reset_token
  * @property string $verification_token
- * @property string $email
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ *
+ * @property Cart[] $carts
+ * @property Product[] $products
+ * @property Favourite[] $favourites
+ * @property Product[] $products0
+ * @property History[] $histories
+ * @property Product[] $products1
+ * @property Reviews[] $reviews
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -53,7 +68,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
     }
@@ -205,5 +220,61 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarts()
+    {
+        return $this->hasMany(Cart::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts()
+    {
+        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%cart}}', ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFavourites()
+    {
+        return $this->hasMany(Favourite::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts0()
+    {
+        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%favourite}}', ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getHistories()
+    {
+        return $this->hasMany(History::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProducts1()
+    {
+        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%history}}', ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviews()
+    {
+        return $this->hasMany(Reviews::className(), ['user_id' => 'id']);
     }
 }

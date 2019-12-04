@@ -11,9 +11,11 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'homeUrl' => '/',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => '',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -40,6 +42,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'categories' => 'categories/index',
+                'categories/<alias>' => 'categories/view',
+                'product/<alias>' => 'product/view',
+                'product/send-review' => 'product/send-review'
             ],
         ],
     ],

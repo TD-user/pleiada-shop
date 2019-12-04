@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\XmlToDB;
 use Yii;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -60,6 +61,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //todo: не забути стекрти
+//        $dbxml = new XmlToDB();
+//        $dbxml->path = __DIR__.'\1c2site.xml';
+//        $dbxml->ArrayToDB();
+
         return $this->render('index');
     }
 
