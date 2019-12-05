@@ -34,10 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'user_id',
             'name',
             'text',
-            'created_at',
+            'created_at:datetime',
             'is_moderated',
             'moderator_id',
-            'moderated_at',
+            'moderated_at:datetime',
         ],
     ]) ?>
 

@@ -124,16 +124,20 @@ AppAsset::register($this);
                     <?php if(!Yii::$app->user->isGuest):?>
                     <a href="<?= Url::to(['user/favourite'])?>">
                         <img src="/img/favorite.png" alt="Улюблені" title="Улюблені" height="40" width="40">
-                        <?php if(Yii::$app->user->identity->getFavourites()->count() > 0):?>
-                            <span><?= Yii::$app->user->identity->getFavourites()->count(); ?></span>
-                        <?php endif; ?>
+                        <span class="favourite-counter">
+                            <?php if(Yii::$app->user->identity->getFavourites()->count() > 0):?>
+                                <?= Yii::$app->user->identity->getFavourites()->count(); ?>
+                            <?php endif; ?>
+                        </span>
                     </a>
                     <?php endif ?>
                     <a href="<?= Url::to(['user/cart'])?>">
                         <img src="/img/curt.png" alt="Корзина" title="Корзина" height="40" width="40">
-                        <?php if(Yii::$app->user->identity->getCarts()->count() > 0):?>
-                            <span><?= Yii::$app->user->identity->getCarts()->count(); ?></span>
-                        <?php endif; ?>
+                        <span class="cart-counter">
+                            <?php if(Yii::$app->user->identity->getCarts()->count() > 0):?>
+                                <?= Yii::$app->user->identity->getCarts()->count(); ?>
+                            <?php endif; ?>
+                        </span>
                     </a>
                 </div>
             </div>

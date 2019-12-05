@@ -49,18 +49,18 @@ $this->title = 'Плеяда - '.$model->name;
                                 <div class="col-xs-6">
                                     <span class="prod-pr">ціна:</span><br>
                                     <? if($model->promotionPrice != 0 and $model->promotionPrice != null): ?>
-                                        <span class="prod-mn <? if($model->remains==0) echo 'not-available'?> promo-price"><?= $model->promotionPrice." ".$model->currency; ?></span>
+                                        <span class="prod-mn <? if($model->remains<=0) echo 'not-available'?> promo-price"><?= $model->promotionPrice." ".$model->currency; ?></span>
                                         <span class="prod-mn "><?= $model->price." ".$model->currency; ?></span>
                                     <? else: ?>
-                                        <span class="prod-mn <? if($model->remains==0) echo 'not-available'?>"><?= $model->price." ".$model->currency; ?></span>
+                                        <span class="prod-mn <? if($model->remains<=0) echo 'not-available'?>"><?= $model->price." ".$model->currency; ?></span>
                                     <? endif; ?>
                                 </div>
                                 <div class="col-xs-6 btns-product">
                                     <div class="small-btn-good">
-                                        <button class="btn btn-default btn-lg img-center btn-40px <? if($model->remains==0) echo 'not-available'?>"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                        <button class="btn btn-default btn-lg img-center btn-40px <? if($model->remains<=0) echo 'not-available'?>"><span class="glyphicon glyphicon-shopping-cart"></span></button>
                                         <button class="btn btn-default btn-lg img-center btn-40px"><span class="glyphicon glyphicon-heart"></span></button>
                                     </div>
-                                    <button class="btn btn-danger btn-lg img-center btn-100px <? if($model->remains==0) echo 'not-available'?>">Купити</button>
+                                    <button class="btn btn-danger btn-lg img-center btn-100px <? if($model->remains<=0) echo 'not-available'?>">Купити</button>
                                 </div>
                             </div>
                         </div>
@@ -101,12 +101,6 @@ $this->title = 'Плеяда - '.$model->name;
                     'modelReview' => $modelReview,
                 ]) ?>
 
-<!--                --><?php //$form = ActiveForm::begin(); ?>
-<!--                    <input type="hidden" name="product_id" value="--><?//= $model->id; ?><!--">-->
-<!--                    <input type="text" placeholder="Введіть ім'я" name="name" value="--><?//= Yii::$app->user->identity->name; ?><!--">-->
-<!--                    <textarea name="text" placeholder="Коментар..." cols="30" rows="10"></textarea>-->
-<!--                    --><?//= Html::submitButton('Відправити', ['id' => 'send-review']) ?>
-<!--                --><?php //ActiveForm::end(); ?>
             </div>
         </div>
     </div>

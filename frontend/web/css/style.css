@@ -231,9 +231,9 @@ h3{
 	color: #fff;
 	top: -3px;
 	right: -3px;
-	padding: 0 4px 0 3px;
+	padding: 0 4px 0 4px;
 	font-weight: 700;
-	border: 1px solid rgb(100, 0, 0);
+	/*border: 1px solid rgb(100, 0, 0);*/
 }
 .footer-container{
 	background: #fff;
@@ -608,6 +608,9 @@ a.good-buy-disabled:after{
 }
 .outer-good-icons>a:last-child{
 	background-image: url(./../img/favorite-good.png);
+}
+.outer-good-icons.selected>a:last-child{
+	background-image: url(./../img/favorite-good-selected.png);
 }
 a.leave-comment{
 	font-size: 12px;

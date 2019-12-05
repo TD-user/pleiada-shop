@@ -18,9 +18,12 @@ class m191201_141728_history extends Migration
         }
 
         $this->createTable('{{%history}}', [
+            'order'=>$this->string(),
             'user_id'=>$this->integer(11),
             'product_id'=>$this->integer(11),
             'json'=>$this->string(5000),
+            'total' => $this->double()->notNull(),
+            'created_at' => $this->integer()->notNull(),
             'PRIMARY KEY(user_id, product_id)'
         ], $tableOptions);
 

@@ -30,11 +30,11 @@ use yii\web\IdentityInterface;
  * @property string $password write-only password
  *
  * @property Cart[] $carts
- * @property Product[] $products
+ * @property Product[] $productsCart
  * @property Favourite[] $favourites
- * @property Product[] $products0
+ * @property Product[] $productsFavourite
  * @property History[] $histories
- * @property Product[] $products1
+ * @property Product[] $productsHistory
  * @property Reviews[] $reviews
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -233,7 +233,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProducts()
+    public function getProductsCart()
     {
         return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%cart}}', ['user_id' => 'id']);
     }
@@ -249,7 +249,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProducts0()
+    public function getProductsFavourite()
     {
         return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%favourite}}', ['user_id' => 'id']);
     }
@@ -265,7 +265,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getProducts1()
+    public function getProductsHistory()
     {
         return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%history}}', ['user_id' => 'id']);
     }

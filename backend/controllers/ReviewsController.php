@@ -52,7 +52,7 @@ class ReviewsController extends Controller
     public function actionNew()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Reviews::find()->where(['is_moderated' => 0])->orderBy(['created_at' => SORT_ASC]),
+            'query' => Reviews::find()->where(['is_moderated' => 0])->orderBy(['created_at' => SORT_DESC]),
         ]);
 
         return $this->render('new', [

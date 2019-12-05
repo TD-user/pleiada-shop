@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Product;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
@@ -14,10 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-<!--    <p>-->
-<!--        --><?//= Html::a('Create Reviews', ['create'], ['class' => 'btn btn-success']) ?>
-<!--    </p>-->
-
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,9 +26,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'product_id',
+            ['attribute' => 'product',
+                'value' => function ($model, $key, $index, $grid) {
+                    return Product::find($model->product_id)->one()->name;
+                },
+            ],
             'user_id',
             'name',
             'text',
+            ['attribute' => 'created_at',
+                'value' => function ($model, $key, $index, $grid) {
+                    return date('Y-m-d H:i:s', $model->created_at);
+                },
+            ],
+            ['attribute' => 'moderated_at',
+                'value' => function ($model, $key, $index, $grid) {
+                    return date('Y-m-d H:i:s', $model->moderated_at);
+                },
+            ],
             //'created_at',
             //'is_moderated',
             //'moderator_id',
