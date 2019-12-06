@@ -66,13 +66,13 @@ $(document).ready(function(){
         interval: 3000
     });
 
-    $('.curt-minus').click(function(e){
+    $("div.main-catalog").on('click', '.curt-minus', function (e) {
         let count = $(e.target).parent().children('.curn-number-products').text();
         if(count>1)
             $(e.target).parent().children('.curn-number-products').text(--count);
     });
 
-    $('.curt-plus').click(function(e){
+    $("div.main-catalog").on('click', '.curt-plus', function (e) {
         let count = $(e.target).parent().children('.curn-number-products').text();
         $(e.target).parent().children('.curn-number-products').text(++count);
     });
