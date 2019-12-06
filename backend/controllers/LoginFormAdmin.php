@@ -1,6 +1,6 @@
 <?php
 namespace  backend\controllers;
-use app\models\Admin;
+use backend\models\Admin;
 use Yii;
 use yii\base\Model;
 

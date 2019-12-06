@@ -6,7 +6,9 @@
  * Time: 15:36
  */
 namespace backend\controllers;
-use app\models\Admin;
+
+use backend\models\Admin;
+
 class  SignUpAdmin extends \yii\base\Model
 {
     public $username;
