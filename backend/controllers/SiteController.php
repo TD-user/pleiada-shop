@@ -23,7 +23,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['login', 'error','signup'],
                         'allow' => true,
                     ],
                     [
@@ -90,6 +90,19 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+    public function actionSignup()
+    {
+        $model = new SignUpAdmin();
+        if (isset($_POST['SignUpAdmin']))
+        {
+            $model->attributes = Yii::$app->request->post('SignUpAdmin');
+            if ($model->validate() && $model->signup()) {
+
+                return $this->goHome();
+            }
+        }
+        return $this->render('signup',['model'=>$model]);
     }
 
     /**
