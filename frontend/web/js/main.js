@@ -7,6 +7,7 @@ $(document).ready(function(){
         else
             $(".find-close").css('display','block');
     });
+
     $(".find-close").click(function(){
         $($(".find").children()[0]).val("");
         $(".find-close").css('display','none');
@@ -40,6 +41,7 @@ $(document).ready(function(){
                 $(".bg-black").remove();
             }
         });
+
     $(".popup-nav").hover(function(){},function(){
         $(".popup-nav").css("display","none");
         $(".bg-black").remove();
@@ -54,23 +56,28 @@ $(document).ready(function(){
             $(".bg-black").css("z-index","51");
         }
     });
+
     $(".side-close").click(function(){
         $(".side-menu").css("left","-320px");
         $(".bg-black").remove();
     });
+
     $('.product-slider').carousel({
         interval: 3000
     });
+
     $('.curt-minus').click(function(e){
         let count = $(e.target).parent().children('.curn-number-products').text();
         if(count>1)
             $(e.target).parent().children('.curn-number-products').text(--count);
     });
+
     $('.curt-plus').click(function(e){
         let count = $(e.target).parent().children('.curn-number-products').text();
         $(e.target).parent().children('.curn-number-products').text(++count);
     });
-    $('.curt-close').click(function(e){
-        $(e.target).parent().remove();
-    });
+
+    // $('.curt-close').click(function(e){
+    //     $(e.target).parent().remove();
+    // });
 });

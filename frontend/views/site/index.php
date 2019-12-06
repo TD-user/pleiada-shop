@@ -92,8 +92,8 @@ $this->title = 'Плеяда';
                     </div>
                 </div>
                 <div class="outer-good-buy">
-                    <a href="#" class="good-buy <? if($product->remains<=0) echo 'good-buy-disabled'?>">Купити</a>
-                    <div class="outer-good-icons <? if($product->getFavourites()->count() > 0) echo 'selected'; ?>">
+                    <a href="#" data-id="<?= $product->id ?>" class="add-to-cart good-buy <? if($product->remains<=0) echo 'good-buy-disabled'?>">Купити</a>
+                    <div class="outer-good-icons <? if($product->isProductFavouriteToUser(Yii::$app->user->identity->id)) echo 'selected'; ?>">
                         <a data-id="<?= $product->id ?>" class="add-to-favourite" href="#"></a>
                     </div>
                 </div>
@@ -146,8 +146,8 @@ $this->title = 'Плеяда';
                         </div>
                     </div>
                     <div class="outer-good-buy">
-                        <a href="#" class="good-buy <? if($product->remains<=0) echo 'good-buy-disabled'?>">Купити</a>
-                        <div class="outer-good-icons <? if($product->getFavourites()->count() > 0) echo 'selected'; ?>">
+                        <a href="#" data-id="<?= $product->id ?>" class="add-to-cart good-buy <? if($product->remains<=0) echo 'good-buy-disabled'?>">Купити</a>
+                        <div class="outer-good-icons <? if($product->isProductFavouriteToUser(Yii::$app->user->identity->id)) echo 'selected'; ?>">
                             <a data-id="<?= $product->id ?>" class="add-to-favourite" href="#"></a>
                         </div>
                     </div>

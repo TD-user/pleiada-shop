@@ -49,7 +49,7 @@ $this->title = 'Плеяда - улюблені товари';
                     </div>
                 </div>
                 <div class="outer-good-buy">
-                    <a href="#" class="good-buy <? if($product->remains<=0) echo 'good-buy-disabled'?>">Купити</a>
+                    <a href="#" data-id="<?= $product->id ?>" class="add-to-cart good-buy <? if($product->remains<=0) echo 'good-buy-disabled'?>">Купити</a>
                     <div class="outer-good-icons selected">
                         <a data-id="<?= $product->id ?>" class="del-from-favourite" href="#"></a>
                     </div>

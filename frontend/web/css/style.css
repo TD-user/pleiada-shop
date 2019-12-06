@@ -1400,6 +1400,11 @@ details div.curt-description{
 	margin-bottom: 3px;
 	width: 100px;
 }
+.small-btn-good button.selected {
+	color: #fff;
+	background: linear-gradient(rgb(246, 146, 64),rgb(231, 131, 49));
+	border: rgb(216, 116, 34);
+}
 .promo-price{
 	color: red;
 }

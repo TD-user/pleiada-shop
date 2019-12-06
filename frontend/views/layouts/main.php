@@ -134,7 +134,7 @@ AppAsset::register($this);
                     <a href="<?= Url::to(['user/cart'])?>">
                         <img src="/img/curt.png" alt="Корзина" title="Корзина" height="40" width="40">
                         <span class="cart-counter">
-                            <?php if(Yii::$app->user->identity->getCarts()->count() > 0):?>
+                            <?php if(!Yii::$app->user->isGuest and Yii::$app->user->identity->getCarts()->count() > 0):?>
                                 <?= Yii::$app->user->identity->getCarts()->count(); ?>
                             <?php endif; ?>
                         </span>

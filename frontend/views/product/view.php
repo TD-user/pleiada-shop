@@ -57,8 +57,8 @@ $this->title = 'Плеяда - '.$model->name;
                                 </div>
                                 <div class="col-xs-6 btns-product">
                                     <div class="small-btn-good">
-                                        <button class="btn btn-default btn-lg img-center btn-40px <? if($model->remains<=0) echo 'not-available'?>"><span class="glyphicon glyphicon-shopping-cart"></span></button>
-                                        <button class="btn btn-default btn-lg img-center btn-40px"><span class="glyphicon glyphicon-heart"></span></button>
+                                        <button data-id="<?= $model->id ?>" class="btn btn-default btn-lg img-center btn-40px add-to-cart <? if($model->remains<=0) echo 'not-available'?>"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+                                        <button data-id="<?= $model->id ?>" class="btn <? if($model->isProductFavouriteToUser(Yii::$app->user->identity->id)) echo 'selected'; ?> btn-default btn-lg img-center btn-40px add-to-favourite"><span class="glyphicon glyphicon-heart"></span></button>
                                     </div>
                                     <button class="btn btn-danger btn-lg img-center btn-100px <? if($model->remains<=0) echo 'not-available'?>">Купити</button>
                                 </div>

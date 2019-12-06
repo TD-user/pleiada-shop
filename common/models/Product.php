@@ -169,4 +169,15 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Reviews::className(), ['product_id' => 'id']);
     }
+
+    public function isProductFavouriteToUser($userId) {
+        if(isset($this->id) and isset($userId)) {
+            $count = Favourite::find()->where(['product_id' => $this->id, 'user_id' => $userId])->count();
+            if($count > 0) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
 }
