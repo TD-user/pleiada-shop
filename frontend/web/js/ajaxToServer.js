@@ -4,19 +4,36 @@ $(document).ready(function(){
         let productId = $(this).attr('data-id');
         let parentDiv = $(this).parent();
         let thisButton = $(this);
-        $.ajax({
-            url: '/user/add-to-favourite',
-            data: {productId: productId},
-            type: 'GET',
-            success: function (result) {
-                $(".favourite-counter").text(result);
-                parentDiv.addClass("selected");
-                thisButton.addClass("selected");
-            },
-            error: function (result) {
+        if($(this).hasClass('selected')) {
+            $.ajax({
+                url: '/user/del-from-favourite',
+                data: {productId: productId},
+                type: 'GET',
+                success: function (result) {
+                    $(".favourite-counter").text(result);
+                    parentDiv.removeClass("selected");
+                    thisButton.removeClass("selected");
+                },
+                error: function (result) {
 
-            }
-        });
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: '/user/add-to-favourite',
+                data: {productId: productId},
+                type: 'GET',
+                success: function (result) {
+                    $(".favourite-counter").text(result);
+                    parentDiv.addClass("selected");
+                    thisButton.addClass("selected");
+                },
+                error: function (result) {
+
+                }
+            });
+        }
     });
 
     $(".del-from-favourite").on('click', function (event) {
@@ -73,12 +90,6 @@ $(document).ready(function(){
             }
         });
     });
-
-
-
-
-
-
 
 
 });

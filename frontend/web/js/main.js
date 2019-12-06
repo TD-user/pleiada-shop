@@ -70,11 +70,30 @@ $(document).ready(function(){
         let count = $(e.target).parent().children('.curn-number-products').text();
         if(count>1)
             $(e.target).parent().children('.curn-number-products').text(--count);
+        let price = $(e.target).parent().prev(".curt-price").children(".price-value").text();
+        $(e.target).parent().next(".curt-summary-price").children(".total-value").text(price*count);
+
+        let totals = $(".total-value");
+        let sum = 0;
+        for(let i = 0; i < totals.length; i++) {
+            sum += parseFloat($(totals[i]).text());
+        }
+        $("#full-cart-value").text(sum);
+
     });
 
     $("div.main-catalog").on('click', '.curt-plus', function (e) {
         let count = $(e.target).parent().children('.curn-number-products').text();
         $(e.target).parent().children('.curn-number-products').text(++count);
+        let price = $(e.target).parent().prev(".curt-price").children(".price-value").text();
+        $(e.target).parent().next(".curt-summary-price").children(".total-value").text(price*count);
+
+        let totals = $(".total-value");
+        let sum = 0;
+        for(let i = 0; i < totals.length; i++) {
+            sum += parseFloat($(totals[i]).text());
+        }
+        $("#full-cart-value").text(sum);
     });
 
     // $('.curt-close').click(function(e){

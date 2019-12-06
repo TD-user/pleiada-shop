@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
@@ -48,9 +49,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="row">
         <div class="col-sm-12">
+            <div class="img-wrapper-container">
             <? foreach ($model->getImages()->all() as $image): ?>
-                <img src="<?= Yii::getAlias('@frontend') . '/web'.$image->path; ?>" alt="">
+            <div class="img-wrapper">
+                <img src="<?= str_replace('admin.','',Url::home(true)).$image->path; ?>" alt="">
+                <a href="#" data-id="<?= $image->id ?>" title="Видалити зображення?"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+            </div>
             <? endforeach; ?>
+            </div>
         </div>
     </div>
 

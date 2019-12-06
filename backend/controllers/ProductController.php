@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\UploadForm;
 use common\models\Categories;
+use common\models\Images;
 use Yii;
 use common\models\Product;
 use common\models\ProductSearch;
@@ -130,7 +131,7 @@ class ProductController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
+     /**
      * Finds the Product model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -140,6 +141,15 @@ class ProductController extends Controller
     protected function findModel($id)
     {
         if (($model = Product::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findImageModel($id)
+    {
+        if (($model = Images::findOne($id)) !== null) {
             return $model;
         }
 

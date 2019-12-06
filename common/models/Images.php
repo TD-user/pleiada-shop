@@ -58,4 +58,12 @@ class Images extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Product::className(), ['id' => 'product_id']);
     }
+
+    public function beforeDelete()
+    {
+        DeleteImage::deleteImg(Yii::getAlias('@frontend').'/web'.$this->path);
+        return parent::beforeDelete();
+    }
+
+
 }

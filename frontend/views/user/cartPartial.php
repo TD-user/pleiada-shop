@@ -22,37 +22,37 @@ use yii\helpers\Url;
                     <span>Сума</span>
                 </div>
                 <div class="curt-info-body">
-                <span class="curt-price">
-                    <span class="price-value">
-                    <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                        <?= $product->promotionPrice ?>
-                    <?else:?>
-                        <?= $product->price ?>
-                    <?endif;?>
+                    <span class="curt-price">
+                        <span class="price-value">
+                        <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
+                            <?= $product->promotionPrice ?>
+                        <?else:?>
+                            <?= $product->price ?>
+                        <?endif;?>
+                        </span>
+                        <span>
+                            <?= " ".$product->currency; ?>
+                        </span>
                     </span>
-                    <span>
-                        <?= " ".$product->currency; ?>
-                    </span>
-                </span>
                     <div class="curt-counter">
                         <span class="curn-symbols curt-minus">-</span>
                         <span class="curn-number-products">
                         <?= $totalCount ?>
-                    </span>
+                        </span>
                         <span class="curn-symbols curt-plus">+</span>
                     </div>
                     <span class="curt-summary-price">
-                    <span class="total-value">
-                    <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                        <?php $totalValue+=$product->promotionPrice*$totalCount; echo $product->promotionPrice*$totalCount; ?>
-                    <?else:?>
-                        <?php $totalValue+=$product->price*$totalCount; echo $product->price*$totalCount; ?>
-                    <?endif;?>
+                        <span class="total-value">
+                        <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
+                            <?php $totalValue+=$product->promotionPrice*$totalCount; echo $product->promotionPrice*$totalCount; ?>
+                        <?else:?>
+                            <?php $totalValue+=$product->price*$totalCount; echo $product->price*$totalCount; ?>
+                        <?endif;?>
+                        </span>
+                        <span>
+                            <?= " ".$product->currency; ?>
+                        </span>
                     </span>
-                    <span>
-                        <?= " ".$product->currency; ?>
-                    </span>
-                </span>
                 </div>
             </div>
         </div>
