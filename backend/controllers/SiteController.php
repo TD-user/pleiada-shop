@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\SignUpAdmin;
 use backend\models\XmlToDB;
 use Yii;
 use yii\web\Controller;
