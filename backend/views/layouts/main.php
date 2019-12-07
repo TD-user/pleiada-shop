@@ -65,6 +65,13 @@ AppAsset::register($this);
                 ['label' => 'Усі відгуки', 'url' => ['/reviews/index']]
             ],
         ];
+        $menuItems[] = [
+            'label' => 'Адміністратори',
+            'items' => [
+                ['label' => 'Усі Адміністратори', 'url' => ['/admin/index']],
+
+            ],
+        ];
 
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')
