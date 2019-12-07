@@ -8,6 +8,7 @@ use yii\helpers\Html;
 $this->title = 'Create Admin';
 $this->params['breadcrumbs'][] = ['label' => 'Admins', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="admin-create">
 
