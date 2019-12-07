@@ -51,6 +51,14 @@ AppAsset::register($this);
         ];
 
         $menuItems[] = [
+            'label' => 'Замовлення',
+            'items' => [
+                ['label' => 'One click замовлення', 'url' => ['/oneclickorder/index']],
+
+            ],
+        ];
+
+        $menuItems[] = [
             'label' => 'Товари',
             'items' => [
                 ['label' => 'Товари', 'url' => ['/product/index']],

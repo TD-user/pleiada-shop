@@ -30,13 +30,13 @@ $this->title = 'Плеяда - улюблені товари';
                     <?= $product->name; ?>
                 </a>
                 <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                    <strike><span class="discount-price"><?= $product->price." ".$product->currency; ?></span></strike>
+                    <strike><span class="discount-price"><?= number_format($product->price, 2)." ".$product->currency; ?></span></strike>
                 <? endif; ?>
                 <div class="current-price">
                     <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                        <span class="price discount"><?= $product->promotionPrice." ".$product->currency; ?></span>
+                        <span class="price discount"><?= number_format($product->promotionPrice, 2)." ".$product->currency; ?></span>
                     <? else: ?>
-                        <span class="price"><?= $product->price." ".$product->currency; ?></span>
+                        <span class="price"><?= number_format($product->price, 2)." ".$product->currency; ?></span>
                     <? endif; ?>
                     <div class="reviews">
                         <span class="reviews-count">

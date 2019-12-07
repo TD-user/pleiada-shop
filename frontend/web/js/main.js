@@ -72,14 +72,14 @@ $(document).ready(function(){
             $(e.target).parent().children('.curn-number-products').text(--count);
 
         let price = parseFloat($(e.target).parent().prev(".curt-price").children(".price-value").text());
-        $(e.target).parent().next(".curt-summary-price").children(".total-value").text(price*count);
+        $(e.target).parent().next(".curt-summary-price").children(".total-value").text((price*count).toFixed(2));
 
         let totals = $(".total-value");
         let sum = 0;
         for(let i = 0; i < totals.length; i++) {
             sum += parseFloat($(totals[i]).text());
         }
-        $("#full-cart-value").text(sum);
+        $("#full-cart-value").text(sum.toFixed(2));
 
     });
 
@@ -90,14 +90,14 @@ $(document).ready(function(){
             $(e.target).parent().children('.curn-number-products').text(++count);
 
         let price = parseFloat($(e.target).parent().prev(".curt-price").children(".price-value").text());
-        $(e.target).parent().next(".curt-summary-price").children(".total-value").text(price*count);
+        $(e.target).parent().next(".curt-summary-price").children(".total-value").text((price*count).toFixed(2));
 
         let totals = $(".total-value");
         let sum = 0;
         for(let i = 0; i < totals.length; i++) {
             sum += parseFloat($(totals[i]).text());
         }
-        $("#full-cart-value").text(sum);
+        $("#full-cart-value").text(sum.toFixed(2));
     });
 
 });

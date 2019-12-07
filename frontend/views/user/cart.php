@@ -59,9 +59,9 @@ $this->title = 'Плеяда - корзина';
                             <span class="curt-price">
                                 <span class="price-value">
                                 <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                                    <?= $product->promotionPrice ?>
+                                    <?= number_format($product->promotionPrice, 2) ?>
                                 <?else:?>
-                                    <?= $product->price ?>
+                                    <?= number_format($product->price, 2) ?>
                                 <?endif;?>
                                 </span>
                                 <span>
@@ -78,9 +78,9 @@ $this->title = 'Плеяда - корзина';
                             <span class="curt-summary-price">
                                 <span class="total-value">
                                 <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                                    <?php $totalValue+=$product->promotionPrice*$totalCount; echo $product->promotionPrice*$totalCount; ?>
+                                    <?php $totalValue+=$product->promotionPrice*$totalCount; echo number_format($product->promotionPrice*$totalCount, 2); ?>
                                 <?else:?>
-                                    <?php $totalValue+=$product->price*$totalCount; echo $product->price*$totalCount; ?>
+                                    <?php $totalValue+=$product->price*$totalCount; echo number_format($product->price*$totalCount, 2); ?>
                                 <?endif;?>
                                 </span>
                                 <span>
@@ -97,7 +97,7 @@ $this->title = 'Плеяда - корзина';
                         <span>Всього:</span>
                         <span>
                             <span id="full-cart-value">
-                                <?= $totalValue ?>
+                                <?= number_format($totalValue, 2) ?>
                             </span>
                             грн
                         </span>

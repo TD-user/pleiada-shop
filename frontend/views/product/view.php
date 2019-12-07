@@ -53,10 +53,10 @@ $this->title = 'Плеяда - '.$model->name;
                                 <div class="col-xs-6">
                                     <span class="prod-pr">ціна:</span><br>
                                     <? if($model->promotionPrice != 0 and $model->promotionPrice != null): ?>
-                                        <span class="prod-mn <? if($model->remains<=0) echo 'not-available'?> promo-price"><?= $model->promotionPrice." ".$model->currency; ?></span>
-                                        <span class="prod-mn "><?= $model->price." ".$model->currency; ?></span>
+                                        <span class="prod-mn <? if($model->remains<=0) echo 'not-available'?> promo-price"><?= number_format($model->promotionPrice, 2)." ".$model->currency; ?></span>
+                                        <span class="prod-mn "><?= number_format($model->price, 2)." ".$model->currency; ?></span>
                                     <? else: ?>
-                                        <span class="prod-mn <? if($model->remains<=0) echo 'not-available'?>"><?= $model->price." ".$model->currency; ?></span>
+                                        <span class="prod-mn <? if($model->remains<=0) echo 'not-available'?>"><?= number_format($model->price, 2)." ".$model->currency; ?></span>
                                     <? endif; ?>
                                 </div>
                                 <div class="col-xs-6 btns-product">

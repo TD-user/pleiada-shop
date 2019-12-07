@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%oneclickorder}}".
@@ -51,17 +53,30 @@ class Oneclickorder extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'created_at' => 'Created At',
-            'phone' => 'Phone',
-            'name' => 'Name',
-            'surname' => 'Surname',
+            'created_at' => 'Дата створення',
+            'phone' => 'Телефон',
+            'name' => 'Ім\'я',
+            'surname' => 'Прізвище',
             'email' => 'Email',
-            'address' => 'Address',
-            'total' => 'Total',
+            'address' => 'Адреса',
+            'total' => 'Сума',
             'products_json' => 'Products Json',
-            'status' => 'Status',
-            'is_payment' => 'Is Payment',
-            'comment' => 'Comment',
+            'status' => 'Статус',
+            'is_payment' => 'Оплата',
+            'comment' => 'Примітки',
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['moderated_at'],
+                ],
+            ],
         ];
     }
 }
