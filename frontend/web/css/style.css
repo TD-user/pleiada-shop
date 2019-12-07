@@ -979,9 +979,6 @@ a.leave-comment:before{
 .curt-close:hover{
 	background: rgb(180, 180, 180);
 }
-.curt-product>img{
-	margin-right: 5px;
-}
 .curt-description{
 	width: calc(100% - 155px);
 	display: flex;
@@ -1390,6 +1387,47 @@ details div.curt-description{
 	display: block;
 	margin: 0 auto;
 }
+.good-img-container{
+	width: 100%;
+	height: 200px;
+	display: flex;
+	justify-content: center;
+}
+.nomuch-good-img{
+	display: block;
+	margin: 0 auto;
+	max-height: 200px;
+	width: auto;
+}
+.carousel-inner>.item{
+	width: 100%;
+	height: 225px;
+}
+.carousel-inner>.item>img{
+	display: block;
+	margin: 0 auto;
+	max-height: 225px;
+	width: auto;
+}
+.curt-good-img{
+	width: 200px;
+	height: 200px;
+	margin-right: 5px;
+	position: relative;
+}
+.curt-good-img>img{
+	position: absolute;
+	top: 50%;
+	transform: translate(0, -50%);
+	left: 0;
+	right: 0;
+	bottom: 0;
+	max-height: 200px;
+    object-fit: scale-down;
+	height: auto;
+	width: 100%;
+	display: block;
+}
 .btn-40px{
 	width: 47px;
 }
@@ -1633,9 +1671,6 @@ details div.curt-description{
 		flex-direction: column;
 		align-items: center;
 	}
-	.curt-product>img{
-		margin-right: 0;
-	}
 	.curt-description{
 		width: 90%;
 		padding: 15px 0;
@@ -1679,6 +1714,9 @@ details div.curt-description{
 	}
 	.order-small-info{
 		width: calc(100% - 90px);
+	}
+	.curt-good-img{
+		margin-right: 0;
 	}
 }
 @media (max-width: 576px){

@@ -25,7 +25,7 @@ $this->title = 'Плеяда';
                         <img src="/img/slider.png" class="d-block w-100" alt="Слайдер" title="Слайдер">
                     </div>
                     <div class="carousel-item">
-                        <img src="/img/slider.png" class="d-block w-100" alt="Слайдер" title="Слайдер">
+                        <img src="/img/slider-original.png" class="d-block w-100" alt="Слайдер" title="Слайдер">
                     </div>
                     <div class="carousel-item">
                         <img src="/img/slider.png" class="d-block w-100" alt="Слайдер" title="Слайдер">

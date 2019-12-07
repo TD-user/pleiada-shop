@@ -16,9 +16,13 @@ $this->title = 'Плеяда - '.$model->name;
             <div class="row good-main-info">
                 <div class="col-lg-5 col-md-6 col-sm-12">
                     <? if($model->getImages()->count() == 0): ?>
-                        <img src="/img/noimage.png" alt="" title="" height="200" width="200">
+                        <div class="good-img-container">
+                            <img src="/img/noimage.png" class="nomuch-good-img" alt="no image">
+                        </div>
                     <? elseif ($model->getImages()->count() == 1):?>
-                        <img src="<?= $model->getImages()->all()[0]->path; ?>" alt="<?= $model->getImages()->all()[0]->title; ?>" title="<?= $model->getImages()->all()[0]->title; ?>" height="200" width="200">
+                        <div class="good-img-container">
+                            <img src="<?= $model->getImages()->all()[0]->path; ?>" class="nomuch-good-img" alt="<?= $model->getImages()->all()[0]->title; ?>" title="<?= $model->getImages()->all()[0]->title; ?>">
+                        </div>
                     <? else: ?>
                         <div id="carousel-first-tab" class="carousel slide product-slider" data-ride="carousel">
                             <div class="carousel-inner" role="listbox">

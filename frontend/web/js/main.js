@@ -66,11 +66,12 @@ $(document).ready(function(){
         interval: 3000
     });
 
-    $("div.main-catalog").on('click', '.curt-minus', function (e) {
-        let count = $(e.target).parent().children('.curn-number-products').text();
-        if(count>1)
+    $("div.curt-products").on('click', '.curt-minus', function (e) {
+        let count = parseInt($(e.target).parent().children('.curn-number-products').text());
+        if(count > 1)
             $(e.target).parent().children('.curn-number-products').text(--count);
-        let price = $(e.target).parent().prev(".curt-price").children(".price-value").text();
+
+        let price = parseFloat($(e.target).parent().prev(".curt-price").children(".price-value").text());
         $(e.target).parent().next(".curt-summary-price").children(".total-value").text(price*count);
 
         let totals = $(".total-value");
@@ -82,10 +83,13 @@ $(document).ready(function(){
 
     });
 
-    $("div.main-catalog").on('click', '.curt-plus', function (e) {
-        let count = $(e.target).parent().children('.curn-number-products').text();
-        $(e.target).parent().children('.curn-number-products').text(++count);
-        let price = $(e.target).parent().prev(".curt-price").children(".price-value").text();
+    $("div.curt-products").on('click', '.curt-plus', function (e) {
+        let count = parseInt($(e.target).parent().children('.curn-number-products').text());
+        let maxcount = parseInt($(e.target).attr('maxcount'));
+        if(count < maxcount)
+            $(e.target).parent().children('.curn-number-products').text(++count);
+
+        let price = parseFloat($(e.target).parent().prev(".curt-price").children(".price-value").text());
         $(e.target).parent().next(".curt-summary-price").children(".total-value").text(price*count);
 
         let totals = $(".total-value");
@@ -96,7 +100,4 @@ $(document).ready(function(){
         $("#full-cart-value").text(sum);
     });
 
-    // $('.curt-close').click(function(e){
-    //     $(e.target).parent().remove();
-    // });
 });

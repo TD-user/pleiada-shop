@@ -9,7 +9,7 @@ $(document).ready(function(){
             data: {id: id},
             type: 'GET',
             success: function (result) {
-                if(result != false) {
+                if(result !== false) {
                     parentDiv.remove();
                 }
             },
