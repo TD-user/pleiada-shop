@@ -66,6 +66,22 @@ class SiteController extends Controller
 //        $dbxml = new XmlToDB();
 //        $dbxml->path = __DIR__.'\1c2site.xml';
 //        $dbxml->ArrayToDB();
+//      -----------Створення ролей для RBAC--------
+//        $role = Yii::$app->authManager->createRole('admin');
+//        $role->description = 'Администратор';
+//        Yii::$app->authManager->add($role);
+//
+//        $role = Yii::$app->authManager->createRole('super admin');
+//        $role->description = 'Супер Адміністратор';
+//        Yii::$app->authManager->add($role);
+//
+//        $role = Yii::$app->authManager->createRole('moderator');
+//        $role->description = 'Модератор';
+//        Yii::$app->authManager->add($role);
+//
+//        $role = Yii::$app->authManager->createRole('manager');
+//        $role->description = 'Менеджер';
+//        Yii::$app->authManager->add($role);
 
         return $this->render('index');
     }
