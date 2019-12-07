@@ -14,12 +14,12 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/bootstrap-slider.min.css',
-        'css/style.css?v=15',
+        'css/style.css?v=17',
         'css/changedStyle.css?v=1',
     ];
     public $js = [
-        'js/main.js?v=6',
-        'js/ajaxToServer.js?v=9',
+        'js/main.js?v=9',
+        'js/ajaxToServer.js?v=12',
         'js/bootstrap-slider.min.js',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
     ];

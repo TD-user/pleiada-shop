@@ -70,17 +70,24 @@ $(document).ready(function(){
         });
     });
 
-    $("div.main-catalog").on('click', '.del-from-cart', function (event) {
+    $("div.curt-products").on('click', '.del-from-cart', function (event) {
         event.preventDefault();
         let productId = $(this).attr('data-id');
-        let wrapperDiv = $(this).closest("div.main-catalog");
+        let wrapperDiv = $(this).closest("div.curt-products");
+        let cartInfo = [];
+        $(".curt-product").each(function (index) {
+            cartInfo.push({
+                product: $(this).attr('data-id'),
+                count: parseInt($(this).find(".curn-number-products").eq(0).text())
+            });
+        });
+
         $.ajax({
             url: '/user/del-from-cart',
-            data: {productId: productId},
+            data: {productId: productId, json: JSON.stringify(cartInfo)},
             type: 'GET',
             success: function (result) {
                 let data = JSON.parse(result);
-                console.log(data);
                 $(".cart-counter").text(data.count);
                 wrapperDiv.empty();
                 wrapperDiv.html(data.partial);

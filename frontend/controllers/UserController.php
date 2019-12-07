@@ -106,7 +106,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionDelFromCart($productId)
+    public function actionDelFromCart($productId, $json)
     {
         if (Yii::$app->user->isGuest) {
             //todo for guest, use cookie
@@ -114,7 +114,9 @@ class UserController extends Controller
             return $this->goHome();
         }
         else {
-            $cart = Cart::find()->where(['product_id' => $productId])->one();
+            $this->updateUserCarts($json);
+
+            $cart = Cart::find()->where(['product_id' => $productId, 'user_id' => Yii::$app->user->identity->id])->one();
             $cart->delete();
 
             $array = [];
@@ -125,13 +127,20 @@ class UserController extends Controller
             ]);
             $array['count'] = Yii::$app->user->identity->getCarts()->count();
 
-//            return $this->renderAjax('cartPartial', [
-//                'products' => $carts,
-//            ]);
-
             return json_encode($array);
         }
     }
+
+    protected function updateUserCarts($json)
+    {
+        $data = json_decode($json);
+        foreach ($data as $cart) {
+            $c = Cart::find()->where(['product_id' => $cart->product, 'user_id' => Yii::$app->user->identity->id])->one();
+            $c->count = $cart->count;
+            $c->save();
+        }
+    }
+
 
 
 
