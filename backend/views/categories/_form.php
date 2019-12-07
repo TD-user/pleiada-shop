@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
         <?= $form->field($model, 'id_parent')->dropDownList($parent_categories, ['options' => [0 => ['selected' => true]]])->label("Батьківська категорія") ?>
     <?php else:?>
         <?= $form->field($model, 'id_parent')->dropDownList($parent_categories)->label("Батьківська категорія") ?>
-    <?php endif ?>
+    <?php endif; ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label("Назва категорії") ?>
 

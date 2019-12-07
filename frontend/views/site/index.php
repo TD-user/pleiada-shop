@@ -16,20 +16,24 @@ $this->title = 'Плеяда';
         <div class="main-carousel">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    <?php
+                    for ($i = 0; $i < $mainSliderCount; $i++) {
+                        if($i == 0)
+                            echo '<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>';
+                        else
+                            echo '<li data-target="#carouselExampleIndicators" data-slide-to="'.$i.'"></li>';
+                    }
+                    ?>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="/img/slider.png" class="d-block w-100" alt="Слайдер" title="Слайдер">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/img/slider-original.png" class="d-block w-100" alt="Слайдер" title="Слайдер">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="/img/slider.png" class="d-block w-100" alt="Слайдер" title="Слайдер">
-                    </div>
+                    <?php $sliderFlag = true; ?>
+                    <? foreach ($mainSlider as $slide):?>
+                        <div class="carousel-item <?php if($sliderFlag) {$sliderFlag = false; echo 'active';}?>">
+                            <div class="carousel-item__inner">
+                                <img src="<?= $slide->path ?>" class="d-block w-100" alt="<?= $slide->title ?>" title="<?= $slide->title ?>">
+                            </div>
+                        </div>
+                    <? endforeach; ?>
                 </div>
             </div>
         </div>

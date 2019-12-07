@@ -2,22 +2,19 @@
 
 namespace backend\controllers;
 
-use backend\models\UploadForm;
-use common\models\Categories;
-use common\models\Images;
+use backend\models\UploadFormMainSlider;
 use Yii;
-use common\models\Product;
-use common\models\ProductSearch;
-use yii\helpers\ArrayHelper;
+use common\models\Mainslider;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 
 /**
- * ProductController implements the CRUD actions for Product model.
+ * MainsliderController implements the CRUD actions for Mainslider model.
  */
-class ProductController extends Controller
+class MainsliderController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -35,22 +32,22 @@ class ProductController extends Controller
     }
 
     /**
-     * Lists all Product models.
+     * Lists all Mainslider models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Mainslider::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Product model.
+     * Displays a single Mainslider model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -63,26 +60,27 @@ class ProductController extends Controller
     }
 
     /**
-     * Creates a new Product model.
+     * Creates a new Mainslider model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Product();
+        $model = new Mainslider();
 
-        $categories = Categories::find()->where(['<>', 'id_parent', 0])->all();
-        $categories = ArrayHelper::map($categories, 'id', 'name');
-
-        $modelUploadImgs = new UploadForm();
+        $modelUpload = new UploadFormMainSlider();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $modelUploadImgs->product = $model;
+            $modelUpload->image = $model;
 
             if (Yii::$app->request->post()) {
-                $modelUploadImgs->imageFile = UploadedFile::getInstances($modelUploadImgs, 'imageFile');
-                $modelUploadImgs->upload();
+                $modelUpload->imageFile = UploadedFile::getInstances($modelUpload, 'imageFile');
+                if(!$modelUpload->upload()) {
+                    $model->delete();
+                    Yii::$app->session->setFlash('error', 'Файл з таким імя\'м вже існує');
+                    return $this->redirect(['index']);
+                }
             }
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -90,13 +88,12 @@ class ProductController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'categories' => $categories,
-            'modelUploadImgs' => $modelUploadImgs,
+            'modelUpload' => $modelUpload,
         ]);
     }
 
     /**
-     * Updates an existing Product model.
+     * Updates an existing Mainslider model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -106,30 +103,27 @@ class ProductController extends Controller
     {
         $model = $this->findModel($id);
 
-        $categories = Categories::find()->where(['<>', 'id_parent', 0])->all();
-        $categories = ArrayHelper::map($categories, 'id', 'name');
-
-        $modelUploadImgs = new UploadForm();
-        $modelUploadImgs->product = $model;
-
-        if (Yii::$app->request->post()) {
-            $modelUploadImgs->imageFile = UploadedFile::getInstances($modelUploadImgs, 'imageFile');
-            $modelUploadImgs->upload();
-        }
+        $modelUpload = new UploadFormMainSlider();
+        $modelUpload->image = $model;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            if (Yii::$app->request->post()) {
+                $modelUpload->imageFile = UploadedFile::getInstances($modelUpload, 'imageFile');
+                $modelUpload->upload();
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'categories' => $categories,
-            'modelUploadImgs' => $modelUploadImgs,
+            'modelUpload' => $modelUpload,
         ]);
     }
 
     /**
-     * Deletes an existing Product model.
+     * Deletes an existing Mainslider model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -142,25 +136,16 @@ class ProductController extends Controller
         return $this->redirect(['index']);
     }
 
-     /**
-     * Finds the Product model based on its primary key value.
+    /**
+     * Finds the Mainslider model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Product the loaded model
+     * @return Mainslider the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Product::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
-
-    protected function findImageModel($id)
-    {
-        if (($model = Images::findOne($id)) !== null) {
+        if (($model = Mainslider::findOne($id)) !== null) {
             return $model;
         }
 

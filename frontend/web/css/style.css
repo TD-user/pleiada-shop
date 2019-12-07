@@ -1451,6 +1451,18 @@ details div.curt-description{
 	text-align: right;
 	text-decoration: line-through;
 }
+.carousel-item__inner{
+	height: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #fff;
+}
+.carousel-item__inner>img{
+	max-height: 400px;
+	width: 100%;
+	object-fit: scale-down;
+}
 @media (max-width: 1250px){
 	header{
 		padding: 20px 0;
@@ -1494,6 +1506,12 @@ details div.curt-description{
 	}
 	.order-goods{
 		width: calc(100% - 270px);
+	}
+	.carousel-item__inner{
+		height: 300px;
+	}
+	.carousel-item__inner>img{
+		max-height: 300px;
 	}
 }
 @media (max-width: 992px){
@@ -1718,6 +1736,12 @@ details div.curt-description{
 	.curt-good-img{
 		margin-right: 0;
 	}
+	.carousel-item__inner{
+		height: 250px;
+	}
+	.carousel-item__inner>img{
+		max-height: 250px;
+	}
 }
 @media (max-width: 576px){
 	h2{
@@ -1788,5 +1812,11 @@ details div.curt-description{
 		padding: 0;
 		flex-direction: column;
 		align-items: center;
+	}
+	.carousel-item__inner{
+		height: 200px;
+	}
+	.carousel-item__inner>img{
+		max-height: 200px;
 	}
 }

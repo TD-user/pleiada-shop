@@ -32,7 +32,7 @@ class UploadForm extends Model
 
     public function upload()
     {
-        if($this -> validate())
+        if($this -> validate()) {
             if (!file_exists(Yii::getAlias('@frontend') . '/web/img/products/' . $this->product->id))
                 mkdir(Yii::getAlias('@frontend') . '/web/img/products/' . $this->product->id, 0777);
 
@@ -47,7 +47,8 @@ class UploadForm extends Model
                     $image->save();
                 }
             }
-        return true;
-
+            return true;
+        }
+        return false;
     }
 }

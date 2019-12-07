@@ -13,3 +13,6 @@
 .pagination > li > span {
 	color: #610a5a !important;
 }
+.carousel-indicators li {
+	box-shadow: 0 0 10px rgb(97, 10, 90) !important;
+}
