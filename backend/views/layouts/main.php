@@ -41,10 +41,22 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
-        $menuItems[] = ['label' => 'Сторінки', 'url' => ['/page/index']];
-        $menuItems[] = ['label' => 'Товари', 'url' => ['/product/index']];
 
-        //$menuItems[] = ['label' => 'Відгуки', 'url' => ['/reviews/index']];
+        $menuItems[] = [
+            'label' => 'Контент',
+            'items' => [
+                ['label' => 'Вміст сторінок', 'url' => ['/page/index']],
+                ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']]
+            ],
+        ];
+
+        $menuItems[] = [
+            'label' => 'Товари',
+            'items' => [
+                ['label' => 'Товари', 'url' => ['/product/index']],
+                ['label' => 'Категорії', 'url' => ['/categories/index']]
+            ],
+        ];
 
         $menuItems[] = [
             'label' => 'Відгуки',
@@ -53,9 +65,6 @@ AppAsset::register($this);
                 ['label' => 'Усі відгуки', 'url' => ['/reviews/index']]
             ],
         ];
-
-
-        $menuItems[] = ['label' => 'Категорії', 'url' => ['/categories/index']];
 
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')

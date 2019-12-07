@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use common\models\Htmlpages;
+use common\models\Mainslider;
 use common\models\Product;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
@@ -107,11 +108,16 @@ class SiteController extends Controller
             $watchedProducts = Product::find()->where(['in', 'id', $watchedProducts])->limit(12)->all();
         }
 
+        $mainSlider = Mainslider::find()->all();
+        $mainSliderCount = Mainslider::find()->count();
+
         return $this->render('index', [
             'categories' => $categories,
             'promotionProducts' => $promotionProducts,
             'paginationPromo' => $paginationPromo,
             'watchedProducts' => $watchedProducts,
+            'mainSlider' => $mainSlider,
+            'mainSliderCount' => $mainSliderCount,
         ]);
     }
 

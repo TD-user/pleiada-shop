@@ -17,9 +17,9 @@ use kartik\file\FileInput;
 
     <?= $form->field($model, 'category_id')->dropDownList($categories)->label('Категорія') ?>
 
-    <?= $form->field($model, 'code_1c')->textInput()->label('Код 1С') ?>
+<!--    --><?//= $form->field($model, 'code_1c')->textInput()->label('Код 1С') ?>
 
-    <?= $form->field($model, 'parent_code_1c')->textInput() ?>
+<!--    --><?//= $form->field($model, 'parent_code_1c')->textInput() ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Назва товару') ?>
 

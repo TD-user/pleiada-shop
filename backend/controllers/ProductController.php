@@ -74,13 +74,24 @@ class ProductController extends Controller
         $categories = Categories::find()->where(['<>', 'id_parent', 0])->all();
         $categories = ArrayHelper::map($categories, 'id', 'name');
 
+        $modelUploadImgs = new UploadForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            $modelUploadImgs->product = $model;
+
+            if (Yii::$app->request->post()) {
+                $modelUploadImgs->imageFile = UploadedFile::getInstances($modelUploadImgs, 'imageFile');
+                $modelUploadImgs->upload();
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'categories' => $categories,
+            'modelUploadImgs' => $modelUploadImgs,
         ]);
     }
 
