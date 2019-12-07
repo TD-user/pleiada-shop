@@ -5,9 +5,9 @@
  * Date: 26.11.2019
  * Time: 15:36
  */
-namespace backend\controllers;
+namespace backend\models;
 
-use backend\models\Admin;
+
 
 class  SignUpAdmin extends \yii\base\Model
 {
