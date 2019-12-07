@@ -1,5 +1,5 @@
 <?php
-namespace  backend\controllers;
+namespace  backend\models;
 use backend\models\Admin;
 use Yii;
 use yii\base\Model;
