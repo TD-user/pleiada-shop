@@ -36,12 +36,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'text',
             ['attribute' => 'created_at',
                 'value' => function ($model, $key, $index, $grid) {
-                    return date('Y-m-d H:i:s', $model->created_at);
+                    return date('d/m/Y H:i:s', $model->created_at);
                 },
             ],
             ['attribute' => 'moderated_at',
                 'value' => function ($model, $key, $index, $grid) {
-                    return date('Y-m-d H:i:s', $model->moderated_at);
+                    return date('d/m/Y H:i:s', $model->moderated_at);
                 },
             ],
             //'created_at',

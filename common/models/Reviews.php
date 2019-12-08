@@ -74,14 +74,14 @@ class Reviews extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'product_id' => 'Product ID',
-            'user_id' => 'User ID',
-            'name' => 'Name',
-            'text' => 'Text',
-            'created_at' => 'Created At',
-            'is_moderated' => 'Is Moderated',
-            'moderator_id' => 'Moderator ID',
-            'moderated_at' => 'Moderated At',
+            'product_id' => 'ID товару',
+            'user_id' => 'ID користувача',
+            'name' => 'Ім\'я',
+            'text' => 'Відгук',
+            'created_at' => 'Створено',
+            'is_moderated' => 'Статус модерації',
+            'moderator_id' => 'ID модератора',
+            'moderated_at' => 'Дата модерації',
         ];
     }
 
@@ -105,6 +105,9 @@ class Reviews extends \yii\db\ActiveRecord
     {
         if($insert) {
             $this->is_moderated = self::NOT_MODERATED;
+        }
+        else {
+            $this->moderator_id = Yii::$app->user->identity->id;
         }
         return parent::beforeSave($insert);
     }
