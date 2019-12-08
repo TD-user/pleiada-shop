@@ -5,6 +5,8 @@ namespace frontend\controllers;
 use common\models\Cart;
 use common\models\Favourite;
 use common\models\Oneclickorder;
+use common\models\Product;
+use common\models\ProductTemp;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
@@ -41,7 +43,50 @@ class UserController extends Controller
     {
         $modelOneClickOrder = new Oneclickorder();
         if ($modelOneClickOrder->load(Yii::$app->request->post()) && $modelOneClickOrder->save() ) {
-            Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей замовлення');
+
+            $this->updateUserCarts($modelOneClickOrder->products_json);
+
+            $validateOrder = [];
+            $newTotal = 0;
+            $flag = true;
+            foreach (json_decode($modelOneClickOrder->products_json) as $prodOrder) {
+                if (($product = Product::findOne($prodOrder->product_id)) !== null) {
+                    $productTemp = new ProductTemp();
+                    $productTemp->product = $product;
+
+                    $productTemp->product_id = $product->id;
+                    $productTemp->name = $prodOrder->name;
+                    $productTemp->price = $prodOrder->price;
+                    $productTemp->count = $prodOrder->count;
+                    $productTemp->summa = $prodOrder->summa;
+
+                    if($productTemp->validateUserData())
+                        $validateOrder[] = $prodOrder;
+                    else {
+                        $flag = false;
+                        $productTemp->ifNotValid();
+                        $prodOrder->product_id = $productTemp->product_id;
+                        $prodOrder->name = $productTemp->name;
+                        $prodOrder->price = $productTemp->price;
+                        $prodOrder->count = $productTemp->count;
+                        $prodOrder->summa = $productTemp->summa;
+                        $validateOrder[] = $prodOrder;
+                    }
+                    $newTotal += $prodOrder->summa;
+                }
+            }
+            $modelOneClickOrder->products_json = json_encode($validateOrder);
+            if($modelOneClickOrder->total != $newTotal) {
+                $modelOneClickOrder->total = $newTotal;
+                $flag = false;
+            }
+            $modelOneClickOrder->save();
+
+            if($flag)
+                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+            else
+                Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+
             return $this->goHome();
         }
         else {
@@ -70,8 +115,6 @@ class UserController extends Controller
             ]);
         }
     }
-
-
 
     public function actionAddToFavourite($productId)
     {
@@ -153,13 +196,10 @@ class UserController extends Controller
     {
         $data = json_decode($json);
         foreach ($data as $cart) {
-            $c = Cart::find()->where(['product_id' => $cart->product, 'user_id' => Yii::$app->user->identity->id])->one();
+            $c = Cart::find()->where(['product_id' => $cart->product_id, 'user_id' => Yii::$app->user->identity->id])->one();
             $c->count = $cart->count;
             $c->save();
         }
     }
-
-
-
 
 }

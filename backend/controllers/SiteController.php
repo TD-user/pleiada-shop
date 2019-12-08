@@ -102,6 +102,7 @@ class SiteController extends Controller
 //        $permit = Yii::$app->authManager->createPermission('allAdmin');
 //        $permit->description = 'Все права';
 //        Yii::$app->authManager->add($permit);
+
 //     ------------ Передача ролей ---------------
 //        $role = Yii::$app->authManager->getRole('admin');
 //        $permit = Yii::$app->authManager->getPermission('canAdmin');
@@ -115,6 +116,28 @@ class SiteController extends Controller
 //        $role = Yii::$app->authManager->getRole('manager');
 //        $permit = Yii::$app->authManager->getPermission('canManage');
 //        Yii::$app->authManager->addChild($role, $permit);
+
+//        $role = Yii::$app->authManager->getRole('superAdmin');
+//        $permit = Yii::$app->authManager->getPermission('canAdmin');
+//        Yii::$app->authManager->addChild($role, $permit);
+//        $role = Yii::$app->authManager->getRole('superAdmin');
+//        $permit = Yii::$app->authManager->getPermission('canModerate');
+//        Yii::$app->authManager->addChild($role, $permit);
+//        $role = Yii::$app->authManager->getRole('superAdmin');
+//        $permit = Yii::$app->authManager->getPermission('canManage');
+//        Yii::$app->authManager->addChild($role, $permit);
+
+//        $role = Yii::$app->authManager->getRole('admin');
+//        $permit = Yii::$app->authManager->getPermission('canModerate');
+//        Yii::$app->authManager->addChild($role, $permit);
+//        $role = Yii::$app->authManager->getRole('admin');
+//        $permit = Yii::$app->authManager->getPermission('canManage');
+//        Yii::$app->authManager->addChild($role, $permit);
+
+//        $role = Yii::$app->authManager->getRole('manager');
+//        $permit = Yii::$app->authManager->getPermission('canModerate');
+//        Yii::$app->authManager->addChild($role, $permit);
+
 
 //      ----------------- Привязка ролі до користувча-----------
 //        $userRole = Yii::$app->authManager->getRole('admin');
