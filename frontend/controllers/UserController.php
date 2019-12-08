@@ -4,9 +4,11 @@ namespace frontend\controllers;
 
 use common\models\Cart;
 use common\models\Favourite;
+use common\models\Oneclickorder;
 use Yii;
 use yii\data\Pagination;
 use yii\web\Controller;
+use yii\helpers\Url;
 
 class UserController extends Controller
 {
@@ -26,9 +28,24 @@ class UserController extends Controller
         else {
             $carts = Yii::$app->user->identity->getProductsCart()->all();
 
+            $modelOneClickOrder = new Oneclickorder();
+
             return $this->render('cart', [
                 'products' => $carts,
+                'modelOneClickOrder' => $modelOneClickOrder,
             ]);
+        }
+    }
+
+    public function actionOneClickOrder()
+    {
+        $modelOneClickOrder = new Oneclickorder();
+        if ($modelOneClickOrder->load(Yii::$app->request->post()) && $modelOneClickOrder->save() ) {
+            Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей замовлення');
+            return $this->goHome();
+        }
+        else {
+            return $this->redirect(Url::to(['user/cart']));
         }
     }
 
@@ -54,11 +71,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionOneClickOrder()
-    {
 
-
-    }
 
     public function actionAddToFavourite($productId)
     {

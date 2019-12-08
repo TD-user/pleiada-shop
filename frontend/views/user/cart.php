@@ -3,6 +3,8 @@
 /* @var $this yii\web\View */
 use frontend\widgets;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
+use yii\helpers\Html;
 
 $this->title = 'Плеяда - корзина';
 ?>
@@ -29,10 +31,18 @@ $this->title = 'Плеяда - корзина';
                 </div>
                 <div class="click-separator"></div>
                 <div>
-                    <form action="" method="post" class="one-clock-form">
-                        <input type="tel" name="phone" pattern="\d*">
-                        <input type="submit" value="OK">
-                    </form>
+                    <?php $form = ActiveForm::begin([
+                        'action' => '/user/one-click-order',
+                        'id' => 'oneClickOrder',
+                        'options' => [
+                            'class' => 'one-clock-form'
+                        ]
+                    ]); ?>
+                    <?= Html::activeHiddenInput($modelOneClickOrder, 'products_json')?>
+                    <?= Html::activeHiddenInput($modelOneClickOrder, 'total')?>
+                    <?= Html::activeTextInput($modelOneClickOrder, 'phone', ['pattern' => '\\d*']) ?>
+                    <input type="submit" value="OK">
+                    <?php ActiveForm::end(); ?>
                 </div>
             </div>
             <div class="curt-products order-products">
