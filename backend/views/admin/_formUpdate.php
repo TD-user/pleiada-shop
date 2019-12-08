@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Admin */
 /* @var $form yii\widgets\ActiveForm */
@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description')) ?>
+    <?= $form->field($model, 'role')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -119,7 +119,7 @@ class SiteController extends Controller
 //      ----------------- Привязка ролі до користувча-----------
 //        $userRole = Yii::$app->authManager->getRole('admin');
 //        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-//        Yii::$app->authManager->getRoles();
+        Yii::$app->authManager->getRoles();
 
         return $this->render('index');
     }

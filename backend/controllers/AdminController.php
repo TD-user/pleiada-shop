@@ -7,6 +7,7 @@ use backend\models\UpdateAdmin;
 use Yii;
 use backend\models\Admin;
 use backend\models\AdminSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -22,11 +23,27 @@ class AdminController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'denyCallback' => function () {
+                     $this->goHome();
+                },
+                'rules' => [
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['superAdmin'],
+
+                    ],
+
+                    ],
+                ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
+
             ],
         ];
     }
@@ -72,6 +89,8 @@ class AdminController extends Controller
         {
             if ( $model->signup()) {
                    $sa= Admin::findByUsername($model->username);
+                   $userRole = Yii::$app->authManager->getRole($model->role);
+                    Yii::$app->authManager->assign($userRole, $sa->id);
                 return $this->redirect(['view', 'id' => $sa->id]);
             }
         }
@@ -90,12 +109,15 @@ class AdminController extends Controller
      */
     public function actionUpdate($id)
     {
+        $roleManeg=Yii::$app->authManager;
         $modeladmin = $this->findModel($id);
         $model = new UpdateAdmin();
+
         $model->username = $modeladmin->username;
         $model->auth_key = $modeladmin->auth_key;
-
-
+        $model->role = array_keys($roleManeg->getRolesByUser($id))[0];
+        $item = $roleManeg->getRole($model->role);
+        $roleManeg->revoke($item,$id);
         if ($model->load(Yii::$app->request->post())) {
                 $model->update($id);
             return $this->redirect(['view', 'id' => $id]);

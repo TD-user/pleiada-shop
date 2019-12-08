@@ -42,6 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
 
+        if (Yii::$app->user->can('canAdmin '))
         $menuItems[] = [
             'label' => 'Контент',
             'items' => [
@@ -49,7 +50,7 @@ AppAsset::register($this);
                 ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']]
             ],
         ];
-
+        if (Yii::$app->user->can('canManage'))
         $menuItems[] = [
             'label' => 'Замовлення',
             'items' => [
@@ -57,7 +58,7 @@ AppAsset::register($this);
 
             ],
         ];
-
+        if (Yii::$app->user->can('canAdmin'))
         $menuItems[] = [
             'label' => 'Товари',
             'items' => [
@@ -67,7 +68,7 @@ AppAsset::register($this);
                 ['label' => 'Додати товар', 'url' => ['/product/create']],
             ],
         ];
-
+        if (Yii::$app->user->can('canModerate'))
         $menuItems[] = [
             'label' => 'Відгуки',
             'items' => [
@@ -75,6 +76,7 @@ AppAsset::register($this);
                 ['label' => 'Усі відгуки', 'url' => ['/reviews/index']]
             ],
         ];
+        if (Yii::$app->user->can('allAdmin'))
         $menuItems[] = [
             'label' => 'Адміністратори',
             'items' => [
