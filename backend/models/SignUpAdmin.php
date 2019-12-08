@@ -19,9 +19,9 @@ class  SignUpAdmin extends \yii\base\Model
     public function  rules()
     {
         return ([
-            [['username','password','fio'],'required'],
-            ['username','unique','targetClass'=>'app\models\Admin'],
-            ['password','string','min'=>3,'max'=>15],
+            [['username','password','fio'],'required' ,'message' => 'Поле не може бути порожнім'],
+            ['username','unique','targetClass'=>'app\models\Admin' ,'message' => 'Логін повинен бути унікальним'],
+            ['password','string','min'=>3,'max'=>15 ,'tooShort' => 'Пароль Повинен  містити не менше 2 символів', 'tooLong' => 'Пароль занадто довгий'],
             ['role','safe']
 
         ]);

@@ -136,6 +136,11 @@ class AdminController extends Controller
      */
     public function actionDelete($id)
     {
+
+        $manager = Yii::$app->authManager;
+        $role = array_keys($manager->getRolesByUser($id))[0];
+        $item = $manager->getRole($role);
+        $manager->revoke($item,$id);
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

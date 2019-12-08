@@ -14,13 +14,13 @@ use \yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Логін') ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true])->label('Пароль') ?>
 
-    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'fio')->textInput(['maxlength' => true])->label('Прізвище Імя Побатькові') ?>
 
-    <?= $form->field($model, 'role')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description')) ?>
+    <?= $form->field($model, 'role')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description'))->label('Роль') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

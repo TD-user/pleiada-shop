@@ -22,8 +22,8 @@ class  UpdateAdmin extends \yii\base\Model
     public function  rules()
     {
         return ([
-            [['username','fio'],'required'],
-            ['username','unique','targetClass'=>'backend\models\Admin'],
+            [['username','fio'],'required', 'message' => 'Поле не може бути порожнім'],
+            ['username','unique','targetClass'=>'backend\models\Admin','message' => 'Логін повинен бути унікальним'],
             ['password','safe'],
             ['role','safe']
 

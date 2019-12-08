@@ -23,11 +23,11 @@ class LoginFormAdmin extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['username', 'password'], 'required', 'message' => 'Поле не може бути порожнім'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['password', 'validatePassword' , 'message' => 'Некоректний пароль або логін'],
         ];
     }
 
