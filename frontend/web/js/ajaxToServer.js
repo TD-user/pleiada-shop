@@ -77,7 +77,7 @@ $(document).ready(function(){
         let cartInfo = [];
         $(".curt-product").each(function (index) {
             cartInfo.push({
-                product: $(this).attr('data-id'),
+                product_id: $(this).attr('data-id'),
                 count: parseInt($(this).find(".curn-number-products").eq(0).text())
             });
         });

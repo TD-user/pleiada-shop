@@ -25,3 +25,12 @@
     width: 100%;
     object-fit: scale-down;
 }
+.t-center {
+    text-align: center;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
+.mb-15 {
+    margin-bottom: 15px;
+}

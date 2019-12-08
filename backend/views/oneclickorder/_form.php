@@ -26,13 +26,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'total')->textInput() ?>
 
-    <?= $form->field($model, 'products_json')->textInput(['maxlength' => true]) ?>
+<!--    --><?//= $form->field($model, 'products_json')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
 
     <?= $form->field($model, 'is_payment')->textInput() ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'comment')->textarea(['maxlength' => true, 'rows' => '6']) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
