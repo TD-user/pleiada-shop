@@ -100,4 +100,22 @@ $(document).ready(function(){
         $("#full-cart-value").text(sum.toFixed(2));
     });
 
+
+    $("#oneClickOrder").submit(function () {
+        let orderInfo = [];
+        $(".curt-product").each(function (index) {
+            orderInfo.push({
+                product_id: $(this).attr('data-id'),
+                name: $(this).find(".curt-info-title a").eq(0).text().trim(),
+                price: parseFloat($(this).find(".price-value").eq(0).text()),
+                count: parseInt($(this).find(".curn-number-products").eq(0).text()),
+                summa: parseFloat($(this).find(".total-value").eq(0).text()),
+            });
+        });
+        let total = parseFloat($("#full-cart-value").text());
+        $("#oneclickorder-total").val(total);
+        $("#oneclickorder-products_json").val(JSON.stringify(orderInfo));
+        return true;
+    });
+
 });
