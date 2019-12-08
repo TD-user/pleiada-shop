@@ -1,5 +1,6 @@
 <?php
 
+use yii\debug\models\search\User;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -31,11 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
+            ['attribute' => 'Роль',
+                'value' => function ($model) {
+                    return Yii::$app->authManager->getRolesByUser($model->id)[ array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0]]->description;
+                },
+            ],
             'auth_key',
             'password_hash',
             'password_reset_token',
             'created_at',
             'updated_at',
+            'fio',
         ],
     ]) ?>
 

@@ -18,6 +18,8 @@ use \yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'fio')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'role')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description')) ?>
 
     <div class="form-group">

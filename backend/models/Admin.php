@@ -17,6 +17,7 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property int $created_at
  * @property int $updated_at
+ * @property string $fio
  */
 class Admin extends \yii\db\ActiveRecord implements  \yii\web\IdentityInterface
 {
@@ -34,7 +35,7 @@ class Admin extends \yii\db\ActiveRecord implements  \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'created_at', 'updated_at'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'created_at', 'updated_at','fio'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
@@ -50,12 +51,14 @@ class Admin extends \yii\db\ActiveRecord implements  \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
+            'username' => 'Користувач',
+            'auth_key' => 'Клуч',
+            'password_hash' => 'Пароль хеш',
             'password_reset_token' => 'Password Reset Token',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Створений в',
+            'updated_at' => 'Оновлений в',
+            'fio'=>'Прізвище Ім\'я Побатькові',
+
         ];
     }
     public static function findByUsername($username)

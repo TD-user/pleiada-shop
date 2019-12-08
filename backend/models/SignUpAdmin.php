@@ -14,11 +14,12 @@ class  SignUpAdmin extends \yii\base\Model
     public $username;
     public $password;
     public $role;
+    public $fio;
 
     public function  rules()
     {
         return ([
-            [['username','password'],'required'],
+            [['username','password','fio'],'required'],
             ['username','unique','targetClass'=>'app\models\Admin'],
             ['password','string','min'=>3,'max'=>15],
             ['role','safe']
@@ -34,6 +35,7 @@ class  SignUpAdmin extends \yii\base\Model
         $user->generateAuthKey();
         $user->created_at = strtotime(date("Ymd"));
         $user->updated_at = strtotime(date("Ymd"));
+        $user->fio = $this->fio;
 
 
         return $user->save();
