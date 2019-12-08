@@ -61,8 +61,10 @@ AppAsset::register($this);
         $menuItems[] = [
             'label' => 'Товари',
             'items' => [
+                ['label' => 'Категорії', 'url' => ['/categories/index']],
+                ['label' => 'Додати категорію', 'url' => ['/categories/create']],
                 ['label' => 'Товари', 'url' => ['/product/index']],
-                ['label' => 'Категорії', 'url' => ['/categories/index']]
+                ['label' => 'Додати товар', 'url' => ['/product/create']],
             ],
         ];
 

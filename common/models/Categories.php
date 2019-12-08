@@ -46,10 +46,10 @@ class Categories extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_parent' => 'Id Parent',
-            'name' => 'Name',
-            'img_url' => 'Img Url',
-            'alias' => 'Alias',
+            'id_parent' => 'Батьківське Id',
+            'name' => 'Назва',
+            'img_url' => 'Зображення',
+            'alias' => 'seo url',
         ];
     }
 
@@ -57,6 +57,13 @@ class Categories extends \yii\db\ActiveRecord
     {
         $this->alias = AliasGenerator::getAlias($this->name);
         return parent::beforeSave($insert);
+    }
+
+    public function beforeDelete()
+    {
+        if($this->id_parent == 0)
+            DeleteImage::deleteFolder(Yii::getAlias('@frontend').'/web/img/categories/'.$this->id);
+        return parent::beforeDelete();
     }
 
     public static function getTreeMenuArray()

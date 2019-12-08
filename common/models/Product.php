@@ -87,16 +87,11 @@ class Product extends \yii\db\ActiveRecord
         return parent::beforeSave($insert);
     }
 
-//    public function afterSave($insert, $changedAttributes)
-//    {
-//        parent::afterSave($insert, $changedAttributes);
-//        if($insert) {
-//            $product = Product::findOne(Yii::$app->db->getLastInsertID());
-//            $product->alias = AliasGenerator::getAlias($product->name);
-//            $product->alias = $product->alias . '-' . $product->id;
-//            $product->save();
-//        }
-//    }
+    public function beforeDelete()
+    {
+        DeleteImage::deleteFolder(Yii::getAlias('@frontend').'/web/img/products/'.$this->id);
+        return parent::beforeDelete();
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -180,4 +175,6 @@ class Product extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+
 }

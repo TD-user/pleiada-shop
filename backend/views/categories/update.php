@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = 'Редагувати';
     <?= $this->render('_form', [
         'model' => $model,
         'parent_categories' => $parent_categories,
+        'modelUpload' => $modelUpload
     ]) ?>
 
 </div>

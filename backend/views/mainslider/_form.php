@@ -33,7 +33,7 @@ use kartik\file\FileInput;
             'showPreview' => true,
             'showRemove' => true,
             'showUpload' => true,
-            'allowedFileExtensions'=>['jpg','gif','png'],
+            'allowedFileExtensions'=>['jpg','jpeg','gif','png'],
             'browseClass' => 'btn btn-success',
             'uploadClass' => 'btn btn-info',
             'removeClass' => 'btn btn-danger',

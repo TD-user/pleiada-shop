@@ -52,6 +52,11 @@ class UserController extends Controller
                 'pagination' => $pagination,
             ]);
         }
+    }
+
+    public function actionOneClickOrder()
+    {
+
 
     }
 

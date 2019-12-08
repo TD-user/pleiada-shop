@@ -10,7 +10,7 @@ $this->title = 'Плеяда - корзина';
     <div class="order-info">
         <form action="" method="post" class="order-form">
             <input type="text" name="pib" placeholder="Прізвище Ім'я По батькові...">
-            <input type="text" name="number" placeholder="+38(0__) __ __ ___">
+            <input type="tel" name="phone" placeholder="+38(0__) __ __ ___">
             <input type="text" name="email" placeholder="Email...">
             <select name="city">
                 <option>Виберіть місто...</option>
@@ -30,7 +30,7 @@ $this->title = 'Плеяда - корзина';
                 <div class="click-separator"></div>
                 <div>
                     <form action="" method="post" class="one-clock-form">
-                        <input type="text" name="number" placeholder="+38(0__) __ __ ___">
+                        <input type="tel" name="phone" pattern="\d*">
                         <input type="submit" value="OK">
                     </form>
                 </div>

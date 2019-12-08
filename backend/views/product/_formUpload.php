@@ -11,6 +11,8 @@ use kartik\file\FileInput;
 
 <div class="product-form">
 
+    <?php $arr = \yii\helpers\ArrayHelper::toArray($model); ?>
+
     <?php $form = ActiveForm::begin(); ?>
 
     <!--    --><?//= $form->field($model, 'category_id')->textInput() ?>
@@ -27,11 +29,19 @@ use kartik\file\FileInput;
 
     <?= $form->field($model, 'promotionPrice')->textInput()->label('Акційна ціна (за наявності)') ?>
 
-    <?= $form->field($model, 'currency')->textInput(['maxlength' => true])->label('Валюта') ?>
+    <? if(empty($arr)): ?>
+        <?= $form->field($model, 'currency')->textInput(['maxlength' => true, 'value' => 'грн'])->label('Валюта') ?>
+    <? else: ?>
+        <?= $form->field($model, 'currency')->textInput(['maxlength' => true])->label('Валюта') ?>
+    <? endif; ?>
 
     <?= $form->field($model, 'remains')->textInput()->label('Залишок товару, кількість') ?>
 
-    <?= $form->field($model, 'unit')->textInput(['maxlength' => true])->label('Одиниця виміру') ?>
+    <? if(empty($arr)): ?>
+        <?= $form->field($model, 'unit')->textInput(['maxlength' => true, 'value' => 'шт'])->label('Одиниця виміру') ?>
+    <? else: ?>
+        <?= $form->field($model, 'unit')->textInput(['maxlength' => true])->label('Одиниця виміру') ?>
+    <? endif; ?>
 
 <!--    --><?//= $form->field($model, 'article')->textInput(['maxlength' => true]) ?>
 
@@ -39,7 +49,7 @@ use kartik\file\FileInput;
 
 <!--    --><?//= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
+<!--    --><?//= $form->field($model, 'alias')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($modelUploadImgs, 'imageFile')->widget(FileInput::classname(), [
 
@@ -53,7 +63,7 @@ use kartik\file\FileInput;
             'showPreview' => true,
             'showRemove' => true,
             'showUpload' => true,
-            'allowedFileExtensions'=>['jpg','gif','png'],
+            'allowedFileExtensions'=>['jpg','jpeg','gif','png'],
             'browseClass' => 'btn btn-success',
             'uploadClass' => 'btn btn-info',
             'removeClass' => 'btn btn-danger',

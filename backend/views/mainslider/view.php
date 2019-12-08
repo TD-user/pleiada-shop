@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Mainslider */
@@ -34,5 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
         ],
     ]) ?>
+
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="img-wrapper-max">
+                <img src="<?= str_replace('admin.','',Url::home(true)).$model->path; ?>" alt="">
+            </div>
+        </div>
+    </div>
 
 </div>

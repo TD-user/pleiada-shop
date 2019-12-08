@@ -6,9 +6,11 @@ use yii\helpers\Url;
 <?php foreach ($data as $category):?>
 <div class="popup-nav">
     <ul>
+        <? if(isset($category['childs'])): ?>
         <?php foreach ($category['childs'] as $subcategory):?>
         <li><a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>"><?= $subcategory['name']?></a></li>
         <?php endforeach; ?>
+        <? endif;?>
     </ul>
 </div>
 <? endforeach; ?>

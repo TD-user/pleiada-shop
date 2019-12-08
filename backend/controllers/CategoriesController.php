@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\UploadFormCategories;
 use Yii;
 use common\models\Categories;
 use yii\data\ActiveDataProvider;
@@ -9,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use yii\web\UploadedFile;
 
 /**
  * CategoriesController implements the CRUD actions for Categories model.
@@ -71,13 +73,26 @@ class CategoriesController extends Controller
         $parent_categories = ArrayHelper::map($parent_categories, 'id', 'name');
         $parent_categories[0] = "не обрано, буде створено батьківську категорію";
 
+        $modelUpload = new UploadFormCategories();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            if($model->id_parent == 0) {
+                $modelUpload->category = $model;
+
+                if (Yii::$app->request->post()) {
+                    $modelUpload->imageFile = UploadedFile::getInstances($modelUpload, 'imageFile');
+                    $modelUpload->upload();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'parent_categories' => $parent_categories,
+            'modelUpload' => $modelUpload
         ]);
     }
 
@@ -96,13 +111,26 @@ class CategoriesController extends Controller
         $parent_categories = ArrayHelper::map($parent_categories, 'id', 'name');
         $parent_categories[0] = "не обрано, буде створено батьківську категорію";
 
+        $modelUpload = new UploadFormCategories();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            if($model->id_parent == 0) {
+                $modelUpload->category = $model;
+
+                if (Yii::$app->request->post()) {
+                    $modelUpload->imageFile = UploadedFile::getInstances($modelUpload, 'imageFile');
+                    $modelUpload->upload();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
             'parent_categories' => $parent_categories,
+            'modelUpload' => $modelUpload
         ]);
     }
 
