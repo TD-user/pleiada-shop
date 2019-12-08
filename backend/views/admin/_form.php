@@ -18,7 +18,7 @@ use \yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description')) ?>
+    <?= $form->field($model, 'role')->dropDownList( ArrayHelper::map(Yii::$app->authManager->getRoles(),'name','description')) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

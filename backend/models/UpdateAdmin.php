@@ -9,19 +9,22 @@ namespace backend\models;
 
 
 
+use Yii;
+
 class  UpdateAdmin extends \yii\base\Model
 {
     public $id;
     public $username;
     public $password;
     public $auth_key;
-
+    public $role;
     public function  rules()
     {
         return ([
-            [['username','password'],'required'],
+            [['username'],'required'],
             ['username','unique','targetClass'=>'backend\models\Admin'],
-            ['password','safe']
+            ['password','safe'],
+            ['role','safe']
 
         ]);
     }
@@ -32,6 +35,10 @@ class  UpdateAdmin extends \yii\base\Model
         if(!empty($this->password))
         $user->setPassword($this->password);
         $user->updated_at = strtotime(date("Ymd"));
+        $manager = Yii::$app->authManager;
+        $authorRole =$manager->getRole($this->role);
+        $manager->assign($authorRole, $id);
+
 
 
         return $user->save();
