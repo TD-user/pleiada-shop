@@ -35,6 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password_reset_token',
             //'created_at',
             //'updated_at',
+            ['attribute' => 'Роль',
+                'value' => function ($model) {
+                    return Yii::$app->authManager->getRolesByUser($model->id)[ array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0]]->description;
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
