@@ -30,12 +30,17 @@ class  UpdateAdmin extends \yii\base\Model
     }
     public function update($id)
     {
+        $manager = Yii::$app->authManager;
+        $role = array_keys($manager->getRolesByUser($id))[0];
+        $item = $manager->getRole($role);
+        $manager->revoke($item,$id);
+
         $user = Admin::findOne($id);
         $user->username =$this->username;
         if(!empty($this->password))
         $user->setPassword($this->password);
         $user->updated_at = strtotime(date("Ymd"));
-        $manager = Yii::$app->authManager;
+
         $authorRole =$manager->getRole($this->role);
         $manager->assign($authorRole, $id);
 

@@ -109,15 +109,13 @@ class AdminController extends Controller
      */
     public function actionUpdate($id)
     {
-        $roleManeg=Yii::$app->authManager;
+
         $modeladmin = $this->findModel($id);
         $model = new UpdateAdmin();
 
         $model->username = $modeladmin->username;
         $model->auth_key = $modeladmin->auth_key;
-        $model->role = array_keys($roleManeg->getRolesByUser($id))[0];
-        $item = $roleManeg->getRole($model->role);
-        $roleManeg->revoke($item,$id);
+        $model->role = array_keys(Yii::$app->authManager->getRolesByUser($id))[0];
         if ($model->load(Yii::$app->request->post())) {
                 $model->update($id);
             return $this->redirect(['view', 'id' => $id]);
