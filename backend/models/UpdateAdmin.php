@@ -18,10 +18,11 @@ class  UpdateAdmin extends \yii\base\Model
     public $password;
     public $auth_key;
     public $role;
+    public $fio;
     public function  rules()
     {
         return ([
-            [['username'],'required'],
+            [['username','fio'],'required'],
             ['username','unique','targetClass'=>'backend\models\Admin'],
             ['password','safe'],
             ['role','safe']
@@ -40,6 +41,7 @@ class  UpdateAdmin extends \yii\base\Model
         if(!empty($this->password))
         $user->setPassword($this->password);
         $user->updated_at = strtotime(date("Ymd"));
+        $user->fio =$this->fio;
 
         $authorRole =$manager->getRole($this->role);
         $manager->assign($authorRole, $id);

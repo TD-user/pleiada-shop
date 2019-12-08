@@ -72,7 +72,7 @@ class AdminController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id),'role' =>array_keys(Yii::$app->authManager->getRolesByUser($id))[0]
         ]);
     }
 
@@ -115,6 +115,7 @@ class AdminController extends Controller
 
         $model->username = $modeladmin->username;
         $model->auth_key = $modeladmin->auth_key;
+        $model->fio =$modeladmin->fio;
         $model->role = array_keys(Yii::$app->authManager->getRolesByUser($id))[0];
         if ($model->load(Yii::$app->request->post())) {
                 $model->update($id);
