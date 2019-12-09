@@ -8,6 +8,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\models\LoginFormAdmin;
+use LisDev\Delivery\NovaPoshtaApi2;
+use common\models\NpCities;
 
 /**
  * Site controller
@@ -156,11 +158,21 @@ class SiteController extends Controller
 //        );
 //
 //        $cities = $np->getCities();
+//        foreach ($cities['data'] as $city)
+//        {
+//            $npCity = new NpCities();
+//            $npCity->Description = $city['Description'];
+//            $npCity->Ref = $city['Ref'];
+//            $npCity->CityID = $city['CityID'];
+//            $npCity->save();
+//        }
 //
 //        $warehouses = $np->getWarehouses('db5c893b-391c-11dd-90d9-001a92567626');
 
 
-        return $this->render('index');
+        return $this->render('index', [
+
+        ]);
     }
 
     /**

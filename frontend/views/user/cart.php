@@ -5,24 +5,41 @@ use frontend\widgets;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
+use kartik\select2\Select2;
 
 $this->title = 'Плеяда - корзина';
 ?>
 <div class="order-container">
     <div class="order-info">
-        <form action="" method="post" class="order-form">
-            <input type="text" name="pib" placeholder="Прізвище Ім'я По батькові...">
-            <input type="tel" name="phone" placeholder="+38(0__) __ __ ___">
-            <input type="text" name="email" placeholder="Email...">
-            <select name="city">
-                <option>Виберіть місто...</option>
-                <option value="Луцьк">Луцьк</option>
-                <option value="Львів">Львів</option>
-                <option value="Київ">Київ</option>
-            </select>
-            <textarea name="comment" cols="30" rows="5" placeholder="Ваш коментар до замовлення..."></textarea>
-            <input type="submit" value="Замовити">
-        </form>
+        <?php $form = ActiveForm::begin([
+            'action' => '/user/order',
+            'id' => 'mainFormOrder',
+            'options' => [
+                'class' => 'order-form'
+            ]
+        ]); ?>
+        <?= Select2::widget([
+            'name' => 'state_10',
+            'data' => $cities,
+            'options' => [
+                'placeholder' => 'вибрати місто ...',
+            ],
+        ]);?>
+        <input type="submit" value="Замовити">
+        <?php ActiveForm::end(); ?>
+<!--        <form action="" method="post" class="order-form">-->
+<!--            <input type="text" name="pib" placeholder="Прізвище Ім'я По батькові...">-->
+<!--            <input type="tel" name="phone" placeholder="+38(0__) __ __ ___">-->
+<!--            <input type="text" name="email" placeholder="Email...">-->
+<!--            <select name="city">-->
+<!--                <option>Виберіть місто...</option>-->
+<!--                <option value="Луцьк">Луцьк</option>-->
+<!--                <option value="Львів">Львів</option>-->
+<!--                <option value="Київ">Київ</option>-->
+<!--            </select>-->
+<!--            <textarea name="comment" cols="30" rows="5" placeholder="Ваш коментар до замовлення..."></textarea>-->
+<!--            <input type="submit" value="Замовити">-->
+<!--        </form>-->
         <div class="order-goods">
             <div class="one-click">
                 <div>

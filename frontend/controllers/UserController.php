@@ -4,11 +4,13 @@ namespace frontend\controllers;
 
 use common\models\Cart;
 use common\models\Favourite;
+use common\models\NpCities;
 use common\models\Oneclickorder;
 use common\models\Product;
 use common\models\ProductTemp;
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\helpers\Url;
 
@@ -29,12 +31,14 @@ class UserController extends Controller
         }
         else {
             $carts = Yii::$app->user->identity->getProductsCart()->all();
-
             $modelOneClickOrder = new Oneclickorder();
+            $cities = NpCities::find()->all();
+            $cities = ArrayHelper::map($cities, 'Ref', 'Description');
 
             return $this->render('cart', [
                 'products' => $carts,
                 'modelOneClickOrder' => $modelOneClickOrder,
+                'cities' => $cities,
             ]);
         }
     }
