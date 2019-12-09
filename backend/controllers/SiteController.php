@@ -142,7 +142,23 @@ class SiteController extends Controller
 //      ----------------- Привязка ролі до користувча-----------
 //        $userRole = Yii::$app->authManager->getRole('admin');
 //        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-        Yii::$app->authManager->getRoles();
+//        Yii::$app->authManager->getRoles();
+
+
+
+
+
+//        $np = new NovaPoshtaApi2(
+//            '75af0d52acbabcfeaa41bda3c7faf524',
+//            'ua', // Язык возвращаемых данных: ru (default) | ua | en
+//            FALSE, // При ошибке в запросе выбрасывать Exception: FALSE (default) | TRUE
+//            'curl' // Используемый механизм запроса: curl (defalut) | file_get_content
+//        );
+//
+//        $cities = $np->getCities();
+//
+//        $warehouses = $np->getWarehouses('db5c893b-391c-11dd-90d9-001a92567626');
+
 
         return $this->render('index');
     }
