@@ -7,7 +7,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\AdminSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Admins';
+$this->title = 'Користувачі Адмін-панелі';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="admin-index">
@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Admin', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Створити Користувача', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>
