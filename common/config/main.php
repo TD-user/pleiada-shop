@@ -16,4 +16,19 @@ return [
         ],
 
     ],
+    'modules' => [
+        'liqpay' => [
+            'class' => 'borysenko\liqpay\Module',
+            'public_key' => 'iNNNNNNNNNNN',
+            'private_key' => 'NzpRclCywaSOrm0LTpqDpPPlRDhoOQyIX1ISHjk',
+            'currency' => 'UAH',
+            'pay_way' => null,
+            'version' => 3,
+            'sandbox' => false,
+            'language' => 'ru',
+            'result_url' => '/site/index',
+            'paymentName' => 'Оплата замовлення',
+            'orderModel' => 'common\models\Order', //Модель заказа. Эта модель должна имплементировать интерфейс borysenko\liqpay\interfaces\Order. В момент списания денег будет вызываться $model->setPaymentStatus('yes').
+        ],
+    ],
 ];

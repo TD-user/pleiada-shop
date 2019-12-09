@@ -55,6 +55,7 @@ AppAsset::register($this);
             'label' => 'Замовлення',
             'items' => [
                 ['label' => 'One click замовлення', 'url' => ['/oneclickorder/index']],
+                ['label' => 'Замовлення', 'url' => ['/order/index']],
 
             ],
         ];

@@ -6,6 +6,7 @@ use common\models\Cart;
 use common\models\Favourite;
 use common\models\NpCities;
 use common\models\Oneclickorder;
+use common\models\Order;
 use common\models\Product;
 use common\models\ProductTemp;
 use Yii;
@@ -34,13 +35,26 @@ class UserController extends Controller
             $modelOneClickOrder = new Oneclickorder();
             $cities = NpCities::find()->all();
             $cities = ArrayHelper::map($cities, 'Ref', 'Description');
+            $order = new Order();
 
             return $this->render('cart', [
                 'products' => $carts,
                 'modelOneClickOrder' => $modelOneClickOrder,
                 'cities' => $cities,
+                'order' => $order,
             ]);
         }
+    }
+
+    public function actionPayment()
+    {
+        $order = new Order();
+        $order->id = 1;
+        $order->cost = 100;
+
+        return $this->render('payment', [
+            'model' => $order,
+        ]);
     }
 
     public function actionOneClickOrder()

@@ -12,19 +12,32 @@ $this->title = 'Плеяда - корзина';
 <div class="order-container">
     <div class="order-info">
         <?php $form = ActiveForm::begin([
-            'action' => '/user/order',
+            'action' => '/user/payment',
             'id' => 'mainFormOrder',
             'options' => [
                 'class' => 'order-form'
             ]
         ]); ?>
-        <?= Select2::widget([
-            'name' => 'state_10',
+        <?= $form->field($order, 'email')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($order, 'phone')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($order, 'surname')->textInput(['maxlength' => true]) ?>
+<!--        --><?//= $form->field($order, 'address')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($order, 'address')->widget(Select2::classname(), [
             'data' => $cities,
-            'options' => [
-                'placeholder' => 'вибрати місто ...',
+            'options' => ['placeholder' => 'Select a state ...'],
+            'pluginOptions' => [
+                'allowClear' => true
             ],
         ]);?>
+        <?= $form->field($order, 'total')->hiddenInput(['value' => 100])->label(false) ?>
+        <?= $form->field($order, 'products_json')->hiddenInput(['maxlength' => true, 'value' => 'json'])->label(false) ?>
+        <?= $form->field($order, 'comment')->textarea(['maxlength' => true, 'rows' => 4]) ?>
+        <?= $form->field($order, 'methodPayment')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($order, 'methodDelivery')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($order, 'cost')->hiddenInput()->label(false) ?>
+
+        <?= $form->field($order, 'payment')->hiddenInput(['maxlength' => true])->label(false) ?>
         <input type="submit" value="Замовити">
         <?php ActiveForm::end(); ?>
 <!--        <form action="" method="post" class="order-form">-->
