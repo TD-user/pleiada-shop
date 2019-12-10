@@ -62,6 +62,28 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'username' => 'Користувач',
+            'auth_key' => 'Клуч',
+            'password_hash' => 'Пароль хеш',
+            'password_reset_token' => 'Password Reset Token',
+            'created_at' => 'Створений в',
+            'updated_at' => 'Оновлений в',
+            'status' =>'Статус',
+            'city' =>'Місто',
+            'gender'=>'Стать',
+            'birthday'=>'День Народження',
+            'fathername'=>'Побатькові',
+            'name'=>'Ім\'я',
+            'surname'=>'Прізвище',
+            'phone'=>'Телефон'
+
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
