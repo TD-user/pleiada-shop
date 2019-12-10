@@ -9,7 +9,9 @@ use common\models\Oneclickorder;
 use common\models\Order;
 use common\models\Product;
 use common\models\ProductTemp;
+use common\models\User;
 use frontend\models\SignupForm;
+use frontend\models\UpdateForm;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
@@ -23,16 +25,24 @@ class UserController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+        $model = new UpdateForm();
+        if ($model->load(Yii::$app->request->post())&& $model->userUpdate(Yii::$app->user->id)) {
 
-        $model = new SignupForm();
 
-
-
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            Yii::$app->session->setFlash('success', 'Дякуємо за реєстрацію на нашому сайті. Залишилось лише скористайтеся формою входу.');
+            Yii::$app->session->setFlash('success', 'Успішно оновлені дані');
             return $this->goHome();
         }
-
+        $user  = User::findOne(Yii::$app->user->id);
+        $model->id = $user->id;
+        $model->email = $user->email;
+        $model->phone = $user->phone;
+        $model->surname = $user->surname;
+        $model->name = $user->name;
+        $model->fathername = $user->fathername;
+        $model->birthday = $user->birthday;
+        $model->gender = $user->gender;
+        $model->city = $user->city;
+        $model->username = $user->username;
         return $this->render('index', [
             'model' => $model,
         ]);
@@ -232,5 +242,7 @@ class UserController extends Controller
             $c->save();
         }
     }
+
+
 
 }
