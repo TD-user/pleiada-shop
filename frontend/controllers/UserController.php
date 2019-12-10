@@ -9,6 +9,7 @@ use common\models\Oneclickorder;
 use common\models\Order;
 use common\models\Product;
 use common\models\ProductTemp;
+use frontend\models\SignupForm;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
@@ -22,7 +23,19 @@ class UserController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-        return $this->render('index');
+
+        $model = new SignupForm();
+
+
+
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Дякуємо за реєстрацію на нашому сайті. Залишилось лише скористайтеся формою входу.');
+            return $this->goHome();
+        }
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
     public function actionCart()
