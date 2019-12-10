@@ -23,9 +23,7 @@
         "ext-simplexml": "*",
         "ext-json": "*",
         "kartik-v/yii2-widget-fileinput": "@dev",
-        "lis-dev/nova-poshta-api-2": "^0.1.1",
-        "kartik-v/yii2-widget-select2": "dev-master",
-        "borysenko/yii2-liqpay": "*"
+        "lis-dev/nova-poshta-api-2": "^0.1.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

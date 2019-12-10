@@ -79,9 +79,10 @@ AppAsset::register($this);
         ];
         if (Yii::$app->user->can('allAdmin'))
         $menuItems[] = [
-            'label' => 'Адміністратори',
+            'label' => 'Налаштування',
             'items' => [
-                ['label' => 'Усі Адміністратори', 'url' => ['/admin/index']],
+                ['label' => 'Адміністратори', 'url' => ['/admin/index']],
+                ['label' => 'Користувачі', 'url' => ['/user/index']]
 
             ],
         ];
