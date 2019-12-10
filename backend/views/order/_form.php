@@ -36,6 +36,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'comment_admin')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'methodPayment')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'methodDelivery')->textInput(['maxlength' => true]) ?>

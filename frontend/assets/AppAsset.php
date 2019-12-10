@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/main.js?v=15',
-        'js/ajaxToServer.js?v=13',
+        'js/ajaxToServer.js?v=14',
         'js/bootstrap-slider.min.js',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
     ];

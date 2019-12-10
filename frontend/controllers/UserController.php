@@ -10,13 +10,14 @@ use common\models\Order;
 use common\models\Product;
 use common\models\ProductTemp;
 use common\models\User;
-use frontend\models\SignupForm;
 use frontend\models\UpdateForm;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\helpers\Url;
+use LisDev\Delivery\NovaPoshtaApi2;
+use yii\web\NotFoundHttpException;
 
 class UserController extends Controller
 {
@@ -75,31 +76,79 @@ class UserController extends Controller
         }
     }
 
-    public function actionPayment()
+    public function actionPayment($id)
     {
-//        $order = new Order();
-//        $order->id = 1;
-//        $order->cost = 100;
-//
-//        return $this->render('payment', [
-//            'model' => $order,
-//        ]);
+        $order = $this->findOrder($id);
+        $order->cost = $order->total;
+
+        return $this->render('payment', [
+            'model' => $order,
+        ]);
     }
 
     public function actionOrder()
     {
         $order = new Order();
-
-
         if ($order->load(Yii::$app->request->post()) && $order->save() ) {
 
+            $this->updateUserCarts($order->products_json);
 
+            $validateOrder = [];
+            $newTotal = 0;
+            $flag = true;
+            foreach (json_decode($order->products_json) as $prodOrder) {
+                if (($product = Product::findOne($prodOrder->product_id)) !== null) {
+                    $productTemp = new ProductTemp();
+                    $productTemp->product = $product;
 
+                    $productTemp->product_id = $product->id;
+                    $productTemp->name = $prodOrder->name;
+                    $productTemp->price = $prodOrder->price;
+                    $productTemp->count = $prodOrder->count;
+                    $productTemp->summa = $prodOrder->summa;
+
+                    if($productTemp->validateUserData())
+                        $validateOrder[] = $prodOrder;
+                    else {
+                        $flag = false;
+                        $productTemp->ifNotValid();
+                        $prodOrder->product_id = $productTemp->product_id;
+                        $prodOrder->name = $productTemp->name;
+                        $prodOrder->price = $productTemp->price;
+                        $prodOrder->count = $productTemp->count;
+                        $prodOrder->summa = $productTemp->summa;
+                        $validateOrder[] = $prodOrder;
+                    }
+                    $newTotal += $prodOrder->summa;
+                }
+            }
+            $order->products_json = json_encode($validateOrder);
+            if($order->total != $newTotal) {
+                $order->total = $newTotal;
+                $flag = false;
+            }
+            $order->user_id = Yii::$app->user->identity->id;
+            $order->status = 'Нове';
+            if($order->is_payment != 1) {
+                $order->is_payment = 0;
+            }
+            $order->save();
+
+            if($flag and $order->is_payment == 1) {
+                return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
+            }
+
+            if($flag)
+                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+            else
+                Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+
+            return $this->goHome();
         }
-
-
+        else {
+            return $this->redirect(Url::to(['user/cart']));
+        }
     }
-
 
     public function actionOneClickOrder()
     {
@@ -264,6 +313,28 @@ class UserController extends Controller
         }
     }
 
+    public function actionGetWarehouses($ref)
+    {
+        $np = new NovaPoshtaApi2(
+            '75af0d52acbabcfeaa41bda3c7faf524',
+            'ua', // Язык возвращаемых данных: ru (default) | ua | en
+            FALSE, // При ошибке в запросе выбрасывать Exception: FALSE (default) | TRUE
+            'curl' // Используемый механизм запроса: curl (defalut) | file_get_content
+        );
 
+        $warehouses = $np->getWarehouses($ref);
+
+        return json_encode($warehouses);
+
+    }
+
+    protected function findOrder($id)
+    {
+        if (($model = Order::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
 
 }

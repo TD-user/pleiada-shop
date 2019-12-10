@@ -59,7 +59,7 @@ class Order extends \yii\db\ActiveRecord implements \borysenko\liqpay\interfaces
     {
         return [
             'id' => 'ID',
-            'created_at' => 'Created At',
+            'created_at' => 'Дата замовлення',
             'user_id' => 'User ID',
             'email' => 'Email',
             'phone' => 'Телефон',

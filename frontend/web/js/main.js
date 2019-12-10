@@ -141,6 +141,7 @@ $(document).ready(function(){
         if($(this).val() == 2) {
             $(".nova-poshta-block").css('display', 'block');
             $(".self-shop-visit").css('display', 'none');
+            $('#order-methoddelivery').val('доставка новою поштою');
         }
         else if($(this).val() == 1) {
             $(".nova-poshta-block").css('display', 'none');
@@ -155,9 +156,17 @@ $(document).ready(function(){
             $('#order-address').val('');
             $('#order-methoddelivery').val('');
             $('#order-methodpayment').val('');
-
         }
     });
 
+    $("#select-warehouse-np").change(function () {
+        let start = $('#order-address').val();
+        $('#order-address').val(start + $(this).val());
+    });
+
+    $("#select-method-payment-np").change(function () {
+        $('#order-methodpayment').val($("option:selected", this).text());
+        $('#order-is_payment').val($(this).val());
+    });
 
 });

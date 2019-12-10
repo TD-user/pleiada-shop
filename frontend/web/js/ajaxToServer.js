@@ -98,5 +98,28 @@ $(document).ready(function(){
         });
     });
 
+    $("#citiesNp").change(function () {
+        let Ref = $(this).val();
+        $('#order-address').val( $("option:selected", this).text() + ": ");
+        $.ajax({
+            url: '/user/get-warehouses',
+            data: {ref: Ref},
+            type: 'GET',
+            success: function (result) {
+                let data = JSON.parse(result);
+                $("#select-warehouse-np").empty();
+                for(let i = 0; i < data.data.length; i++) {
+                    $("#select-warehouse-np").append($("<option></option>")
+                        .attr("value",data.data[i].Description)
+                        .text(data.data[i].Description));
+                }
+            },
+            error: function (result) {
+                $("#select-warehouse-np").empty();
+            }
+        });
+    });
+
+
 
 });

@@ -6,16 +6,12 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Orders';
+$this->title = 'Замовлення';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="order-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Order', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php Pjax::begin(); ?>
 
@@ -25,22 +21,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'created_at',
-            'user_id',
+            //'created_at',
+            ['attribute' => 'created_at',
+                'value' => function ($model, $key, $index, $grid) {
+                    return date('d/m/Y H:i:s', $model->created_at);
+                },
+            ],
+            //'user_id',
             'email:email',
             'phone',
-            //'name',
-            //'surname',
-            //'address',
-            //'total',
+            'name',
+            'surname',
+            'address',
+            'total',
             //'products_json',
-            //'status',
+            'status',
             //'is_payment',
             //'comment',
+            //'comment_admin',
             //'methodPayment',
             //'methodDelivery',
             //'cost',
-            //'payment',
+            'payment',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -32,34 +32,35 @@ $this->title = 'Плеяда - корзина';
         <div class="nova-poshta-block" style="display: none;">
             <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть місто</b></div>
             <div><?= Select2::widget([
-                'name' => 'state_10',
+                'name' => 'citiesNp',
                 'data' => $cities,
                 'options' => [
-                    'placeholder' => 'Вибрати місто...'
+                    'placeholder' => 'Вибрати місто...',
+                    'id' => 'citiesNp'
                 ],
                 'pluginOptions' => [
                     'allowClear' => true
                 ],
             ]) ?></div>
+            <div class="text-center" style="margin: 15px 0;"><b>Оберіть відділення</b></div>
+            <div>
+                <?= Html::dropDownList('warehouse', null, [], ['class' => 'form-control', 'id' => 'select-warehouse-np'])?>
+            </div>
             <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть спосіб оплати</b></div>
             <?= Html::dropDownList('payment', null, [
-                '' => '',
-                'Самовивіз з магазину' => 'Самовивіз з магазину',
-                'Доставка Новою поштою' => 'Доставка Новою поштою'
-            ], ['class' => 'form-control', 'id' => 'select-method-delivery'])?>
+                1 => 'Оплатати зараз картою visa/mastercard',
+                2 => 'Оплата після отримання на відділенні Нової пошти'
+            ], ['class' => 'form-control', 'id' => 'select-method-payment-np'])?>
         </div>
         <div class="self-shop-visit" style="display: none;">
             <div style="margin-bottom: 10px;"><b>Оплата при отриманні товару в магазині за адресою вулиця Івана Мазепи, 33, Трускавець</b></div>
         </div>
-
-
-
-
         <?= Html::activeHiddenInput($order, 'methodDelivery')?>
         <?= Html::activeHiddenInput($order, 'methodPayment')?>
         <?= Html::activeHiddenInput($order, 'address')?>
         <?= Html::activeHiddenInput($order, 'products_json')?>
         <?= Html::activeHiddenInput($order, 'total')?>
+        <?= Html::activeHiddenInput($order, 'is_payment', ['value' => 1])?>
         <?= $form->field($order, 'comment')->textarea(['maxlength' => true, 'rows' => 4, 'placeholder' => 'коментар до замовлення...'])->label(false) ?>
         <input type="submit" value="Замовити">
         <?php ActiveForm::end(); ?>
