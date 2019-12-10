@@ -25,13 +25,14 @@ class UserController extends Controller
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
+
         $model = new UpdateForm();
+
         if ($model->load(Yii::$app->request->post())&& $model->userUpdate(Yii::$app->user->id)) {
-
-
             Yii::$app->session->setFlash('success', 'Успішно оновлені дані');
             return $this->goHome();
         }
+
         $user  = User::findOne(Yii::$app->user->id);
         $model->id = $user->id;
         $model->email = $user->email;
@@ -43,6 +44,7 @@ class UserController extends Controller
         $model->gender = $user->gender;
         $model->city = $user->city;
         $model->username = $user->username;
+
         return $this->render('index', [
             'model' => $model,
         ]);
