@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use \yii\helpers\ArrayHelper;
@@ -14,6 +15,18 @@ use \yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <div class="form-group">
+        <?php if (strcmp(array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0],'baned') !==0) :?>
+                <a href="<?= Url::to(['user/bane', 'id' => $model->id ])?>" class="btn btn-danger">
+                    Закрити доступ користувачеві
+                </a>
+        <?php  else :?>
+
+            <a href="<?= Url::to(['user/unbane', 'id' => $model->id ])?>" class="btn btn-primary">
+                Відкрити  доступ користувачеві
+            </a>
+        <?php  endif;?>
+    </div>
 
     <?= $form->field($model, 'username')->textInput(['maxlength' => true])->label('Логін') ?>
 
@@ -38,7 +51,9 @@ use \yii\helpers\ArrayHelper;
 
     <div class="form-group">
         <?= Html::submitButton('Зберегти', ['class' => 'btn btn-success']) ?>
+
     </div>
+
 
     <?php ActiveForm::end(); ?>
 

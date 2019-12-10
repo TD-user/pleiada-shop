@@ -6,6 +6,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\User;
 use common\models\UserSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -26,6 +27,21 @@ class UserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'denyCallback' => function () {
+                    $this->goHome();
+                },
+                'rules' => [
+                    [
+                        'actions' => ['index','view','create','update','delete','bane','unbane'],
+                        'allow' => true,
+                        'roles' => ['superAdmin'],
+
+                    ],
+
                 ],
             ],
         ];
@@ -77,6 +93,7 @@ class UserController extends Controller
     {
         $modeluser = $this->findModel($id);
         $model= new UpdateUser();
+        $model->id = $modeluser->id;
         $model->email = $modeluser->email;
         $model->phone = $modeluser->phone;
         $model->surname = $modeluser->surname;
@@ -136,5 +153,20 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+    public function  actionBane($id)
+    {
+        $userRole = Yii::$app->authManager->getRole('baned');
+        Yii::$app->authManager->assign($userRole,$id);
+
+        return $this->redirect('index');
+    }
+    public function  actionUnbane($id)
+    {
+        $manager = Yii::$app->authManager;
+        $item = $manager->getRole('baned');
+        $manager->revoke($item,$id);
+
+        return $this->redirect('index');
     }
 }
