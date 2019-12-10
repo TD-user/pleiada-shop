@@ -79,6 +79,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if ( strcmp(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id))[0],'baned') ===0)
+        {
+            Yii::$app->user->logout();
+            Yii::$app->session->setFlash('error', 'Нажаль ви були заблоковані! Зв\'яжітись з нами у розділі Контакти');
+        }
         $categories = Categories::getTreeMenuArray();
 
         $promotionProducts = Product::find()
@@ -241,7 +246,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'New password saved.');
+            Yii::$app->session->setFlash('success', 'Новий пароль змінено');
 
             return $this->goHome();
         }
