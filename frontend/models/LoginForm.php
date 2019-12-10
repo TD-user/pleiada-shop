@@ -46,7 +46,6 @@ class LoginForm extends Model
 
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Невірний логін або пароль');
-                var_dump($user->id);
             }
 
 
