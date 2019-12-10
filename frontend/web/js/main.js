@@ -118,4 +118,46 @@ $(document).ready(function(){
         return true;
     });
 
+    $("#mainFormOrder").submit(function () {
+        let orderInfo = [];
+        $(".curt-product").each(function (index) {
+            orderInfo.push({
+                product_id: $(this).attr('data-id'),
+                name: $(this).find(".curt-info-title a").eq(0).text().trim(),
+                price: parseFloat($(this).find(".price-value").eq(0).text()),
+                count: parseInt($(this).find(".curn-number-products").eq(0).text()),
+                summa: parseFloat($(this).find(".total-value").eq(0).text()),
+            });
+        });
+        let total = parseFloat($("#full-cart-value").text());
+        $("#order-total").val(total);
+        $("#order-products_json").val(JSON.stringify(orderInfo));
+
+
+        return true;
+    });
+
+    $("#select-method-delivery").change(function () {
+        if($(this).val() == 2) {
+            $(".nova-poshta-block").css('display', 'block');
+            $(".self-shop-visit").css('display', 'none');
+        }
+        else if($(this).val() == 1) {
+            $(".nova-poshta-block").css('display', 'none');
+            $(".self-shop-visit").css('display', 'block');
+            $('#order-address').val('Самовивіз з магазину');
+            $('#order-methoddelivery').val('Самовивіз з магазину');
+            $('#order-methodpayment').val('Оплата при отриманні товару в магазині');
+        }
+        else {
+            $(".nova-poshta-block").css('display', 'none');
+            $(".self-shop-visit").css('display', 'none');
+            $('#order-address').val('');
+            $('#order-methoddelivery').val('');
+            $('#order-methodpayment').val('');
+
+        }
+    });
+
+
 });

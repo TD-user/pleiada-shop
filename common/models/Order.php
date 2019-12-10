@@ -22,6 +22,7 @@ use yii\db\ActiveRecord;
  * @property string|null $status
  * @property int|null $is_payment
  * @property string|null $comment
+ * @property string|null $comment_admin
  * @property string|null $methodPayment
  * @property string|null $methodDelivery
  * @property float|null $cost
@@ -47,7 +48,7 @@ class Order extends \yii\db\ActiveRecord implements \borysenko\liqpay\interfaces
             [['phone', 'name', 'surname', 'address', 'total'], 'required'],
             [['total', 'cost'], 'number'],
             [['email', 'phone', 'name', 'surname', 'address', 'status', 'methodPayment', 'methodDelivery', 'payment'], 'string', 'max' => 255],
-            [['products_json', 'comment'], 'string', 'max' => 5000],
+            [['products_json', 'comment', 'comment_admin'], 'string', 'max' => 5000],
         ];
     }
 
@@ -70,6 +71,7 @@ class Order extends \yii\db\ActiveRecord implements \borysenko\liqpay\interfaces
             'status' => 'Статус',
             'is_payment' => 'Is Payment',
             'comment' => 'Коментар',
+            'comment_admin' => 'Коментар адміністратора',
             'methodPayment' => 'Метод оплати',
             'methodDelivery' => 'Метод доставки',
             'cost' => 'Cost',

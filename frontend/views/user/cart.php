@@ -12,47 +12,58 @@ $this->title = 'Плеяда - корзина';
 <div class="order-container">
     <div class="order-info">
         <?php $form = ActiveForm::begin([
-            'action' => '/user/payment',
+            'action' => '/user/order',
             'id' => 'mainFormOrder',
             'options' => [
                 'class' => 'order-form'
             ]
         ]); ?>
-        <?= $form->field($order, 'email')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($order, 'phone')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($order, 'surname')->textInput(['maxlength' => true]) ?>
-<!--        --><?//= $form->field($order, 'address')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($order, 'address')->widget(Select2::classname(), [
-            'data' => $cities,
-            'options' => ['placeholder' => 'Select a state ...'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]);?>
-        <?= $form->field($order, 'total')->hiddenInput(['value' => 100])->label(false) ?>
-        <?= $form->field($order, 'products_json')->hiddenInput(['maxlength' => true, 'value' => 'json'])->label(false) ?>
-        <?= $form->field($order, 'comment')->textarea(['maxlength' => true, 'rows' => 4]) ?>
-        <?= $form->field($order, 'methodPayment')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($order, 'email')->textInput(['maxlength' => true, 'placeholder' => 'email'])->label(false) ?>
+        <?= $form->field($order, 'phone')->textInput(['maxlength' => true, 'placeholder' => 'телефон'])->label(false) ?>
+        <?= $form->field($order, 'name')->textInput(['maxlength' => true, 'placeholder' => 'Ім\'я'])->label(false) ?>
+        <?= $form->field($order, 'surname')->textInput(['maxlength' => true, 'placeholder' => 'прізвище'])->label(false) ?>
+        <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть спосіб доставки</b></div>
+        <?= Html::dropDownList('delivery', null, [
+            0 => '',
+            1 => 'Самовивіз з магазину',
+            2 => 'Доставка Новою поштою'
+        ], ['class' => 'form-control', 'id' => 'select-method-delivery'])?>
 
-        <?= $form->field($order, 'methodDelivery')->textInput(['maxlength' => true]) ?>
-        <?= $form->field($order, 'cost')->hiddenInput()->label(false) ?>
+        <div class="nova-poshta-block" style="display: none;">
+            <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть місто</b></div>
+            <div><?= Select2::widget([
+                'name' => 'state_10',
+                'data' => $cities,
+                'options' => [
+                    'placeholder' => 'Вибрати місто...'
+                ],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]) ?></div>
+            <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть спосіб оплати</b></div>
+            <?= Html::dropDownList('payment', null, [
+                '' => '',
+                'Самовивіз з магазину' => 'Самовивіз з магазину',
+                'Доставка Новою поштою' => 'Доставка Новою поштою'
+            ], ['class' => 'form-control', 'id' => 'select-method-delivery'])?>
+        </div>
+        <div class="self-shop-visit" style="display: none;">
+            <div style="margin-bottom: 10px;"><b>Оплата при отриманні товару в магазині за адресою вулиця Івана Мазепи, 33, Трускавець</b></div>
+        </div>
 
-        <?= $form->field($order, 'payment')->hiddenInput(['maxlength' => true])->label(false) ?>
+
+
+
+        <?= Html::activeHiddenInput($order, 'methodDelivery')?>
+        <?= Html::activeHiddenInput($order, 'methodPayment')?>
+        <?= Html::activeHiddenInput($order, 'address')?>
+        <?= Html::activeHiddenInput($order, 'products_json')?>
+        <?= Html::activeHiddenInput($order, 'total')?>
+        <?= $form->field($order, 'comment')->textarea(['maxlength' => true, 'rows' => 4, 'placeholder' => 'коментар до замовлення...'])->label(false) ?>
         <input type="submit" value="Замовити">
         <?php ActiveForm::end(); ?>
-<!--        <form action="" method="post" class="order-form">-->
-<!--            <input type="text" name="pib" placeholder="Прізвище Ім'я По батькові...">-->
-<!--            <input type="tel" name="phone" placeholder="+38(0__) __ __ ___">-->
-<!--            <input type="text" name="email" placeholder="Email...">-->
-<!--            <select name="city">-->
-<!--                <option>Виберіть місто...</option>-->
-<!--                <option value="Луцьк">Луцьк</option>-->
-<!--                <option value="Львів">Львів</option>-->
-<!--                <option value="Київ">Київ</option>-->
-<!--            </select>-->
-<!--            <textarea name="comment" cols="30" rows="5" placeholder="Ваш коментар до замовлення..."></textarea>-->
-<!--            <input type="submit" value="Замовити">-->
-<!--        </form>-->
+
         <div class="order-goods">
             <div class="one-click">
                 <div>
@@ -70,7 +81,7 @@ $this->title = 'Плеяда - корзина';
                     ]); ?>
                     <?= Html::activeHiddenInput($modelOneClickOrder, 'products_json')?>
                     <?= Html::activeHiddenInput($modelOneClickOrder, 'total')?>
-                    <?= Html::activeTextInput($modelOneClickOrder, 'phone', ['pattern' => '\\d*']) ?>
+                    <?= Html::activeTextInput($modelOneClickOrder, 'phone', ['pattern' => '\\d*', 'placeholder' => '+38(0__) __ __ ___']) ?>
                     <input type="submit" value="OK">
                     <?php ActiveForm::end(); ?>
                 </div>

@@ -49,6 +49,10 @@ class UserController extends Controller
             $cities = NpCities::find()->all();
             $cities = ArrayHelper::map($cities, 'Ref', 'Description');
             $order = new Order();
+            $order->email = Yii::$app->user->identity->email;
+            $order->name = Yii::$app->user->identity->name;
+            $order->surname = Yii::$app->user->identity->surname;
+            $order->phone = Yii::$app->user->identity->phone;
 
             return $this->render('cart', [
                 'products' => $carts,
@@ -61,14 +65,29 @@ class UserController extends Controller
 
     public function actionPayment()
     {
-        $order = new Order();
-        $order->id = 1;
-        $order->cost = 100;
-
-        return $this->render('payment', [
-            'model' => $order,
-        ]);
+//        $order = new Order();
+//        $order->id = 1;
+//        $order->cost = 100;
+//
+//        return $this->render('payment', [
+//            'model' => $order,
+//        ]);
     }
+
+    public function actionOrder()
+    {
+        $order = new Order();
+
+
+        if ($order->load(Yii::$app->request->post()) && $order->save() ) {
+
+
+
+        }
+
+
+    }
+
 
     public function actionOneClickOrder()
     {
