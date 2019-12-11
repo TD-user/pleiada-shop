@@ -30,21 +30,26 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'products_json')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->dropDownList([
+        'Нове' => 'Нове',
+        'В роботі' => 'В роботі',
+        'Відправлено' => 'Відправлено',
+        'Завершено' => 'Завершено',
+    ]) ?>
 
     <?= $form->field($model, 'is_payment')->textInput() ?>
 
-    <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'comment')->textarea(['maxlength' => true, 'rows' => 5]) ?>
 
-    <?= $form->field($model, 'comment_admin')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'comment_admin')->textarea(['maxlength' => true, 'rows' => 5]) ?>
 
     <?= $form->field($model, 'methodPayment')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'methodDelivery')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'cost')->textInput() ?>
+<!--    --><?//= $form->field($model, 'cost')->textInput() ?>
 
-    <?= $form->field($model, 'payment')->textInput(['maxlength' => true]) ?>
+<!--    --><?//= $form->field($model, 'payment')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

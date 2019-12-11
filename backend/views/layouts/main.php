@@ -42,7 +42,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
 
-        if (Yii::$app->user->can('canAdmin '))
+        if (Yii::$app->user->can('canAdmin'))
         $menuItems[] = [
             'label' => 'Контент',
             'items' => [

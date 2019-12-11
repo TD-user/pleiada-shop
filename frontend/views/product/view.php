@@ -78,16 +78,17 @@ $this->title = 'Плеяда - '.$model->name;
                     <h3>Відгуки: </h3>
                 </div>
                 <div class="row">
-                    <? if ($model->getReviews()->where(['is_moderated' => 1])->count() == 0):?>
+                    <? $reviews = $model->getReviews()->where(['is_moderated' => 1])->all(); ?>
+                    <? if (count($reviews) == 0):?>
                     <p>Про цей товар поки немає відгуків. Станьте першим</p>
                     <? endif;?>
-                    <? foreach ($model->getReviews()->where(['is_moderated' => 1])->all() as $review): ?>
+                    <? foreach ($reviews as $review): ?>
                     <div class="panel panel-danger panel-violet">
                         <div class="panel-heading">
                             <?= $review->name; ?>
                         </div>
                         <div class="panel-body">
-                            <p><?= $review->text; ?></p>
+                            <p><?= Html::encode($review->text); ?></p>
                         </div>
                     </div>
                     <? endforeach; ?>

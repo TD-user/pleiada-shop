@@ -44,7 +44,7 @@ $this->title = 'Плеяда - корзина';
             ]) ?></div>
             <div class="text-center" style="margin: 15px 0;"><b>Оберіть відділення</b></div>
             <div>
-                <?= Html::dropDownList('warehouse', null, [], ['class' => 'form-control', 'id' => 'select-warehouse-np'])?>
+                <?= Html::dropDownList('warehouse', null, [], ['class' => 'form-control', 'id' => 'select-warehouse-np', 'disabled' => 'disabled'])?>
             </div>
             <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть спосіб оплати</b></div>
             <?= Html::dropDownList('payment', null, [
@@ -60,7 +60,7 @@ $this->title = 'Плеяда - корзина';
         <?= Html::activeHiddenInput($order, 'address')?>
         <?= Html::activeHiddenInput($order, 'products_json')?>
         <?= Html::activeHiddenInput($order, 'total')?>
-        <?= Html::activeHiddenInput($order, 'is_payment', ['value' => 1])?>
+        <?= Html::activeHiddenInput($order, 'is_payment')?>
         <?= $form->field($order, 'comment')->textarea(['maxlength' => true, 'rows' => 4, 'placeholder' => 'коментар до замовлення...'])->label(false) ?>
         <input type="submit" value="Замовити">
         <?php ActiveForm::end(); ?>

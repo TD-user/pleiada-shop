@@ -105,17 +105,29 @@ $(document).ready(function(){
             url: '/user/get-warehouses',
             data: {ref: Ref},
             type: 'GET',
+            beforeSend: function(){
+                $("#select-warehouse-np").empty();
+                $("#select-warehouse-np").attr('disabled', 'disabled');
+            },
             success: function (result) {
                 let data = JSON.parse(result);
-                $("#select-warehouse-np").empty();
-                for(let i = 0; i < data.data.length; i++) {
+                if(data != null) {
+                    // console.log(result);
+                    $("#select-warehouse-np").removeAttr('disabled');
+                    $("#select-warehouse-np").empty();
                     $("#select-warehouse-np").append($("<option></option>")
-                        .attr("value",data.data[i].Description)
-                        .text(data.data[i].Description));
+                        .attr("value", '')
+                        .text(''));
+                    for (let i = 0; i < data.data.length; i++) {
+                        $("#select-warehouse-np").append($("<option></option>")
+                            .attr("value", data.data[i].Description)
+                            .text(data.data[i].Description));
+                    }
                 }
             },
             error: function (result) {
                 $("#select-warehouse-np").empty();
+                $("#select-warehouse-np").attr('disabled', 'disabled');
             }
         });
     });

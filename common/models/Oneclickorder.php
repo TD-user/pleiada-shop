@@ -41,6 +41,7 @@ class Oneclickorder extends \yii\db\ActiveRecord
             [['created_at', 'status', 'is_payment'], 'integer'],
             [['phone', 'total'], 'required'],
             [['total'], 'number'],
+            ['total', 'compare', 'compareValue' => 0, 'operator' => '>', 'type' => 'number'],
             [['phone', 'name', 'surname', 'email', 'address'], 'string', 'max' => 255],
             [['products_json', 'comment'], 'string', 'max' => 5000],
         ];

@@ -59,6 +59,7 @@ class UserController extends Controller
         else {
             $carts = Yii::$app->user->identity->getProductsCart()->all();
             $modelOneClickOrder = new Oneclickorder();
+            $modelOneClickOrder->phone = Yii::$app->user->identity->phone;
             $cities = NpCities::find()->all();
             $cities = ArrayHelper::map($cities, 'Ref', 'Description');
             $order = new Order();
@@ -88,10 +89,11 @@ class UserController extends Controller
 
     public function actionOrder()
     {
+        if(Yii::$app->user->isGuest)
+            return $this->goHome();
+
         $order = new Order();
         if ($order->load(Yii::$app->request->post()) && $order->save() ) {
-
-            $this->updateUserCarts($order->products_json);
 
             $validateOrder = [];
             $newTotal = 0;
@@ -104,7 +106,14 @@ class UserController extends Controller
                     $productTemp->product_id = $product->id;
                     $productTemp->name = $prodOrder->name;
                     $productTemp->price = $prodOrder->price;
-                    $productTemp->count = $prodOrder->count;
+
+                    if($prodOrder->count > $product->remains)
+                        $productTemp->count = $product->remains;
+                    else if ($prodOrder->count < 1)
+                        $productTemp->count = 1;
+                    else
+                        $productTemp->count = $prodOrder->count;
+
                     $productTemp->summa = $prodOrder->summa;
 
                     if($productTemp->validateUserData())
@@ -116,13 +125,16 @@ class UserController extends Controller
                         $prodOrder->name = $productTemp->name;
                         $prodOrder->price = $productTemp->price;
                         $prodOrder->count = $productTemp->count;
-                        $prodOrder->summa = $productTemp->summa;
+                        $prodOrder->summa = $productTemp->price * $productTemp->count;
                         $validateOrder[] = $prodOrder;
                     }
                     $newTotal += $prodOrder->summa;
                 }
             }
             $order->products_json = json_encode($validateOrder);
+
+            $this->updateUserCarts($order->products_json);
+
             if($order->total != $newTotal) {
                 $order->total = $newTotal;
                 $flag = false;
@@ -138,8 +150,10 @@ class UserController extends Controller
                 return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
             }
 
-            if($flag)
+            if($flag) {
                 Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+                Yii::$app->user->identity->clearCarts();
+            }
             else
                 Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
 
@@ -152,10 +166,12 @@ class UserController extends Controller
 
     public function actionOneClickOrder()
     {
-        $modelOneClickOrder = new Oneclickorder();
-        if ($modelOneClickOrder->load(Yii::$app->request->post()) && $modelOneClickOrder->save() ) {
+        if(Yii::$app->user->isGuest)
+            return $this->goHome();
 
-            $this->updateUserCarts($modelOneClickOrder->products_json);
+        $modelOneClickOrder = new Oneclickorder();
+
+        if ($modelOneClickOrder->load(Yii::$app->request->post()) && $modelOneClickOrder->save() ) {
 
             $validateOrder = [];
             $newTotal = 0;
@@ -168,7 +184,14 @@ class UserController extends Controller
                     $productTemp->product_id = $product->id;
                     $productTemp->name = $prodOrder->name;
                     $productTemp->price = $prodOrder->price;
-                    $productTemp->count = $prodOrder->count;
+
+                    if($prodOrder->count > $product->remains)
+                        $productTemp->count = $product->remains;
+                    else if ($prodOrder->count < 1)
+                        $productTemp->count = 1;
+                    else
+                        $productTemp->count = $prodOrder->count;
+
                     $productTemp->summa = $prodOrder->summa;
 
                     if($productTemp->validateUserData())
@@ -180,13 +203,16 @@ class UserController extends Controller
                         $prodOrder->name = $productTemp->name;
                         $prodOrder->price = $productTemp->price;
                         $prodOrder->count = $productTemp->count;
-                        $prodOrder->summa = $productTemp->summa;
+                        $prodOrder->summa = $productTemp->price * $productTemp->count;
                         $validateOrder[] = $prodOrder;
                     }
                     $newTotal += $prodOrder->summa;
                 }
             }
             $modelOneClickOrder->products_json = json_encode($validateOrder);
+
+            $this->updateUserCarts($modelOneClickOrder->products_json);
+
             if($modelOneClickOrder->total != $newTotal) {
                 $modelOneClickOrder->total = $newTotal;
                 $flag = false;

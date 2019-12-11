@@ -19,8 +19,8 @@ return [
     'modules' => [
         'liqpay' => [
             'class' => 'borysenko\liqpay\Module',
-            'public_key' => 'iNNNNNNNNNNN',
-            'private_key' => 'NzpRclCywaSOrm0LTpqDpPPlRDhoOQyIX1ISHjk',
+            'public_key' => 'sandbox_i78141231246',
+            'private_key' => 'sandbox_znqMFJGzuzxKmsRutcal9xkIvIh0EkHw8ravVmlr',
             'currency' => 'UAH',
             'pay_way' => null,
             'version' => 3,

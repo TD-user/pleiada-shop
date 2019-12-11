@@ -252,6 +252,13 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Cart::className(), ['user_id' => 'id']);
     }
 
+    public function clearCarts()
+    {
+        $carts = $this->getCarts()->all();
+        for($i = 0; $i < count($carts); $i++)
+            $carts[$i]->delete();
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
