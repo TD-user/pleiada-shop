@@ -34,7 +34,7 @@ class UserController extends Controller
             return $this->goHome();
         }
 
-        $user  = User::findOne(Yii::$app->user->id);
+        $user = User::findOne(Yii::$app->user->id);
         $model->id = $user->id;
         $model->email = $user->email;
         $model->phone = $user->phone;
@@ -46,9 +46,42 @@ class UserController extends Controller
         $model->city = $user->city;
         $model->username = $user->username;
 
+        $orders = Yii::$app->user->identity->getOrders()->orderBy(['created_at' => SORT_DESC]);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 20,
+            'totalCount' => $orders->count(),
+        ]);
+
+        $orders = $orders->offset($pagination->offset)->limit($pagination->limit)->all();
+
         return $this->render('index', [
             'model' => $model,
+            'orders' => $orders,
+            'pagination' => $pagination,
         ]);
+    }
+
+    public function actionFavourite()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        else {
+            $favourites = Yii::$app->user->identity->getProductsFavourite()->orderBy(['remains' => SORT_DESC]);
+
+            $pagination = new Pagination([
+                'defaultPageSize' => 20,
+                'totalCount' => $favourites->count(),
+            ]);
+
+            $favourites = $favourites->offset($pagination->offset)->limit($pagination->limit)->all();
+
+            return $this->render('favourite', [
+                'products' => $favourites,
+                'pagination' => $pagination,
+            ]);
+        }
     }
 
     public function actionCart()
@@ -231,27 +264,7 @@ class UserController extends Controller
         }
     }
 
-    public function actionFavourite()
-    {
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-        else {
-            $favourites = Yii::$app->user->identity->getProductsFavourite()->orderBy(['remains' => SORT_DESC]);;
 
-            $pagination = new Pagination([
-                'defaultPageSize' => 20,
-                'totalCount' => $favourites->count(),
-            ]);
-
-            $favourites = $favourites->offset($pagination->offset)->limit($pagination->limit)->all();
-
-            return $this->render('favourite', [
-                'products' => $favourites,
-                'pagination' => $pagination,
-            ]);
-        }
-    }
 
     public function actionAddToFavourite($productId)
     {

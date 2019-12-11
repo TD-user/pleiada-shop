@@ -27,6 +27,8 @@ use yii\db\ActiveRecord;
  * @property string|null $methodDelivery
  * @property float|null $cost
  * @property string|null $payment
+ *
+ * @property User $user
  */
 class Order extends \yii\db\ActiveRecord implements \borysenko\liqpay\interfaces\Order
 {
@@ -90,6 +92,14 @@ class Order extends \yii\db\ActiveRecord implements \borysenko\liqpay\interfaces
                 ],
             ],
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
     public function getId()

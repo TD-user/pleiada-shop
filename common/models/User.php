@@ -33,8 +33,7 @@ use yii\web\IdentityInterface;
  * @property Product[] $productsCart
  * @property Favourite[] $favourites
  * @property Product[] $productsFavourite
- * @property History[] $histories
- * @property Product[] $productsHistory
+ * @property Order[] $orders
  * @property Reviews[] $reviews
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -286,17 +285,9 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getHistories()
+    public function getOrders()
     {
-        return $this->hasMany(History::className(), ['user_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProductsHistory()
-    {
-        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('{{%history}}', ['user_id' => 'id']);
+        return $this->hasMany(Order::className(), ['user_id' => 'id']);
     }
 
     /**

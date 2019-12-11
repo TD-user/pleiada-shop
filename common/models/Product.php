@@ -27,8 +27,6 @@ use yii\db\StaleObjectException;
  * @property User[] $usersCarts
  * @property Favourite[] $favourites
  * @property User[] $usersFavourites
- * @property History[] $histories
- * @property User[] $usersHistory
  * @property Images[] $images
  * @property Categories $category
  * @property Reviews[] $reviews
@@ -123,22 +121,6 @@ class Product extends \yii\db\ActiveRecord
     public function getUsersFavourites()
     {
         return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%favourite}}', ['product_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getHistories()
-    {
-        return $this->hasMany(History::className(), ['product_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUsersHistory()
-    {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%history}}', ['product_id' => 'id']);
     }
 
     /**

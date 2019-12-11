@@ -12,37 +12,12 @@ class m191201_141728_history extends Migration
      */
     public function safeUp()
     {
-        $tableOptions = null;
-        if ($this->db->driverName === 'mysql'){
-            $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=INNODB';
-        }
+        $this->createIndex('idx-order-user_id', '{{%order}}', 'user_id');
 
-        $this->createTable('{{%history}}', [
-            'order'=>$this->string(),
-            'user_id'=>$this->integer(11),
-            'product_id'=>$this->integer(11),
-            'json'=>$this->string(5000),
-            'total' => $this->double()->notNull(),
-            'created_at' => $this->integer()->notNull(),
-            'PRIMARY KEY(user_id, product_id)'
-        ], $tableOptions);
-
-        $this->createIndex('idx-history-user_id', '{{%history}}', 'user_id');
-
-        $this->addForeignKey('fk-history-user_id',
-            '{{%history}}',
+        $this->addForeignKey('fk-order-user_id',
+            '{{%order}}',
             'user_id',
             '{{%user}}',
-            'id',
-            'NO ACTION'
-        );
-
-        $this->createIndex('idx-history-product_id', '{{%history}}', 'product_id');
-
-        $this->addForeignKey('fk-history-product_id',
-            '{{%history}}',
-            'product_id',
-            '{{%product}}',
             'id',
             'NO ACTION'
         );
@@ -53,12 +28,8 @@ class m191201_141728_history extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%history}}');
-
-        $this->dropIndex('idx-history-user_id', '{{%history}}');
-        $this->dropForeignKey('fk-history-user_id', '{{%history}}');
-        $this->dropIndex('idx-history-product_id', '{{%history}}');
-        $this->dropForeignKey('fk-history-product_id', '{{%history}}');
+        $this->dropIndex('idx-order-user_id', '{{%history}}');
+        $this->dropForeignKey('fk-order-user_id', '{{%history}}');
 
         echo "m191201_141728_history cannot be reverted.\n";
 
