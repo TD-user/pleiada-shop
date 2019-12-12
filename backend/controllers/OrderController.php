@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Order;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -64,6 +65,8 @@ class OrderController extends Controller
      */
     public function actionCreate()
     {
+        return $this->redirect(Url::to(['order/index']));
+
         $model = new Order();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
