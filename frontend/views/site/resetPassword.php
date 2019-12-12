@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= $form->field($model, 'password')->passwordInput(['autofocus' => true])->label('Пароль') ?>
 
-                    <div class="form-group">
-                        <?= Html::submitButton('Зберегти', ['class' => 'btn btn-primary']) ?>
+                    <div class="violet-input-submit-wrapper" style="margin-bottom: 45px;">
+                        <?= Html::submitInput('Зберегти') ?>
                     </div>
 
                 <?php ActiveForm::end(); ?>

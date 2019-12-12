@@ -63,8 +63,8 @@ $this->title = 'Плеяда - особистий кабінет';
                                 'template' => '<div class="row"><div class="col-sm-3">{image}</div><div class="col-sm-6">{input}</div></div>',
                             ])->label('Код підтвердження *') ?>
 
-                            <div class="form-group">
-                                <?= Html::submitButton('Змінити дані', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
+                            <div class="violet-input-submit-wrapper" style="margin-bottom: 45px;">
+                                <?= Html::submitInput('Змінити дані', ['name' => 'signup-button']) ?>
                             </div>
 
                             <?php ActiveForm::end(); ?>

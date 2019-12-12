@@ -17,13 +17,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Видалити', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Ви впевнені, що бажаєте видалити цю сторінку?',
-                'method' => 'post',
-            ],
-        ]) ?>
+<!--        --><?//= Html::a('Видалити', ['delete', 'id' => $model->id], [
+//            'class' => 'btn btn-danger',
+//            'data' => [
+//                'confirm' => 'Ви впевнені, що бажаєте видалити цю сторінку?',
+//                'method' => 'post',
+//            ],
+//        ]) ?>
     </p>
 
     <?= DetailView::widget([
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
-            'alias',
+            //'alias',
         ],
     ]) ?>
 

@@ -6,6 +6,7 @@ use Yii;
 use common\models\Htmlpages;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -79,6 +80,8 @@ class PageController extends Controller
      */
     public function actionCreate()
     {
+        return $this->redirect(Url::to(['page/index']));
+
         $model = new Htmlpages();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -119,6 +122,8 @@ class PageController extends Controller
      */
     public function actionDelete($id)
     {
+        return $this->redirect(Url::to(['page/index']));
+
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

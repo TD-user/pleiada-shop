@@ -20,8 +20,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($modelReview, 'text')->textarea(['maxlength' => true, 'rows' => '12', 'placeholder' => 'Коментар...'])->label(false) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Відправити', ['class' => 'btn btn-success']) ?>
+    <div class="violet-input-submit-wrapper text-center">
+        <input type="submit" value="Відправити">
     </div>
 
     <?php ActiveForm::end(); ?>
