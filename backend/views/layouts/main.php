@@ -47,7 +47,8 @@ AppAsset::register($this);
             'label' => 'Контент',
             'items' => [
                 ['label' => 'Вміст сторінок', 'url' => ['/page/index']],
-                ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']]
+                ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']],
+                ['label' => 'Соціальні мережі', 'url' => ['/social/index']],
             ],
         ];
         if (Yii::$app->user->can('canManage'))

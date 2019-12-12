@@ -10,6 +10,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use frontend\widgets\SocialWidget;
 
 AppAsset::register($this);
 ?>
@@ -159,13 +160,7 @@ AppAsset::register($this);
     
 <footer>
     <div class="footer-container">
-        <div class="footer-icons">
-            <a href="#"><img src="/img/twitter.png" alt="Twitter" title="Twitter" width="24" height="24"></a>
-            <a href="#"><img src="/img/facebook.png" alt="Facebook" title="Facebook" width="24" height="24"></a>
-            <a href="#"><img src="/img/viber.png" alt="Viber" title="Viber" width="24" height="24"></a>
-            <a href="#"><img src="/img/instagram.png" alt="Instagram" title="Instagram" width="24" height="24"></a>
-            <a href="#"><img src="/img/youtube.png" alt="Youtube" title="Youtube" width="24" height="24"></a>
-        </div>
+        <?= SocialWidget::widget(); ?>
         <div class="footer-navigation">
             <ul class="footer-list">
                 <li><a href="<?= Url::to(['site/delivery-and-payment'])?>">Доставка та оплата</a></li>

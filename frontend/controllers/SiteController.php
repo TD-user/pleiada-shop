@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\Htmlpages;
 use common\models\Mainslider;
 use common\models\Product;
+use common\models\Social;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
