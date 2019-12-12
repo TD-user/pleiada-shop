@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\models\LoginFormAdmin;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -24,7 +25,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','signup'],
+                        'actions' => ['login', 'error','signup','upload'],
                         'allow' => true,
                     ],
                     [
@@ -214,5 +215,17 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+    public function actionUpload()
+    {
+        $model = new XmlToDB();
+
+        if (isset($_POST['XmlToDB'])) {
+            $model->path = UploadedFile::getInstance($model, 'path');
+
+            $model->ArrayToDB();
+        }
+
+        return $this->render('updatebd',['model'=>$model]);
     }
 }
