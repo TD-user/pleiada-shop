@@ -47,7 +47,7 @@ class Order extends \yii\db\ActiveRecord implements \borysenko\liqpay\interfaces
     {
         return [
             [['created_at', 'user_id', 'is_payment'], 'integer'],
-            [['phone', 'name', 'surname', 'address', 'total'], 'required'],
+            [['phone', 'name', 'surname', 'address', 'total', 'email'], 'required', 'message' => 'Поле не може бути порожнім'],
             [['total', 'cost'], 'number'],
             ['total', 'compare', 'compareValue' => 0, 'operator' => '>', 'type' => 'number'],
             [['email', 'phone', 'name', 'surname', 'address', 'status', 'methodPayment', 'methodDelivery', 'payment'], 'string', 'max' => 255],
