@@ -6,6 +6,7 @@ use Yii;
 use common\models\Oneclickorder;
 use common\models\OneclickorderSearch;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -79,6 +80,8 @@ class OneclickorderController extends Controller
      */
     public function actionCreate()
     {
+        return $this->redirect(Url::to(['oneclickorder/index']));
+
         $model = new Oneclickorder();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

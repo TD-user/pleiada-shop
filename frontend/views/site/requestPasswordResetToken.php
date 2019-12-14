@@ -22,8 +22,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-                    <div class="form-group">
-                        <?= Html::submitButton('Надіслати запит', ['class' => 'btn btn-primary']) ?>
+                    <div class="violet-input-submit-wrapper" style="margin-bottom: 45px;">
+                        <?= Html::submitInput('Надіслати запит') ?>
                     </div>
 
                 <?php ActiveForm::end(); ?>

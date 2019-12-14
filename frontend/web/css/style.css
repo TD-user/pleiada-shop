@@ -1190,6 +1190,19 @@ button.not-available>span{
 .order-form input[type="submit"]:active{
 	background: linear-gradient(rgb(127,47,120),rgb(87,7,80));
 }
+.violet-input-submit-wrapper input[type="submit"] {
+	background: linear-gradient(rgb(147,67,140),rgb(87,7,80));
+	border-radius: 7px;
+	padding: 10px 35px;
+	font-size: 18px;
+	box-shadow: 1px 1px 5px rgb(90, 17, 97);
+	border: 0;
+	outline: 0;
+	color: rgb(240, 240, 240);
+}
+.violet-input-submit-wrapper input[type="submit"]:active{
+	background: linear-gradient(rgb(127,47,120),rgb(87,7,80));
+}
 .order-goods{
 	width: calc(100% - 370px);
 	margin-left: 20px;

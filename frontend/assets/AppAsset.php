@@ -14,8 +14,8 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/bootstrap-slider.min.css',
-        'css/style.css?v=22',
-        'css/changedStyle.css?v=2',
+        'css/style.css?v=23',
+        'css/changedStyle.css?v=4',
     ];
     public $js = [
         'js/main.js?v=21',

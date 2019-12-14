@@ -47,7 +47,8 @@ AppAsset::register($this);
             'label' => 'Контент',
             'items' => [
                 ['label' => 'Вміст сторінок', 'url' => ['/page/index']],
-                ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']]
+                ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']],
+                ['label' => 'Соціальні мережі', 'url' => ['/social/index']],
             ],
         ];
         if (Yii::$app->user->can('canManage'))
@@ -116,7 +117,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+<!--        <p class="pull-right">--><?//= Yii::powered() ?><!--</p>-->
     </div>
 </footer>
 

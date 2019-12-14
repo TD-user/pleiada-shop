@@ -4,23 +4,23 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Htmlpages */
+/* @var $model common\models\Social */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Htmlpages', 'url' => ['index']];
+$this->title = $model->name;
+$this->params['breadcrumbs'][] = ['label' => 'Socials', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="htmlpages-view">
+<div class="social-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
         <?= Html::a('Редагувати', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-<!--        --><?//= Html::a('Видалити', ['delete', 'id' => $model->id], [
+<!--        --><?//= Html::a('Delete', ['delete', 'id' => $model->id], [
 //            'class' => 'btn btn-danger',
 //            'data' => [
-//                'confirm' => 'Ви впевнені, що бажаєте видалити цю сторінку?',
+//                'confirm' => 'Are you sure you want to delete this item?',
 //                'method' => 'post',
 //            ],
 //        ]) ?>
@@ -29,9 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'title',
-            //'alias',
+            //'id',
+            //'path',
+            'name',
+            'href',
         ],
     ]) ?>
 

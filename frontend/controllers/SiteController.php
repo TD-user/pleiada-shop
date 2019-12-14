@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\Htmlpages;
 use common\models\Mainslider;
 use common\models\Product;
+use common\models\Social;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -178,7 +179,7 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
-        $page = Htmlpages::find()->where(['alias' => 'pro-nas'])->one();
+        $page = Htmlpages::findOne(1);
 
         return $this->render('about', [
             'page' => $page,
@@ -309,7 +310,7 @@ class SiteController extends Controller
      */
     public function actionVacancy()
     {
-        $page = Htmlpages::find()->where(['alias' => 'vakansii'])->one();
+        $page = Htmlpages::findOne(3);
 
         return $this->render('vacancy', [
             'page' => $page,
@@ -318,12 +319,16 @@ class SiteController extends Controller
     
     public function actionContacts()
     {
-        return $this->render('contacts');
+        $page = Htmlpages::findOne(7);
+
+        return $this->render('contacts', [
+            'page' => $page,
+        ]);
     }    
     
     public function actionDeliveryAndPayment()
     {
-        $page = Htmlpages::find()->where(['alias' => 'dostavka-ta-oplata'])->one();
+        $page = Htmlpages::findOne(2);
 
         return $this->render('delivery', [
             'page' => $page,
@@ -332,7 +337,7 @@ class SiteController extends Controller
     
     public function actionReturnOfGoods()
     {
-        $page = Htmlpages::find()->where(['alias' => 'povernennia-tovaru'])->one();
+        $page = Htmlpages::findOne(4);
 
         return $this->render('returnOfGoods', [
             'page' => $page,
@@ -341,7 +346,7 @@ class SiteController extends Controller
     
     public function actionTermsOfUse()
     {
-        $page = Htmlpages::find()->where(['alias' => 'umovy-vykorystannia-saitu'])->one();
+        $page = Htmlpages::findOne(5);
 
         return $this->render('termsOfUse', [
             'page' => $page,
