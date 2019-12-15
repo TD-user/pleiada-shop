@@ -9,7 +9,10 @@
 namespace backend\models;
 
 use common\models\Product;
+use Yii;
+use yii\db\Exception;
 use yii\db\Query;
+use yii\web\Application;
 
 
 class XmlToDB extends \yii\base\Model
@@ -35,23 +38,31 @@ class XmlToDB extends \yii\base\Model
     public function getArrayByXML()
     {
         if ($this->validate()) {
+            try {
+
             $this->path->saveAs(\Yii::getAlias('@backend') . $this->path->baseName . '.' . $this->path->extension);
-            $path=\Yii::getAlias('@backend'). $this->path->baseName . '.' . $this->path->extension;
+            $path = \Yii::getAlias('@backend') . $this->path->baseName . '.' . $this->path->extension;
             if (file_exists($path)) {
-               $file = file_get_contents($path);
-               $str = str_replace ( '&', '&#38;', $file, $count );
-                file_put_contents($path,$str);
+                $file = file_get_contents($path);
+                $str = str_replace('&', '&#38;', $file, $count);
+                file_put_contents($path, $str);
                 $xml = simplexml_load_file($path);
                 $json = json_encode($xml);
                 $array = json_decode($json, TRUE);
-                $this->path=null;
+                $this->path = null;
                 unlink($path);
-                return $array;
 
+                return $array;
             } else {
                 return false;
+
+            }
+            }catch (\Exception $e)
+            {
+               return false;
             }
         }
+        return false;
 
     }
     public function addProduct($id,$category_id,$name,$price,$remains,$code_1c,$parent_code_1c,$promotionPrice,$currency,$unit,$article,$manufacturer,$description,$alias)

@@ -233,6 +233,8 @@ class SiteController extends Controller
 
          if ($model->ArrayToDB())
            $process = "Файл успішно завантажений !";
+         else
+             $process = "Файл не валідний !";
         }
 
         return $this->render('updatebd',['model'=>$model,'process'=>$process]);
