@@ -9,8 +9,6 @@
 namespace backend\models;
 
 use common\models\Product;
-use DOMDocument;
-use tidy;
 use yii\db\Query;
 
 
@@ -21,10 +19,19 @@ class XmlToDB extends \yii\base\Model
     public function rules()
     {
         return [
-            [['path'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xml'],
+            [['path'],'validateFile' ],
+            [['path'],'required','skipOnEmpty' => false, 'message'=>'Виберіть файл']
         ];
     }
 
+    public function validateFile()
+    {
+
+
+        if ($this->path->extension !== 'xml') {
+            $this->addError('path', 'Файл повинен мати розширення xml');
+        }
+    }
     public function getArrayByXML()
     {
         if ($this->validate()) {
@@ -113,9 +120,9 @@ class XmlToDB extends \yii\base\Model
             }
 
 
-
+            return true;
         }
 
-
+        return false;
     }
 }

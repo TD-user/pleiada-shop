@@ -22,6 +22,20 @@ class ReviewsController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'denyCallback' => function () {
+                    $this->goHome();
+                },
+                'rules' => [
+                    [
+                        'actions' => ['index','view','create','update','delete','new'],
+                        'allow' => true,
+                        'roles' => ['superAdmin','admin'],
+                    ],
+
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

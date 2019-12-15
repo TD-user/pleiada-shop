@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Social */
 
-$this->title = 'Create Social';
+$this->title = 'Створити посилання на соц мережу';
 $this->params['breadcrumbs'][] = ['label' => 'Socials', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
