@@ -4,10 +4,12 @@ namespace backend\controllers;
 use backend\models\SignUpAdmin;
 use backend\models\XmlToDB;
 use Yii;
+use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use backend\models\LoginFormAdmin;
+use yii\web\UploadedFile;
 
 /**
  * Site controller
@@ -24,9 +26,15 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error','signup'],
+                        'actions' => ['login', 'error'],
                         'allow' => true,
                     ],
+                    [
+                        'actions' => ['upload'],
+                        'allow' => true,
+                        'roles' => ['superAdmin','admin','manager'],
+                    ],
+
                     [
                         'actions' => ['logout', 'index'],
                         'allow' => true,
@@ -188,19 +196,19 @@ class SiteController extends Controller
         }
 
     }
-    public function actionSignup()
-    {
-        $model = new SignUpAdmin();
-        if (isset($_POST['SignUpAdmin']))
-        {
-            $model->attributes = Yii::$app->request->post('SignUpAdmin');
-            if ($model->validate() && $model->signup()) {
-
-                return $this->goHome();
-            }
-        }
-        return $this->render('signup',['model'=>$model]);
-    }
+//    public function actionSignup()
+//    {
+//        $model = new SignUpAdmin();
+//        if (isset($_POST['SignUpAdmin']))
+//        {
+//            $model->attributes = Yii::$app->request->post('SignUpAdmin');
+//            if ($model->validate() && $model->signup()) {
+//
+//                return $this->goHome();
+//            }
+//        }
+//        return $this->render('signup',['model'=>$model]);
+//    }
 
     /**
      * Logout action.
@@ -214,5 +222,21 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    public function actionUpload()
+    {
+        $model = new XmlToDB();
+        $process = '';
+        if (isset($_POST['XmlToDB'])) {
+            $model->path = UploadedFile::getInstance($model, 'path');
+
+         if ($model->ArrayToDB())
+           $process = "Файл успішно завантажений !";
+         else
+             $process = "Файл не валідний !";
+        }
+
+        return $this->render('updatebd',['model'=>$model,'process'=>$process]);
     }
 }
