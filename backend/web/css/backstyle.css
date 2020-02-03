@@ -34,3 +34,26 @@
 .mb-15 {
     margin-bottom: 15px;
 }
+.mb-30 {
+    margin-bottom: 30px;
+}
+#status-wrapper {
+    width: 100%;
+    margin: 15px 0;
+}
+.progress-bar-wrapper {
+    width: 100%;
+    height: 10px;
+    border: 1px solid #121212;
+    box-sizing: border-box;
+    position: relative;
+    margin: 15px 0;
+}
+#progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background: #04fc31;
+}

@@ -112,7 +112,6 @@ $(document).ready(function(){
             success: function (result) {
                 let data = JSON.parse(result);
                 if(data != null) {
-                    // console.log(result);
                     $("#select-warehouse-np").removeAttr('disabled');
                     $("#select-warehouse-np").empty();
                     $("#select-warehouse-np").append($("<option></option>")

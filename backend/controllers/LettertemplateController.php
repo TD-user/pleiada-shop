@@ -3,8 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Reviews;
-use common\models\ReviewsSearch;
+use backend\models\LetterTemplate;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -12,9 +11,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ReviewsController implements the CRUD actions for Reviews model.
+ * LettertemplateController implements the CRUD actions for LetterTemplate model.
  */
-class ReviewsController extends Controller
+class LettertemplateController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -29,9 +28,9 @@ class ReviewsController extends Controller
                 },
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','new'],
+                        'actions' => ['index','view','create','update','delete'],
                         'allow' => true,
-                        'roles' => ['superAdmin','admin','manager','moderator'],
+                        'roles' => ['superAdmin','admin'],
                     ],
 
                 ],
@@ -46,38 +45,22 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Lists all Reviews models.
+     * Lists all LetterTemplate models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ReviewsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => LetterTemplate::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Lists all Reviews models.
-     * @return mixed
-     */
-    public function actionNew()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Reviews::find()->where(['is_moderated' => 0])->orderBy(['created_at' => SORT_DESC]),
-        ]);
-
-        return $this->render('new', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-
-    /**
-     * Displays a single Reviews model.
+     * Displays a single LetterTemplate model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -90,15 +73,13 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Creates a new Reviews model.
+     * Creates a new LetterTemplate model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $this->goHome();
-
-        $model = new Reviews();
+        $model = new LetterTemplate();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -110,7 +91,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Updates an existing Reviews model.
+     * Updates an existing LetterTemplate model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -130,7 +111,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Deletes an existing Reviews model.
+     * Deletes an existing LetterTemplate model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,15 +125,15 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Finds the Reviews model based on its primary key value.
+     * Finds the LetterTemplate model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Reviews the loaded model
+     * @return LetterTemplate the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Reviews::findOne($id)) !== null) {
+        if (($model = LetterTemplate::findOne($id)) !== null) {
             return $model;
         }
 

@@ -42,24 +42,33 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Вхід', 'url' => ['/site/login']];
     } else {
 
-        if (Yii::$app->user->can('canAdmin'))
-        $menuItems[] = [
-            'label' => 'Контент',
-            'items' => [
-                ['label' => 'Вміст сторінок', 'url' => ['/page/index']],
-                ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']],
-                ['label' => 'Соціальні мережі', 'url' => ['/social/index']],
-            ],
-        ];
-        if (Yii::$app->user->can('canManage'))
-        $menuItems[] = [
-            'label' => 'Замовлення',
-            'items' => [
-                ['label' => 'One click замовлення', 'url' => ['/oneclickorder/index']],
-                ['label' => 'Замовлення', 'url' => ['/order/index']],
+        if (Yii::$app->user->can('canAdmin')) {
+            $menuItems[] = [
+                'label' => 'Контент',
+                'items' => [
+                    ['label' => 'Вміст сторінок', 'url' => ['/page/index']],
+                    ['label' => 'Головний слайдер', 'url' => ['/mainslider/index']],
+                    ['label' => 'Соціальні мережі', 'url' => ['/social/index']],
+                ],
+            ];
+            $menuItems[] = [
+                'label' => 'Розсилка',
+                'items' => [
+                    ['label' => 'Розсилка', 'url' => ['/letter/index']],
+                    ['label' => 'Шаблони листів', 'url' => ['/lettertemplate/index']],
+                ],
+            ];
+        }
+        if (Yii::$app->user->can('canManage')) {
+            $menuItems[] = [
+                'label' => 'Замовлення',
+                'items' => [
+                    ['label' => 'One click замовлення', 'url' => ['/oneclickorder/index']],
+                    ['label' => 'Замовлення', 'url' => ['/order/index']],
 
-            ],
-        ];
+                ],
+            ];
+        }
         if (Yii::$app->user->can('canAdmin'))
         $menuItems[] = [
             'label' => 'Товари',
@@ -84,7 +93,8 @@ AppAsset::register($this);
             'label' => 'Налаштування',
             'items' => [
                 ['label' => 'Адміністратори', 'url' => ['/admin/index']],
-                ['label' => 'Користувачі', 'url' => ['/user/index']]
+                ['label' => 'Користувачі', 'url' => ['/user/index']],
+                ['label' => 'Підписники', 'url' => ['/subscriber/index']],
 
             ],
         ];

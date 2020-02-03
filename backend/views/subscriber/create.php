@@ -3,13 +3,13 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Order */
+/* @var $model common\models\Subscriber */
 
-$this->title = 'Створити замовлення';
-$this->params['breadcrumbs'][] = ['label' => 'Замовлення', 'url' => ['index']];
+$this->title = 'Добавити підписника';
+$this->params['breadcrumbs'][] = ['label' => 'Підписники', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="order-create">
+<div class="subscriber-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 

@@ -5,6 +5,7 @@ use common\models\Htmlpages;
 use common\models\Mainslider;
 use common\models\Product;
 use common\models\Social;
+use common\models\Subscriber;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -80,6 +81,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         if ( strcmp(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id))[0],'baned') ===0)
         {
             Yii::$app->user->logout();
@@ -219,7 +221,6 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail()) {
                 Yii::$app->session->setFlash('success', 'На ваш email направлено лист з подальшими інструкціями');
-
                 return $this->goHome();
             } else {
                 Yii::$app->session->setFlash('error', 'Вибачте, ми не можемо відправити відновлення паролю на вказану вами адресу.');
@@ -247,7 +248,7 @@ class SiteController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->session->setFlash('success', 'Новий пароль змінено');
+            Yii::$app->session->setFlash('success', 'Пароль успішно змінено');
 
             return $this->goHome();
         }
@@ -351,6 +352,23 @@ class SiteController extends Controller
         return $this->render('termsOfUse', [
             'page' => $page,
         ]);
+    }
+
+    public function actionSubscribe()
+    {
+        if(!Yii::$app->request->isPost)
+            return $this->goHome();
+
+        $model = new Subscriber();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Дякуємо за підписку, на вказану пошту будуть надходити листи про оновлення асортименту, акції, знижки та новини');
+        }
+        else {
+            $message = isset($model->errors['email'][0]) ? $model->errors['email'][0] : 'Під час оформлення підписки виникли деякі проблеми. Можливо ви використали невалідний email або на нього вже оформлено підписку';
+            Yii::$app->session->setFlash('error', $message);
+        }
+        return $this->goHome();
     }
     
     

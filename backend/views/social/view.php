@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Social */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Socials', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Соцмережі', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>

@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'product_id',
             ['attribute' => 'product',
                 'value' => function ($model, $key, $index, $grid) {
-                    return Product::find($model->product_id)->one()->name;
+                    return Product::findOne($model->product_id)->name;
                 },
             ],
             'user_id',

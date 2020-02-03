@@ -269,8 +269,6 @@ class UserController extends Controller
     public function actionAddToFavourite($productId)
     {
         if (Yii::$app->user->isGuest) {
-            //todo for guest, use cookie
-
             return $this->goHome();
         }
         else {
@@ -286,8 +284,6 @@ class UserController extends Controller
     public function actionDelFromFavourite($productId)
     {
         if (Yii::$app->user->isGuest) {
-            //todo for guest, use cookie
-
             return $this->goHome();
         }
         else {
@@ -364,7 +360,6 @@ class UserController extends Controller
         $warehouses = $np->getWarehouses($ref);
 
         return json_encode($warehouses);
-
     }
 
     protected function findOrder($id)

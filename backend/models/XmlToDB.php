@@ -94,7 +94,7 @@ class XmlToDB extends \yii\base\Model
         if (is_array($array=$this->getArrayByXML())) {
             $array = $array['item'];
 
-            $counter = 0;
+            //$counter = 0;
             $id = null;
             $categories = array(2,3,4,5,6,7,9,10,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43);
 
@@ -126,8 +126,8 @@ class XmlToDB extends \yii\base\Model
                     null,
                     null
                 );
-                $counter++;
-                if($counter == 1) return true;
+//                $counter++;
+//                if($counter == 1) return true;
             }
 
 

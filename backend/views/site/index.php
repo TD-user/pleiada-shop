@@ -24,7 +24,7 @@ $role = array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id))[
     <?php elseif ($role == 'moderator'): ?>
         <div>Вам доступно Керування
             <ul>
-                <li>Замовленнями</li>
+                <li>Відгуками</li>
             </ul>
         </div>
     <?php elseif ($role == 'manager'): ?>

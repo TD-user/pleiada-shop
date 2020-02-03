@@ -7,10 +7,12 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\widgets\ActiveForm;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use frontend\widgets\SocialWidget;
+use frontend\widgets\subscribeForm;
 
 AppAsset::register($this);
 ?>
@@ -47,12 +49,14 @@ AppAsset::register($this);
             <a href="<?= Url::to(['user/index'])?>">Особистий кабінет</a>
         </li>
         <?php endif ?>
+        <?php if(!Yii::$app->user->isGuest):?>
         <li>
             <div class="side-logo">
                 <img src="/img/curt-dark.png" alt="Особистий кабінет">
             </div>
             <a href="<?= Url::to(['user/cart'])?>">Корзина</a>
         </li>
+        <?php endif ?>
         <?php if(!Yii::$app->user->isGuest):?>
         <li class="side-li-sep">
             <div class="side-logo">
@@ -131,7 +135,6 @@ AppAsset::register($this);
                             <?php endif; ?>
                         </span>
                     </a>
-                    <?php endif ?>
                     <a href="<?= Url::to(['user/cart'])?>">
                         <img src="/img/curt.png" alt="Корзина" title="Корзина" height="40" width="40">
                         <span class="cart-counter">
@@ -140,6 +143,7 @@ AppAsset::register($this);
                             <?php endif; ?>
                         </span>
                     </a>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
@@ -154,10 +158,15 @@ AppAsset::register($this);
         </div>
     </div>
 </div>
+
 <div class="main-container">
     <?= $content ?>
 </div>
-    
+
+<div class="main-container-2">
+    <?= subscribeForm\SubscribeFormWidget::widget(); ?>
+</div>
+
 <footer>
     <div class="footer-container">
         <?= SocialWidget::widget(); ?>

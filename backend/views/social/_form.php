@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'path')->textInput(['maxlength' => true])->label('Шлях') ?>
+<!--    --><?//= $form->field($model, 'path')->textInput(['maxlength' => true])->label('Шлях') ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])-> label('Назва') ?>
 

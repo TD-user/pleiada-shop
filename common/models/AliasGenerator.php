@@ -25,6 +25,8 @@ class AliasGenerator
 
         $alias = strtr($ukrtext, $converter);
 
+        $alias = strtolower($alias);
+
         $alias = preg_replace('~[^-a-z0-9_\/\:]+~u', '-', $alias);
 
         $alias = strtr($alias, ['/' => '-']);

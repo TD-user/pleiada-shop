@@ -70,6 +70,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+//        Yii::$app->mailer->compose()
+//            ->setFrom('td87td87@gmail.com')
+//            ->setTo('danyliuk-taras@ukr.net')
+//            ->setSubject('Тема сообщения')
+//            ->setTextBody('Текст сообщения')
+//            ->setHtmlBody('<b>текст сообщения в формате HTML</b>')
+//            ->send();
+
         //todo: не забути стекрти
 //        $dbxml = new XmlToDB();
 //        $dbxml->path = __DIR__.'\1c2site.xml';

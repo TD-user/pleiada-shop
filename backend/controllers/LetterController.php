@@ -2,19 +2,20 @@
 
 namespace backend\controllers;
 
+use common\models\Subscriber;
 use Yii;
-use common\models\Reviews;
-use common\models\ReviewsSearch;
-use yii\data\ActiveDataProvider;
+use backend\models\Letter;
+use backend\models\LetterSearh;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ReviewsController implements the CRUD actions for Reviews model.
+ * LetterController implements the CRUD actions for Letter model.
  */
-class ReviewsController extends Controller
+class LetterController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -29,9 +30,9 @@ class ReviewsController extends Controller
                 },
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','new'],
+                        'actions' => ['index','view','create','update','delete','send-letter','get-subscribers','send-test-letter'],
                         'allow' => true,
-                        'roles' => ['superAdmin','admin','manager','moderator'],
+                        'roles' => ['superAdmin','admin','manager'],
                     ],
 
                 ],
@@ -46,12 +47,12 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Lists all Reviews models.
+     * Lists all Letter models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ReviewsSearch();
+        $searchModel = new LetterSearh();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -61,23 +62,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Lists all Reviews models.
-     * @return mixed
-     */
-    public function actionNew()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Reviews::find()->where(['is_moderated' => 0])->orderBy(['created_at' => SORT_DESC]),
-        ]);
-
-        return $this->render('new', [
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-
-    /**
-     * Displays a single Reviews model.
+     * Displays a single Letter model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -90,15 +75,13 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Creates a new Reviews model.
+     * Creates a new Letter model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $this->goHome();
-
-        $model = new Reviews();
+        $model = new Letter();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -110,7 +93,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Updates an existing Reviews model.
+     * Updates an existing Letter model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -130,7 +113,7 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Deletes an existing Reviews model.
+     * Deletes an existing Letter model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,18 +127,47 @@ class ReviewsController extends Controller
     }
 
     /**
-     * Finds the Reviews model based on its primary key value.
+     * Finds the Letter model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Reviews the loaded model
+     * @return Letter the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Reviews::findOne($id)) !== null) {
+        if (($model = Letter::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionSendLetter($id, $email)
+    {
+        if(!Yii::$app->request->isAjax)
+            return $this->goBack();
+
+        $subscriber = Subscriber::findOne($email);
+
+        return (!empty($subscriber)) ? $this->findModel($id)->sendEmail($subscriber->email) : 0;
+    }
+
+    public function actionGetSubscribers()
+    {
+        if(!Yii::$app->request->isAjax)
+            return $this->goBack();
+
+        $subsribers = Subscriber::find()->select(['id'])->asArray()->all();
+        $subsribers = ArrayHelper::getColumn($subsribers, 'id');
+
+        return json_encode($subsribers);
+    }
+
+    public function actionSendTestLetter($id, $email)
+    {
+        if(!Yii::$app->request->isAjax)
+            return $this->goBack();
+
+        return $this->findModel($id)->sendEmail($email);
     }
 }

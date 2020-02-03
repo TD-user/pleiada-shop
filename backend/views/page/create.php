@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Htmlpages */
 
-$this->title = 'Створити сторіку';
+$this->title = 'Створити сторінку';
 $this->params['breadcrumbs'][] = ['label' => 'Сторінки', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
