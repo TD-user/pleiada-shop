@@ -88,11 +88,11 @@ class SiteController extends Controller
 //        $role = Yii::$app->authManager->createRole('admin');
 //        $role->description = 'Администратор';
 //        Yii::$app->authManager->add($role);
-//
+
 //        $role = Yii::$app->authManager->createRole('superAdmin');
 //        $role->description = 'Супер Адміністратор';
 //        Yii::$app->authManager->add($role);
-
+//
 //        $role = Yii::$app->authManager->createRole('moderator');
 //        $role->description = 'Модератор';
 //        Yii::$app->authManager->add($role);
@@ -132,7 +132,7 @@ class SiteController extends Controller
 //        $role = Yii::$app->authManager->getRole('manager');
 //        $permit = Yii::$app->authManager->getPermission('canManage');
 //        Yii::$app->authManager->addChild($role, $permit);
-
+//
 //        $role = Yii::$app->authManager->getRole('superAdmin');
 //        $permit = Yii::$app->authManager->getPermission('canAdmin');
 //        Yii::$app->authManager->addChild($role, $permit);
@@ -142,25 +142,26 @@ class SiteController extends Controller
 //        $role = Yii::$app->authManager->getRole('superAdmin');
 //        $permit = Yii::$app->authManager->getPermission('canManage');
 //        Yii::$app->authManager->addChild($role, $permit);
-
+//
 //        $role = Yii::$app->authManager->getRole('admin');
 //        $permit = Yii::$app->authManager->getPermission('canModerate');
 //        Yii::$app->authManager->addChild($role, $permit);
 //        $role = Yii::$app->authManager->getRole('admin');
 //        $permit = Yii::$app->authManager->getPermission('canManage');
 //        Yii::$app->authManager->addChild($role, $permit);
-
+//
 //        $role = Yii::$app->authManager->getRole('manager');
 //        $permit = Yii::$app->authManager->getPermission('canModerate');
 //        Yii::$app->authManager->addChild($role, $permit);
 
 
 //      ----------------- Привязка ролі до користувча-----------
-//        $userRole = Yii::$app->authManager->getRole('admin');
+//        $userRole = Yii::$app->authManager->getRole('superAdmin');
 //        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
 //        Yii::$app->authManager->getRoles();
-        return $this->render('index');
-    }
+//
+       return $this->render('index');
+   }
 
     /**
      * Login action.
@@ -247,4 +248,5 @@ class SiteController extends Controller
 
         return $this->render('updatebd',['model'=>$model,'process'=>$process]);
     }
+
 }

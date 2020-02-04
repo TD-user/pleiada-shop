@@ -13,6 +13,7 @@ use common\models\AliasGenerator;
  * @property string $name
  * @property string $img_url
  * @property string $alias
+ * @property string $code_1c
  *
  * @property Product[] $products
  */
@@ -50,6 +51,7 @@ class Categories extends \yii\db\ActiveRecord
             'name' => 'Назва',
             'img_url' => 'Зображення',
             'alias' => 'seo url',
+            'code_1c' => 'Код 1с',
         ];
     }
 

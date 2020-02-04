@@ -21,6 +21,7 @@ class m191126_103045_admin extends Migration
             'id' => Schema::TYPE_PK,
             'username' => $this->string()->notNull()->unique(),
             'auth_key' => $this->string(32)->notNull(),
+            'fio' => $this->string(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
             'created_at' => $this->integer()->notNull(),

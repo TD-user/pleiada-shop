@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use backend\models\UploadFormCategories;
+use backend\models\XmlCategory;
 use Yii;
 use common\models\Categories;
 use yii\data\ActiveDataProvider;
@@ -31,7 +32,7 @@ class CategoriesController extends Controller
                 },
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['index','view','create','update','delete','upload'],
                         'allow' => true,
                         'roles' => ['superAdmin','admin'],
                     ],
@@ -177,5 +178,21 @@ class CategoriesController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionUpload()
+    {
+        $model = new XmlCategory();
+        $process = '';
+        if (isset($_POST['XmlCategory'])) {
+            $model->path = UploadedFile::getInstance($model, 'path');
+
+            if ($model->ArrayToDB())
+                $process = "Файл успішно завантажений !";
+            else
+                $process = "Файл не валідний !";
+        }
+
+        return $this->render('updatebd',['model'=>$model,'process'=>$process]);
     }
 }
