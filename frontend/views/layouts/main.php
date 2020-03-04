@@ -163,11 +163,8 @@ AppAsset::register($this);
     <?= $content ?>
 </div>
 
-<div class="main-container-2">
-    <?= subscribeForm\SubscribeFormWidget::widget(); ?>
-</div>
-
 <footer>
+    <?= subscribeForm\SubscribeFormWidget::widget(); ?>
     <div class="footer-container">
         <?= SocialWidget::widget(); ?>
         <div class="footer-navigation">

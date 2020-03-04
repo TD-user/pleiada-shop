@@ -84,6 +84,43 @@ class UserController extends Controller
         }
     }
 
+    public function actionAllWatchedProducts()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $watchedProducts = null;
+        $pagination = null;
+
+        $cookies = Yii::$app->request->cookies;
+        if ($cookies->has('watchedProducts')) {
+            $watchedProducts = $cookies->getValue('watchedProducts');
+            $watchedProducts = explode(',', $watchedProducts);
+            $watchedProducts = array_unique($watchedProducts);
+            $watchedProducts = array_slice($watchedProducts, 0, 120);
+            $cookies = Yii::$app->response->cookies;
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'watchedProducts',
+                'value' => implode(',', $watchedProducts),
+                'expire' => time() + 86400 * 365,
+            ]));
+            $watchedProducts = Product::find()->where(['in', 'id', $watchedProducts]);
+
+            $pagination = new Pagination([
+                'defaultPageSize' => 20,
+                'totalCount' => $watchedProducts->count(),
+            ]);
+
+            $watchedProducts = $watchedProducts->offset($pagination->offset)->limit($pagination->limit)->all();
+        }
+
+        return $this->render('watched', [
+            'products' => $watchedProducts,
+            'pagination' => $pagination,
+        ]);
+    }
+
     public function actionCart()
     {
         if (Yii::$app->user->isGuest) {

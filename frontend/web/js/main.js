@@ -27,7 +27,7 @@ $(document).ready(function(){
             else
                 current = $(".nav-list").children().index(e.target);
             $(".popup-nav").eq(current).css("display","block");
-            $(".popup-nav").eq(current).css("height",parseInt($(".nav-list").css("height"))+10);
+            //$(".popup-nav").eq(current).css("height",parseInt($(".nav-list").css("height"))+10);
             if($(".bg-black").length == 0)
             {
                 $('body').append('<div></div>');

@@ -92,6 +92,50 @@ class SiteController extends Controller
         $promotionProducts = Product::find()
             ->where(['not', ['promotionPrice' => null]])
             ->andWhere(['not', ['promotionPrice' => 0]])
+            ->orderBy(['remains' => SORT_DESC])
+            ->limit(8)
+            ->all();
+
+        $watchedProducts = null;
+        $cookies = Yii::$app->request->cookies;
+        if ($cookies->has('watchedProducts')) {
+            $watchedProducts = $cookies->getValue('watchedProducts');
+            $watchedProducts = explode(',', $watchedProducts);
+            $watchedProducts = array_unique($watchedProducts);
+            $watchedProducts = array_slice($watchedProducts, 0, 120);
+            $cookies = Yii::$app->response->cookies;
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'watchedProducts',
+                'value' => implode(',', $watchedProducts),
+                'expire' => time() + 86400 * 365,
+            ]));
+            $watchedProducts = Product::find()->where(['in', 'id', $watchedProducts])->limit(8)->all();
+        }
+
+        $mainSlider = Mainslider::find()->all();
+        $mainSliderCount = Mainslider::find()->count();
+
+        $mostBuying = [1];
+
+        $popular = Product::find()
+            ->where(['in', 'id', $mostBuying])
+            ->limit(8)
+            ->all();
+
+        return $this->render('index', [
+            'categories' => $categories,
+            'promotionProducts' => $promotionProducts,
+            'watchedProducts' => $watchedProducts,
+            'mainSlider' => $mainSlider,
+            'mainSliderCount' => $mainSliderCount,
+        ]);
+    }
+
+    public function actionAllPromotionProducts()
+    {
+        $promotionProducts = Product::find()
+            ->where(['not', ['promotionPrice' => null]])
+            ->andWhere(['not', ['promotionPrice' => 0]])
             ->orderBy(['remains' => SORT_DESC]);
 
         $paginationPromo = new Pagination([
@@ -101,31 +145,9 @@ class SiteController extends Controller
 
         $promotionProducts = $promotionProducts->offset($paginationPromo->offset)->limit($paginationPromo->limit)->all();
 
-        $watchedProducts = null;
-        $cookies = Yii::$app->request->cookies;
-        if ($cookies->has('watchedProducts')) {
-            $watchedProducts = $cookies->getValue('watchedProducts');
-            $watchedProducts = explode(',', $watchedProducts);
-            $watchedProducts = array_unique($watchedProducts);
-            $watchedProducts = array_slice($watchedProducts, 0, 12);
-            $cookies = Yii::$app->response->cookies;
-            $cookies->add(new \yii\web\Cookie([
-                'name' => 'watchedProducts',
-                'value' => implode(',', $watchedProducts),
-            ]));
-            $watchedProducts = Product::find()->where(['in', 'id', $watchedProducts])->limit(12)->all();
-        }
-
-        $mainSlider = Mainslider::find()->all();
-        $mainSliderCount = Mainslider::find()->count();
-
-        return $this->render('index', [
-            'categories' => $categories,
-            'promotionProducts' => $promotionProducts,
-            'paginationPromo' => $paginationPromo,
-            'watchedProducts' => $watchedProducts,
-            'mainSlider' => $mainSlider,
-            'mainSliderCount' => $mainSliderCount,
+        return $this->render('promotion', [
+            'products' => $promotionProducts,
+            'pagination' => $paginationPromo,
         ]);
     }
 

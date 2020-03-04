@@ -8,7 +8,12 @@ use yii\helpers\Url;
     <ul>
         <? if(isset($category['childs'])): ?>
         <?php foreach ($category['childs'] as $subcategory):?>
-        <li><a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>"><?= $subcategory['name']?></a></li>
+        <li><a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>" class="pretty-nav-title" style="margin-bottom: 5px;"><?= $subcategory['name']?></a></li>
+            <? if(isset($subcategory['childs'])): ?>
+                <?php foreach ($subcategory['childs'] as $sub_subcategory):?>
+                    <li><a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias']])?>" style="padding-left: 10px;"><?= $sub_subcategory['name']?></a></li>
+                <?php endforeach; ?>
+            <? endif;?>
         <?php endforeach; ?>
         <? endif;?>
     </ul>

@@ -29,12 +29,14 @@ class ProductController extends Controller
             $cookies->add(new \yii\web\Cookie([
                 'name' => 'watchedProducts',
                 'value' => $list,
+                'expire' => time() + 86400 * 365,
             ]));
         } else {
             $cookies = Yii::$app->response->cookies;
             $cookies->add(new \yii\web\Cookie([
                 'name' => 'watchedProducts',
                 'value' => $model->id,
+                'expire' => time() + 86400 * 365,
             ]));
         }
 

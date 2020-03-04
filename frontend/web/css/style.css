@@ -312,6 +312,10 @@ h3{
 	font-weight: 700;
 	font-size: 24px;
 }
+.main-list.good-list>li>a:after{
+	content: "";
+	display: none;
+}
 .nav-list>li>a:hover{
 	color: rgb(231, 131, 49);
 }
@@ -653,6 +657,8 @@ a.leave-comment:before{
 	z-index: 50;
 	padding: 15px 0 20px 300px;
 	box-sizing: content-box;
+	min-height: 350px;
+	max-height: 700px;
 }
 /*.popup-nav:before{
 	content: "";
@@ -673,10 +679,11 @@ a.leave-comment:before{
 	margin: 0;
 	list-style: none;
 	overflow: hidden;
+	min-height: 350px;
+	max-height: 700px;
 }
 .popup-nav>ul>li{
 	width: 25%;
-	margin-bottom: 5px;
 }
 .popup-nav>ul>li>a{
 	font-size: 14px;
@@ -695,6 +702,14 @@ a.leave-comment:before{
 }
 .popup-nav>ul>li>ul>li>a:hover{
 	color: rgb(231, 131, 49);
+}
+a.pretty-nav-title{
+	font-size: 16px !important;
+	color: rgb(97,10,90) !important;
+	margin-top: 10px;
+}
+a.pretty-nav-title:hover{
+	color: rgb(231, 131, 49) !important;
 }
 .side-menu{
 	position: fixed;
@@ -729,6 +744,7 @@ a.leave-comment:before{
 	display: flex;
 	flex-direction: column;
 	margin-top: 10px;
+	overflow-y: scroll;
 }
 .side-nav>li{
 	width: 100%;
@@ -1476,6 +1492,43 @@ details div.curt-description{
 	width: 100%;
 	object-fit: scale-down;
 }
+.subscriber-form-wrapper{
+	margin: 15px auto;
+	display: flex;
+	justify-content: center;
+}
+.subscriber-form-wrapper input[type=text]{
+	padding: 3px 10px;
+	min-width: 300px;
+	border-radius: 3px;
+	outline: none;
+	color: rgb(97,10,90);
+	margin-right: 10px;
+}
+.subscriber-form-wrapper button{
+	padding: 3px 10px;
+	background-color: white;
+	padding: 3px 10px;
+	color: rgb(97,10,90);
+	outline: none;
+	border-radius: 3px;
+	font-weight: 700;
+}
+
+
+.main-page-block-href {
+	display: block;
+	width: 95%;
+	text-decoration: none;
+	text-align: right;
+	color: rgb(97,10,90);
+	font-size: 1.3em;
+	transition: .6s;
+}
+.main-page-block-href:hover {
+	color: #000;
+}
+
 @media (max-width: 1250px){
 	header{
 		padding: 20px 0;
@@ -1831,5 +1884,17 @@ details div.curt-description{
 	}
 	.carousel-item__inner>img{
 		max-height: 200px;
+	}
+	.subscriber-form-wrapper form{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.subscriber-form-wrapper input[type=text]{
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+	.subscriber-form-wrapper button{
+		width: 200px;
 	}
 }

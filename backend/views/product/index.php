@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'parent_code_1c',
             'name',
             'price',
-            //'promotionPrice',
+            'promotionPrice',
             //'currency',
             'remains',
             //'unit',
