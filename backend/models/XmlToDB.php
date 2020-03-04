@@ -8,6 +8,7 @@
 
 namespace backend\models;
 
+use common\models\Images;
 use common\models\Product;
 use Yii;
 use yii\db\Exception;
@@ -67,7 +68,7 @@ class XmlToDB extends \yii\base\Model
     }
     public function addProduct($id,$category_id,$name,$price,$remains,$code_1c,$parent_code_1c,$promotionPrice,$currency,$unit,$article,$manufacturer,$description,$alias)
     {
-        if ($id == null)
+        if ($id === NULL)
             $product = new Product();
         else
             $product = Product::findOne($id);
@@ -87,53 +88,98 @@ class XmlToDB extends \yii\base\Model
         $product->alias=$alias;
         return $product->save();
     }
-
-    public function ArrayToDB()
+    public function addImg ($product,$path,$title)
     {
+        $img = new Images();
+        $img->product_id=$product;
+        $img->path=$path;
+        $img->title=$title;
+        return $img->save();
 
-        if (is_array($array=$this->getArrayByXML())) {
-            $array = $array['item'];
-
-            //$counter = 0;
-            $id = null;
-            $categories = array(2,3,4,5,6,7,9,10,11,12,13,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43);
-
-            foreach ($array as $item => $value)
-            {
-
-                $query = new Query();
-                $query  ->select(['id'])
-                    ->from('product')
-                    ->where(['code_1c'=>(int)$value['Code']]);
-                $command = $query->createCommand();
-                $data = $command->queryAll();
-                if (!empty($data))
-                    $id=$data[0]['id'];
-
-                $this->addProduct(
-                    $id,
-                    array_rand($categories,1),
-                    $value['Name'],
-                    floatval(str_replace (',','.',$value['Price'])),
-                    (int)$value['Remains'],
-                    (int)$value['Code'],
-                    (int)$value['ParentCode'],
-                    floatval(str_replace (',','.',$value['PromotionPrice'])),
-                    $value['Сurrency'],
-                    $value['Unit'],
-                    null,
-                    null,
-                    null,
-                    null
-                );
-//                $counter++;
-//                if($counter == 1) return true;
-            }
-
-
-            return true;
-        }
-
-        return false;
     }
+    public function  getId($a)
+    {
+        $query = new Query();
+        $query->select(['id'])
+            ->from('product')
+            ->where(['code_1c' => (int)$a]);
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        if (!empty($data)) {
+            $id = $data[0]['id'];
+            return $id;
+        }
+        return null;
+    }
+    public  function getIdCategory($pc){
+        $query = new Query();
+        $query->select(['id'])
+            ->from('categories')
+            ->where(['code_1c' => (int)$pc]);
+            $command = $query->createCommand();
+          $data= $command->queryAll();
+        return $data[0]['id'];
+    }
+    public function getPromoPrice($id,$value)
+    {
+        if ($id != null)
+        {
+            $query = new Query();
+            $query->select(['promotionPrice'])
+                ->from('product')
+                ->where(['id' => (int)$id]);
+            $command = $query->createCommand();
+            $data= $command->queryAll();
+            return $data[0]['promotionPrice'];
+        }
+return floatval(str_replace (',','.',$value));
+
+}
+
+public function ArrayToDB()
+{
+
+    if (is_array($array=$this->getArrayByXML())) {
+        $array = $array['item'];
+//        $counter = 0;
+
+
+        foreach ($array as $item => $value)
+        {
+            $this->addProduct(
+                $id = $this->getId($value['Code']),
+                $this->getIdCategory($value['ParentCode']),
+                $value['Name'],
+                floatval(str_replace (',','.',$value['Price'])),
+                (int)$value['Remains'],
+                (int)$value['Code'],
+                (int)$value['ParentCode'],
+                $this->getPromoPrice($id,$value['PromotionPrice']),
+                $value['Сurrency'],
+                $value['Unit'],
+                null,
+                null,
+                null,
+                null
+            );
+
+//            $counter++;
+//            if($counter == 1) return true;
+        }
+        $dir=Yii::getAlias('@frontend').'/web/img/products';
+        $arr = scandir($dir);
+        foreach ($arr as $value) {
+
+            if(($id=$this->getId((int)$value))!=null) {
+                $this->addImg(
+                    $id,
+                    '/img/products/' . $value,
+                    $value);
+            }
+  }
+        return true;
+    }
+
+    return false;
+}
 }

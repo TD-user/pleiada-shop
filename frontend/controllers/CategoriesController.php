@@ -70,7 +70,8 @@ class CategoriesController extends Controller
         $products = null;
 
         if($model->id_parent != 0) {
-            $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
+          $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
+
         } else {
             $catArr = Categories::find()->select('id')->where(['id_parent' => $model->id]);
             $products = Product::find()

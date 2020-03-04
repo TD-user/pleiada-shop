@@ -74,10 +74,11 @@ AppAsset::register($this);
             'label' => 'Товари',
             'items' => [
                 ['label' => 'Категорії', 'url' => ['/categories/index']],
+                ['label' => 'Оновити Категорії','url'=>['categories/upload']],
                 ['label' => 'Додати категорію', 'url' => ['/categories/create']],
                 ['label' => 'Товари', 'url' => ['/product/index']],
                 ['label' => 'Додати товар', 'url' => ['/product/create']],
-                ['label' => 'Оновити базу', 'url' => ['/site/upload']]
+                ['label' => 'Оновити Товари', 'url' => ['/site/upload']]
             ],
         ];
         if (Yii::$app->user->can('canModerate'))
