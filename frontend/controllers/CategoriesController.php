@@ -69,15 +69,17 @@ class CategoriesController extends Controller
 
         $products = null;
 
-        if($model->id_parent != 0) {
-          $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
+//        if($model->id_parent != 0) {
+//          $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
+//        //todo:
+//        } else {
+//            $catArr = Categories::find()->select('id')->where(['id_parent' => $model->id]);
+//            $products = Product::find()
+//                ->where(['category_id' => $catArr])
+//                ->orderBy(['remains' => SORT_DESC]);
+//        }
 
-        } else {
-            $catArr = Categories::find()->select('id')->where(['id_parent' => $model->id]);
-            $products = Product::find()
-                ->where(['category_id' => $catArr])
-                ->orderBy(['remains' => SORT_DESC]);
-        }
+        $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
 
         $pagination = new Pagination([
             'defaultPageSize' => 20,

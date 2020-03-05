@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\History;
 use common\models\Htmlpages;
 use common\models\Mainslider;
 use common\models\Product;
@@ -11,6 +12,7 @@ use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -115,17 +117,35 @@ class SiteController extends Controller
         $mainSlider = Mainslider::find()->all();
         $mainSliderCount = Mainslider::find()->count();
 
-        $mostBuying = [1];
+        $mostBuying = History::find()
+            ->select(['product_id', 'COUNT(product_id) as C'])
+            ->groupBy(['product_id'])
+            ->orderBy(['C' => SORT_DESC])
+            ->asArray()
+            ->all();
+
+        $mostBuying = ArrayHelper::getColumn($mostBuying, 'product_id');
+
+//        echo '<pre>';
+//        var_dump($mostBuying);
+//        echo '</pre>';
 
         $popular = Product::find()
             ->where(['in', 'id', $mostBuying])
             ->limit(8)
             ->all();
 
+//        echo '<pre>';
+//        var_dump($popular);
+//        echo '</pre>';
+
+//        $popular = null;
+
         return $this->render('index', [
             'categories' => $categories,
             'promotionProducts' => $promotionProducts,
             'watchedProducts' => $watchedProducts,
+            'popularProducts' => $popular,
             'mainSlider' => $mainSlider,
             'mainSliderCount' => $mainSliderCount,
         ]);
@@ -139,7 +159,7 @@ class SiteController extends Controller
             ->orderBy(['remains' => SORT_DESC]);
 
         $paginationPromo = new Pagination([
-            'defaultPageSize' => 8,
+            'defaultPageSize' => 20,
             'totalCount' => $promotionProducts->count(),
         ]);
 
@@ -148,6 +168,32 @@ class SiteController extends Controller
         return $this->render('promotion', [
             'products' => $promotionProducts,
             'pagination' => $paginationPromo,
+        ]);
+    }
+
+    public function actionAllPopularProducts()
+    {
+        $mostBuying = History::find()
+            ->select(['product_id', 'COUNT(product_id) as C'])
+            ->groupBy(['product_id'])
+            ->orderBy(['C' => SORT_DESC])
+            ->asArray()
+            ->all();
+
+        $mostBuying = ArrayHelper::getColumn($mostBuying, 'product_id');
+
+        $popular = Product::find()->where(['in', 'id', $mostBuying]);
+
+        $pagination = new Pagination([
+            'defaultPageSize' => 20,
+            'totalCount' => $popular->count(),
+        ]);
+
+        $popular = $popular->offset($pagination->offset)->limit($pagination->limit)->all();
+
+        return $this->render('popular', [
+            'products' => $popular,
+            'pagination' => $pagination,
         ]);
     }
 

@@ -254,8 +254,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function clearCarts()
     {
         $carts = $this->getCarts()->all();
-        for($i = 0; $i < count($carts); $i++)
+        for($i = 0; $i < count($carts); $i++) {
+            $history = new History();
+            $history->product_id = $carts[$i]->product_id;
+            $history->user_id = $carts[$i]->user_id;
+            $history->count = $carts[$i]->count;
+            $history->save();
             $carts[$i]->delete();
+        }
     }
 
     /**
