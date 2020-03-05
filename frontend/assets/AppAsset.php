@@ -18,7 +18,7 @@ class AppAsset extends AssetBundle
         'css/changedStyle.css?v=4',
     ];
     public $js = [
-        'js/main.js?v=21',
+        'js/main.js',
         'js/ajaxToServer.js?v=15',
         'js/bootstrap-slider.min.js',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',

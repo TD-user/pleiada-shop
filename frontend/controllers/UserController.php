@@ -216,9 +216,9 @@ class UserController extends Controller
             }
             $order->save();
 
-            if($flag and $order->is_payment == 1) {
-                return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
-            }
+//            if($flag and $order->is_payment == 1) {
+//                return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
+//            }
 
             if($flag) {
                 Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
