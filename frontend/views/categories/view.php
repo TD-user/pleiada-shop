@@ -13,7 +13,7 @@ $this->title = 'Плеяда - '.$model->name;
 
     <div class="main-outer-goods" style="padding-bottom: 30px">
         <? foreach ($products as $product): ?>
-        <? $product = \common\models\Product::findOne($product['id'])?>
+            <? $product = \common\models\Product::findOne($product['id'])?>
             <div class="main-outer-good">
                 <div class="img-wrapper">
                     <? if($product->getImages()->count() == 0): ?>

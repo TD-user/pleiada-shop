@@ -11,6 +11,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\data\ArrayDataProvider;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
@@ -153,21 +154,58 @@ class SiteController extends Controller
 
     public function actionAllPromotionProducts()
     {
-        $promotionProducts = Product::find()
-            ->where(['not', ['promotionPrice' => null]])
-            ->andWhere(['not', ['promotionPrice' => 0]])
-            ->orderBy(['remains' => SORT_DESC]);
+//        $promotionProducts = Product::find()
+//            ->where(['not', ['promotionPrice' => null]])
+//            ->andWhere(['not', ['promotionPrice' => 0]])
+//            ->orderBy(['remains' => SORT_DESC]);
+//
+//        $paginationPromo = new Pagination([
+//            'defaultPageSize' => 20,
+//            'totalCount' => $promotionProducts->count(),
+//        ]);
+//
+//        $promotionProducts = $promotionProducts->offset($paginationPromo->offset)->limit($paginationPromo->limit)->all();
+//
+//        return $this->render('promotion', [
+//            'products' => $promotionProducts,
+//            'pagination' => $paginationPromo,
+//        ]);
 
-        $paginationPromo = new Pagination([
-            'defaultPageSize' => 20,
-            'totalCount' => $promotionProducts->count(),
+        $products1 = Product::find()
+            ->where(['>','remains',0])
+            ->andWhere(['not', ['promotionPrice' => null]])
+            ->andWhere(['not', ['promotionPrice' => 0]])
+            ->orderBy(['price' => SORT_DESC])
+            ->asArray()
+            ->all();
+
+        $products2 = Product::find()
+            ->where(['remains' => 0])
+            ->andWhere(['not', ['promotionPrice' => null]])
+            ->andWhere(['not', ['promotionPrice' => 0]])
+            ->orderBy(['price' => SORT_DESC])
+            ->asArray()
+            ->all();
+
+        $products = array_merge($products1, $products2);
+
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $products,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
         ]);
 
-        $promotionProducts = $promotionProducts->offset($paginationPromo->offset)->limit($paginationPromo->limit)->all();
+        $pagination = new Pagination([
+            'defaultPageSize' => 20,
+            'totalCount' => $dataProvider->getTotalCount(),
+        ]);
+
+        $products = $dataProvider->getModels();
 
         return $this->render('promotion', [
-            'products' => $promotionProducts,
-            'pagination' => $paginationPromo,
+            'products' => $products,
+            'pagination' => $pagination,
         ]);
     }
 

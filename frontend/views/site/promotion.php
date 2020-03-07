@@ -13,6 +13,7 @@ $this->title = 'Плеяда - акційні товари';
     <h2 class="title-h2 center">Акційні товари</h2>
     <div class="main-outer-goods" style="padding-bottom: 30px">
         <? foreach ($products as $product): ?>
+            <? $product = \common\models\Product::findOne($product['id'])?>
             <div class="main-outer-good">
                 <div class="img-wrapper">
                     <? if($product->getImages()->count() == 0): ?>
