@@ -10,26 +10,28 @@ $this->title = 'Плеяда - '.$model->name;
 <?= widgets\CategoriesAsideWidget::widget()?>
 <div class="main-catalog">
     <h2 class="inner-title"><?= $model->name?></h2>
+
     <div class="main-outer-goods" style="padding-bottom: 30px">
         <? foreach ($products as $product): ?>
+        <? $product = \common\models\Product::findOne($product['id'])?>
             <div class="main-outer-good">
                 <div class="img-wrapper">
-                <? if($product->getImages()->count() == 0): ?>
-                    <img src="/img/noimage.png" alt="" title="">
-                <? elseif ($product->getImages()->count() == 1):?>
-                    <img src="<?= $product->getImages()->all()[0]->path; ?>" alt="<?= $product->getImages()->all()[0]->title; ?>" title="<?= $product->getImages()->all()[0]->title; ?>">
-                <? else: ?>
-                    <div class="swap-good">
-                        <img class="first-good-img" src="<?= $product->getImages()->all()[0]->path; ?>" alt="<?= $product->getImages()->all()[0]->title; ?>" title="<?= $product->getImages()->all()[0]->title; ?>">
-                        <img class="second-good-img" src="<?= $product->getImages()->all()[1]->path; ?>" alt="<?= $product->getImages()->all()[1]->title; ?>" title="<?= $product->getImages()->all()[1]->title; ?>">
-                    </div>
-                <? endif; ?>
+                    <? if($product->getImages()->count() == 0): ?>
+                        <img src="/img/noimage.png" alt="" title="">
+                    <? elseif ($product->getImages()->count() == 1):?>
+                        <img src="<?= $product->getImages()->all()[0]->path; ?>" alt="<?= $product->getImages()->all()[0]->title; ?>" title="<?= $product->getImages()->all()[0]->title; ?>">
+                    <? else: ?>
+                        <div class="swap-good">
+                            <img class="first-good-img" src="<?= $product->getImages()->all()[0]->path; ?>" alt="<?= $product->getImages()->all()[0]->title; ?>" title="<?= $product->getImages()->all()[0]->title; ?>">
+                            <img class="second-good-img" src="<?= $product->getImages()->all()[1]->path; ?>" alt="<?= $product->getImages()->all()[1]->title; ?>" title="<?= $product->getImages()->all()[1]->title; ?>">
+                        </div>
+                    <? endif; ?>
                 </div>
                 <a href="<?= Url::to(['product/view', 'alias' => $product->alias, 'id' => $product->id])?>" class="outer-good-title">
                     <?= $product->name; ?>
                 </a>
                 <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
-                <strike><span class="discount-price"><?= number_format($product->price, 2)." ".$product->currency; ?></span></strike>
+                    <strike><span class="discount-price"><?= number_format($product->price, 2)." ".$product->currency; ?></span></strike>
                 <? endif; ?>
                 <div class="current-price">
                     <? if($product->promotionPrice != 0 and $product->promotionPrice != null): ?>
@@ -56,6 +58,7 @@ $this->title = 'Плеяда - '.$model->name;
             </div>
         <? endforeach; ?>
     </div>
+
     <div class="row">
         <div class="col-sm-12 center">
             <?= LinkPager::widget(['pagination' => $pagination]); ?>
