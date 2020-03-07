@@ -46,14 +46,17 @@ $this->title = 'Плеяда - корзина';
             <div>
                 <?= Html::dropDownList('warehouse', null, [], ['class' => 'form-control', 'id' => 'select-warehouse-np', 'disabled' => 'disabled'])?>
             </div>
-            <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть спосіб оплати</b></div>
-            <?= Html::dropDownList('payment', null, [
-                1 => 'Оплатати зараз картою visa/mastercard',
-                2 => 'Оплата після отримання на відділенні Нової пошти'
-            ], ['class' => 'form-control', 'id' => 'select-method-payment-np'])?>
+<!--            <div class="text-center" style="margin-bottom: 15px;"><b>Оберіть спосіб оплати</b></div>-->
+<!--            --><?//= Html::dropDownList('payment', null, [
+//                1 => 'Оплатати зараз картою visa/mastercard',
+//                2 => 'Оплата після отримання на відділенні Нової пошти'
+//            ], ['class' => 'form-control', 'id' => 'select-method-payment-np'])?>
         </div>
         <div class="self-shop-visit" style="display: none;">
             <div style="margin-bottom: 10px;"><b>Оплата при отриманні товару в магазині за адресою вулиця Івана Мазепи, 33, Трускавець</b></div>
+        </div>
+        <div class="np-delivery" style="display: none;">
+            <div style="margin-bottom: 10px;"><b>Обираючи спосіб доставки "Новою поштою" ви сплачуєте вартість доставки за тарифами перевізника. Оплата за товар здійснюється після його тримання на відділенні</b></div>
         </div>
         <?= Html::activeHiddenInput($order, 'methodDelivery')?>
         <?= Html::activeHiddenInput($order, 'methodPayment')?>

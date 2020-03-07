@@ -141,11 +141,13 @@ $(document).ready(function(){
         if($(this).val() == 2) {
             $(".nova-poshta-block").css('display', 'block');
             $(".self-shop-visit").css('display', 'none');
+            $(".np-delivery").css('display', 'block');
             $('#order-methoddelivery').val('доставка новою поштою');
         }
         else if($(this).val() == 1) {
             $(".nova-poshta-block").css('display', 'none');
             $(".self-shop-visit").css('display', 'block');
+            $(".np-delivery").css('display', 'none');
             $('#order-address').val('Самовивіз з магазину');
             $('#order-methoddelivery').val('Самовивіз з магазину');
             $('#order-methodpayment').val('Оплата при отриманні товару в магазині');
@@ -153,6 +155,7 @@ $(document).ready(function(){
         else {
             $(".nova-poshta-block").css('display', 'none');
             $(".self-shop-visit").css('display', 'none');
+            $(".np-delivery").css('display', 'none');
             $('#order-address').val('');
             $('#order-methoddelivery').val('');
             $('#order-methodpayment').val('');

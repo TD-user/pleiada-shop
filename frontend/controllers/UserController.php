@@ -216,9 +216,9 @@ class UserController extends Controller
             }
             $order->save();
 
-            if($flag and $order->is_payment == 1) {
-                return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
-            }
+//            if($flag and $order->is_payment == 1) {
+//                return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
+//            }
 
             if($flag) {
                 Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
@@ -305,6 +305,9 @@ class UserController extends Controller
 
     public function actionAddToFavourite($productId)
     {
+        if(!Yii::$app->request->isAjax)
+            return $this->goHome();
+
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -320,6 +323,9 @@ class UserController extends Controller
 
     public function actionDelFromFavourite($productId)
     {
+        if(!Yii::$app->request->isAjax)
+            return $this->goHome();
+
         if (Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -333,6 +339,9 @@ class UserController extends Controller
 
     public function actionAddToCart($productId)
     {
+        if(!Yii::$app->request->isAjax)
+            return $this->goHome();
+
         if (Yii::$app->user->isGuest) {
             //todo for guest, use cookie
 
@@ -352,6 +361,9 @@ class UserController extends Controller
 
     public function actionDelFromCart($productId, $json)
     {
+        if(!Yii::$app->request->isAjax)
+            return $this->goHome();
+
         if (Yii::$app->user->isGuest) {
             //todo for guest, use cookie
 
