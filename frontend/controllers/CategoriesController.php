@@ -6,6 +6,7 @@ use common\models\Product;
 use Yii;
 use common\models\Categories;
 use yii\data\ActiveDataProvider;
+use yii\data\SqlDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -63,14 +64,17 @@ class CategoriesController extends Controller
 
         if (empty($model)) {
             return $this->goHome();
-        }
-
+        };
         //$products = $model->getProducts()->where(['>','remains',0])->union($model->getProducts()->where(['remains' => 0]));
 
         $products = null;
 
         if($model->id_parent != 0) {
-          $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
+//          $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
+            $joinedQuery = $model->getProducts()->where(['>','remains',0])->union($model->getProducts()->where(['remains' => 0]));
+            $products = new SqlDataProvider([
+                'sql' => $joinedQuery,
+            ]);
 
         } else {
             $catArr = Categories::find()->select('id')->where(['id_parent' => $model->id]);
