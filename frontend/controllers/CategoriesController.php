@@ -54,7 +54,7 @@ class CategoriesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($alias, $sort = 1)
+    public function actionView($alias)
     {
         $model = Categories::find()->where(['alias' => $alias])->one();
 
@@ -62,8 +62,8 @@ class CategoriesController extends Controller
             return $this->goHome();
         }
 
-        $sort = Yii::$app->request->get('sort');
-        if($sort != 1) var_dump($sort);
+//        $sort = Yii::$app->request->get('sort');
+//        if($sort != 1) var_dump($sort);
 
         //$products = $model->getProducts()->where(['>','remains',0])->union($model->getProducts()->where(['remains' => 0]));
 
@@ -128,14 +128,30 @@ class CategoriesController extends Controller
 //            //'pagination' => $dataProvider->getPagination(),
 //        ]);
 
+        $products1 = null;
+        $products2 = null;
 
+        $sort = Yii::$app->request->get('sort');
+        if(empty($sort)) $sort = 1;
 
-
-
-
-
-        $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_DESC])->asArray()->all();
-        $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['price' => SORT_DESC])->asArray()->all();
+        switch ($sort) {
+            case 1:
+                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_DESC])->asArray()->all();
+                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['price' => SORT_DESC])->asArray()->all();
+                break;
+            case 2:
+                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_ASC])->asArray()->all();
+                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['price' => SORT_ASC])->asArray()->all();
+                break;
+            case 3:
+                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['name' => SORT_ASC])->asArray()->all();
+                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['name' => SORT_ASC])->asArray()->all();
+                break;
+            case 4:
+                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['name' => SORT_DESC])->asArray()->all();
+                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['name' => SORT_DESC])->asArray()->all();
+                break;
+        }
 
         $products = array_merge($products1, $products2);
 
@@ -152,7 +168,6 @@ class CategoriesController extends Controller
         ]);
 
         $products = $dataProvider->getModels();
-
 
 
 //        $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_DESC]);
@@ -194,6 +209,7 @@ class CategoriesController extends Controller
             'model' => $model,
             'products' => $products,
             'pagination' => $pagination,
+            'sort' => $sort
         ]);
 
     }

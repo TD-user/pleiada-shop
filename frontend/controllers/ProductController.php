@@ -85,8 +85,30 @@ class ProductController extends Controller
         $search = Yii::$app->request->get('q');
         $arr = explode(' ', $search);
 
-        $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_DESC])->asArray()->all();
-        $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_DESC])->asArray()->all();
+        $products1 = null;
+        $products2 = null;
+
+        $sort = Yii::$app->request->get('sort');
+        if(empty($sort)) $sort = 1;
+
+        switch ($sort) {
+            case 1:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_DESC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_DESC])->asArray()->all();
+                break;
+            case 2:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_ASC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_ASC])->asArray()->all();
+                break;
+            case 3:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_ASC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_ASC])->asArray()->all();
+                break;
+            case 4:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_DESC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_DESC])->asArray()->all();
+                break;
+        }
 
         $products = array_merge($products1, $products2);
 
@@ -113,6 +135,7 @@ class ProductController extends Controller
             'count' => $count,
             'products' => $products,
             'pagination' => $pagination,
+            'sort' => $sort,
         ]);
     }
 

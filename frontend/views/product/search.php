@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Url;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use frontend\widgets;
 use yii\widgets\LinkPager;
 use common\models\WriteCorrectly;
@@ -11,6 +13,23 @@ $this->title = 'Плеяда - результати пошуку';
 <div class="main-catalog">
     <? if (isset($products)): ?>
     <h2 class="inner-title">Результат пошуку: "<?= $search ?>". Знайдено <?= $count.' '.WriteCorrectly::corecllyResults($count)  ?></h2>
+        <div class="col-sm-5 col-sm-offset-7" style="margin-bottom: 15px;">
+            <?php $form_f = ActiveForm::begin([
+                'action' => Url::to(['product/search']),
+                'id' => 'form-sort-selection',
+                'method' => 'get'
+            ]); ?>
+            <?= Html::hiddenInput('q', $search) ?>
+            <?= Html::dropDownList('sort', $sort, [
+                1 => 'від дорогих до дешевих',
+                2 => 'від дешевих до дорогих',
+                3 => 'по алфавіту від А до Я',
+                4 => 'по алфавіту від Я до А',
+            ], ['class' => 'form-control', 'id' => 'sort-selection'])?>
+            <?= Html::hiddenInput('page', $pagination->page) ?>
+            <?php ActiveForm::end(); ?>
+        </div>
+        <?php $this->registerJsFile("@web/js/selectSortScript.js?v=3", ['depends' => [\yii\web\JqueryAsset::className()]]);?>
     <div class="main-outer-goods" style="padding-bottom: 30px">
         <? foreach ($products as $product): ?>
             <? $product = \common\models\Product::findOne($product['id'])?>

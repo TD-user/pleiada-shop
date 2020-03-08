@@ -171,21 +171,82 @@ class SiteController extends Controller
 //            'pagination' => $paginationPromo,
 //        ]);
 
-        $products1 = Product::find()
-            ->where(['>','remains',0])
-            ->andWhere(['not', ['promotionPrice' => null]])
-            ->andWhere(['not', ['promotionPrice' => 0]])
-            ->orderBy(['price' => SORT_DESC])
-            ->asArray()
-            ->all();
+        $products1 = null;
+        $products2 = null;
 
-        $products2 = Product::find()
-            ->where(['remains' => 0])
-            ->andWhere(['not', ['promotionPrice' => null]])
-            ->andWhere(['not', ['promotionPrice' => 0]])
-            ->orderBy(['price' => SORT_DESC])
-            ->asArray()
-            ->all();
+        $sort = Yii::$app->request->get('sort');
+        if(empty($sort)) $sort = 1;
+
+        switch ($sort) {
+            case 1:
+                $products1 = Product::find()
+                    ->where(['>','remains',0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['price' => SORT_DESC])
+                    ->asArray()
+                    ->all();
+
+                $products2 = Product::find()
+                    ->where(['remains' => 0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['price' => SORT_DESC])
+                    ->asArray()
+                    ->all();
+                break;
+            case 2:
+                $products1 = Product::find()
+                    ->where(['>','remains',0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['price' => SORT_ASC])
+                    ->asArray()
+                    ->all();
+
+                $products2 = Product::find()
+                    ->where(['remains' => 0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['price' => SORT_ASC])
+                    ->asArray()
+                    ->all();
+                break;
+            case 3:
+                $products1 = Product::find()
+                    ->where(['>','remains',0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['name' => SORT_ASC])
+                    ->asArray()
+                    ->all();
+
+                $products2 = Product::find()
+                    ->where(['remains' => 0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['name' => SORT_ASC])
+                    ->asArray()
+                    ->all();
+                break;
+            case 4:
+                $products1 = Product::find()
+                    ->where(['>','remains',0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['name' => SORT_DESC])
+                    ->asArray()
+                    ->all();
+
+                $products2 = Product::find()
+                    ->where(['remains' => 0])
+                    ->andWhere(['not', ['promotionPrice' => null]])
+                    ->andWhere(['not', ['promotionPrice' => 0]])
+                    ->orderBy(['name' => SORT_DESC])
+                    ->asArray()
+                    ->all();
+                break;
+        }
 
         $products = array_merge($products1, $products2);
 
@@ -206,6 +267,7 @@ class SiteController extends Controller
         return $this->render('promotion', [
             'products' => $products,
             'pagination' => $pagination,
+            'sort' => $sort,
         ]);
     }
 
