@@ -8,10 +8,10 @@ use yii\helpers\Url;
     <ul>
         <? if(isset($category['childs'])): ?>
         <?php foreach ($category['childs'] as $subcategory):?>
-        <li><a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>" class="pretty-nav-title" style="margin-bottom: 5px;"><?= $subcategory['name']?></a></li>
+        <li><a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias'], 'sort' => 1])?>" class="pretty-nav-title" style="margin-bottom: 5px;"><?= $subcategory['name']?></a></li>
             <? if(isset($subcategory['childs'])): ?>
                 <?php foreach ($subcategory['childs'] as $sub_subcategory):?>
-                    <li><a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias']])?>" style="padding-left: 10px;"><?= $sub_subcategory['name']?></a></li>
+                    <li><a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias'], 'sort' => 1])?>" style="padding-left: 10px;"><?= $sub_subcategory['name']?></a></li>
                 <?php endforeach; ?>
             <? endif;?>
         <?php endforeach; ?>
@@ -25,7 +25,7 @@ use yii\helpers\Url;
     <ul class="main-list nav-list">
         <?php foreach ($data as $category):?>
         <li>
-            <a href="<?= Url::to(['categories/view', 'alias' => $category['alias']])?>"><?= $category['name']?></a>
+            <a href="<?= Url::to(['categories/view', 'alias' => $category['alias'], 'sort' => 1])?>"><?= $category['name']?></a>
         </li>
         <? endforeach; ?>
         <li>

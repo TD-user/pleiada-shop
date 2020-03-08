@@ -54,13 +54,16 @@ class CategoriesController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($alias)
+    public function actionView($alias, $sort = 1)
     {
         $model = Categories::find()->where(['alias' => $alias])->one();
 
         if (empty($model)) {
             return $this->goHome();
         }
+
+        $sort = Yii::$app->request->get('sort');
+        if($sort != 1) var_dump($sort);
 
         //$products = $model->getProducts()->where(['>','remains',0])->union($model->getProducts()->where(['remains' => 0]));
 
