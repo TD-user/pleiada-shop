@@ -35,6 +35,34 @@ class XmlCategory extends \yii\base\Model
             $this->addError('path', 'Файл повинен мати розширення xml');
         }
     }
+    public function getProduct($id)
+    {
+        $query = new Query();
+        $query->select(['id'])
+            ->from('product')
+            ->where(['category_id' => (int)$id]);
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        if (!empty($data)) {
+            $id = $data[0]['id'];
+            return $id;
+        }
+        return null;
+    }
+    public function getCategories($id)
+    {
+        $query = new Query();
+        $query->select(['id'])
+            ->from('categories')
+            ->where(['id_parent' => (int)$id]);
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        if (!empty($data)) {
+            $id = $data[0]['id'];
+            return $id;
+        }
+        return null;
+    }
     public function getArrayByXML()
     {
         if ($this->validate()) {

@@ -159,9 +159,22 @@ class CategoriesController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = new XmlCategory();
+        if ($model->getProduct($id)!=null )
+        {
+            Yii::$app->session->setFlash('error', 'Категорію не можливо видалити тому що у ній є товари');
+            return $this->redirect(array('index','param1'=>'val1'));
+        }
+        else if ($model->getCategories($id)!=null)
+        {
+            Yii::$app->session->setFlash('error','Категорію не можливо видалити тому що у ній є підкатегорії');
+            return $this->redirect(array('index','param1'=>'val1'));
+        }
+        else {
         $this->findModel($id)->delete();
+            return $this->redirect(['index']);
+        }
 
-        return $this->redirect(['index']);
     }
 
     /**

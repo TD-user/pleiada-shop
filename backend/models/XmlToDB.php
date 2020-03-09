@@ -19,8 +19,6 @@ use yii\web\Application;
 class XmlToDB extends \yii\base\Model
 {
     public $path;
-    public $process;
-    public $processIMG;
 
     public function rules()
     {
