@@ -405,7 +405,6 @@ h3{
 .main-inner-goods{
 	width: calc(100% - 105px);
 	margin: 30px 45px 0 60px;
-	border-bottom: 1px solid rgb(217, 217, 217);
 }
 .main-carousel{
 	width: 100%;
@@ -425,43 +424,69 @@ h3{
 .main-all-goods{
 	display: flex;
 	width: 100%;
-	flex-wrap: wrap;
+	flex-direction: column;
 }
 .main-good{
 	box-sizing: border-box;
-	width: 25%;
-	display: flex;
-	flex-direction: column;
-	padding: 0 10px 15px 10px;
-	border-right: 1px solid rgb(217, 217, 217);
-	margin-bottom: 20px;
-}
-.main-good img{
 	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	padding: 0 10px 15px 10px;
+	border-bottom: 1px solid rgb(217, 217, 217);
+	margin-bottom: 10px;
+}
+.main-good-head{
+	width: 200px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+.main-good-head img{
+	width: 200px;
+	display: block;
+	margin-bottom: 10px;
 }
 .main-good-name{
 	color: rgb(97, 10, 90);
-	font-size: 1.2em;
+	font-size: 18px;
 	font-weight: 700;
 	padding: 5px 0;
 	font-family: Roboto;
+	text-align: center;
 }
 .main-all-goods>.main-good:nth-child(4n+4),.main-all-goods>.main-good:last-child{
 	border-right: 0;
 }
 .good-list{
-	width: 97%;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	align-items: flex-start;
 }
 .good-list>li{
-	font-size: 14px;
+	font-size: 16px;
 	font-family: Ubuntu;
+	width: 50%;
+	padding: 3px 10px;
 }
 .good-list>li>a{
 	color: #000;
+	font-weight: 700;
+	padding-bottom: 5px;
+	padding-right: 0 !important;
 }
-.good-list>li>a:after{
-	color: rgb(97, 10, 90);
-	top: -9px;
+.good-list>li>ul{
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	font-size: 14px;
+}
+.good-list>li>ul>li{
+	padding-right: 7px;
 }
 .inner-title{
 	padding-left: 60px;
@@ -1679,7 +1704,14 @@ details div.curt-description{
 		width: calc(100% - 20px);
 	}
 	.main-good{
-		width: 33%;
+		flex-direction: column;
+		align-items: center;
+	}
+	.good-list>li{
+		text-align: center;
+	}
+	.good-list>li>ul{
+		justify-content: center;
 	}
 	.inner-title{
 		text-align: center;
@@ -1832,8 +1864,12 @@ details div.curt-description{
 		margin: 10px 5px 0 5px;
 		width: calc(100% - 10px);
 	}
-	.main-good{
-		width: 50%;
+	.good-list>li{
+		width: 100%;
+		padding: 3px 0;
+	}
+	.good-list>li>ul>li{
+		padding: 0 3px;
 	}
 	.inner-title{
 		text-align: center;
@@ -1843,12 +1879,6 @@ details div.curt-description{
 	}
 	.main-all-goods>.main-good:nth-child(2n+2){
 		border-right: 0;
-	}
-	.main-good-name{
-		font-size: 1em;
-	}
-	.good-list>li{
-		font-size: 0.8em;
 	}
 	.main-outer-good {
 		padding: 0 5px 5px 5px;
