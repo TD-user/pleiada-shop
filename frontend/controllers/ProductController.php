@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\Product;
 use common\models\Reviews;
 use Yii;
+use yii\data\ArrayDataProvider;
 use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -53,21 +54,80 @@ class ProductController extends Controller
 
     public function actionSearch()
     {
+//        $products = null;
+//        $pagination = null;
+//        $count = 0;
+//
+//        $search = Yii::$app->request->get('q');
+//        $arr = explode(' ', $search);
+//        $products = Product::find()->where(['like', 'name', $arr])->orderBy(['remains' => SORT_DESC]);
+//
+//        if(isset($products)) {
+//            $count = $products->count();
+//            $pagination = new Pagination([
+//                'defaultPageSize' => 20,
+//                'totalCount' => $count,
+//            ]);
+//            $products = $products->offset($pagination->offset)->limit($pagination->limit)->all();
+//        }
+//
+//        return $this->render('search', [
+//            'search' => $search,
+//            'count' => $count,
+//            'products' => $products,
+//            'pagination' => $pagination,
+//        ]);
+
         $products = null;
         $pagination = null;
         $count = 0;
 
         $search = Yii::$app->request->get('q');
         $arr = explode(' ', $search);
-        $products = Product::find()->where(['like', 'name', $arr])->orderBy(['remains' => SORT_DESC]);
 
-        if(isset($products)) {
-            $count = $products->count();
+        $products1 = null;
+        $products2 = null;
+
+        $sort = Yii::$app->request->get('sort');
+        if(empty($sort)) $sort = 1;
+
+        switch ($sort) {
+            case 1:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_DESC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_DESC])->asArray()->all();
+                break;
+            case 2:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_ASC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['price' => SORT_ASC])->asArray()->all();
+                break;
+            case 3:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_ASC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_ASC])->asArray()->all();
+                break;
+            case 4:
+                $products1 = Product::find()->where(['>','remains',0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_DESC])->asArray()->all();
+                $products2 = Product::find()->where(['remains' => 0])->andWhere(['like', 'name', $arr])->orderBy(['name' => SORT_DESC])->asArray()->all();
+                break;
+        }
+
+        $products = array_merge($products1, $products2);
+
+        if(isset($products) and !empty($products)) {
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $products,
+                'pagination' => [
+                    'pageSize' => 20,
+                ],
+            ]);
+
             $pagination = new Pagination([
                 'defaultPageSize' => 20,
-                'totalCount' => $count,
+                'totalCount' => $dataProvider->getTotalCount(),
             ]);
-            $products = $products->offset($pagination->offset)->limit($pagination->limit)->all();
+
+            $products = $dataProvider->getModels();
+
+            $count = $dataProvider->getTotalCount();
         }
 
         return $this->render('search', [
@@ -75,8 +135,8 @@ class ProductController extends Controller
             'count' => $count,
             'products' => $products,
             'pagination' => $pagination,
+            'sort' => $sort,
         ]);
-
     }
 
     /**

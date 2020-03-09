@@ -43,16 +43,27 @@ $this->title = 'Плеяда';
         <div class="main-all-goods">
             <?php foreach ($categories as $category):?>
                 <div class="main-good">
-                    <? if($category['img_url'] == ""): ?>
-                        <img src="/img/noimage.png" alt="<?= $category['name']?>" title="<?= $category['name']?>">
-                    <? else: ?>
-                        <img src="<?= $category['img_url']?>" alt="<?= $category['name']?>" title="<?= $category['name']?>">
-                    <? endif;?>
-                    <span class="main-good-name"><?= $category['name']?></span>
+                    <div class="main-good-head">
+                        <? if($category['img_url'] == ""): ?>
+                            <img src="/img/noimage.png" alt="<?= $category['name']?>" title="<?= $category['name']?>">
+                        <? else: ?>
+                            <img src="<?= $category['img_url']?>" alt="<?= $category['name']?>" title="<?= $category['name']?>">
+                        <? endif;?>
+                        <span class="main-good-name"><?= $category['name']?></span>
+                    </div>
                     <ul class="main-list good-list">
                         <? if(isset($category['childs'])): ?>
                         <?php foreach ($category['childs'] as $subcategory):?>
-                            <li><a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>"><?= $subcategory['name']?></a></li>
+                            <li>
+                                <a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>"><?= $subcategory['name']?></a>
+                                <? if(isset($subcategory['childs'])): ?>
+                                    <ul>
+                                    <?php foreach ($subcategory['childs'] as $sub_subcategory):?>
+                                        <li><a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias']])?>" style="padding-left: 10px;"><?= $sub_subcategory['name']?></a></li>
+                                    <?php endforeach; ?>
+                                    </ul>
+                                <? endif;?>
+                            </li>
                         <?php endforeach; ?>
                         <? endif; ?>
                         <li><a href="<?= Url::to(['categories/view', 'alias' => $category['alias']])?>">Уся продукція</a></li>
@@ -60,6 +71,28 @@ $this->title = 'Плеяда';
                 </div>
             <?php endforeach; ?>
         </div>
+
+
+<!--        <div class="main-all-goods">-->
+<!--            --><?php //foreach ($categories as $category):?>
+<!--                <div class="main-good">-->
+<!--                    --><?// if($category['img_url'] == ""): ?>
+<!--                        <img src="/img/noimage.png" alt="--><?//= $category['name']?><!--" title="--><?//= $category['name']?><!--">-->
+<!--                    --><?// else: ?>
+<!--                        <img src="--><?//= $category['img_url']?><!--" alt="--><?//= $category['name']?><!--" title="--><?//= $category['name']?><!--">-->
+<!--                    --><?// endif;?>
+<!--                    <span class="main-good-name">--><?//= $category['name']?><!--</span>-->
+<!--                    <ul class="main-list good-list">-->
+<!--                        --><?// if(isset($category['childs'])): ?>
+<!--                        --><?php //foreach ($category['childs'] as $subcategory):?>
+<!--                            <li><a href="--><?//= Url::to(['categories/view', 'alias' => $subcategory['alias']])?><!--">--><?//= $subcategory['name']?><!--</a></li>-->
+<!--                        --><?php //endforeach; ?>
+<!--                        --><?// endif; ?>
+<!--                        <li><a href="--><?//= Url::to(['categories/view', 'alias' => $category['alias']])?><!--">Уся продукція</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            --><?php //endforeach; ?>
+<!--        </div>-->
     </div>
 
 

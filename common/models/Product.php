@@ -88,6 +88,27 @@ class Product extends \yii\db\ActiveRecord
     public function beforeDelete()
     {
         DeleteImage::deleteFolder(Yii::getAlias('@frontend').'/web/img/products/'.$this->id);
+
+        $images = $this->getImages()->all();
+        foreach ($images as $image) {
+            $image->delete();
+        }
+
+        $reviews = $this->getReviews()->all();
+        foreach ($reviews as $review) {
+            $review->delete();
+        }
+
+        $carts = $this->getCarts()->all();
+        foreach ($carts as $cart) {
+            $cart->delete();
+        }
+
+        $favourites = $this->getFavourites()->all();
+        foreach ($favourites as $favourite){
+            $favourite->delete();
+        }
+
         return parent::beforeDelete();
     }
 
