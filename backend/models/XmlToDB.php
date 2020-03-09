@@ -19,6 +19,8 @@ use yii\web\Application;
 class XmlToDB extends \yii\base\Model
 {
     public $path;
+    public $process;
+    public $processIMG;
 
     public function rules()
     {
@@ -88,16 +90,8 @@ class XmlToDB extends \yii\base\Model
         $product->alias=$alias;
         return $product->save();
     }
-    public function addImg ($product,$path,$title)
-    {
-        $img = new Images();
-        $img->product_id=$product;
-        $img->path=$path;
-        $img->title=$title;
-        return $img->save();
 
-    }
-    public function  getId($a)
+    public  function  getId($a)
     {
         $query = new Query();
         $query->select(['id'])
@@ -120,6 +114,7 @@ class XmlToDB extends \yii\base\Model
           $data= $command->queryAll();
         return $data[0]['id'];
     }
+
     public function getPromoPrice($id,$value)
     {
         if ($id != null)
@@ -166,20 +161,47 @@ public function ArrayToDB()
 //            $counter++;
 //            if($counter == 1) return true;
         }
-        $dir=Yii::getAlias('@frontend').'/web/img/products';
-        $arr = scandir($dir);
-        foreach ($arr as $value) {
 
-            if(($id=$this->getId((int)$value))!=null) {
-                $this->addImg(
-                    $id,
-                    '/img/products/' . $value,
-                    $value);
-            }
-  }
         return true;
     }
 
     return false;
 }
+
+    public function addImg ($product,$path,$title)
+    {
+        $img = new Images();
+        $img->product_id=$product;
+        $img->path=$path;
+        $img->title=$title;
+        return $img->save();
+
+    }
+    public  function getImg($pc){
+        $query = new Query();
+        $query->select(['id'])
+            ->from('images')
+            ->where(['title' => $pc]);
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+
+        return $data[0]['id'];
+    }
+    public  function  setImgToDb ()
+    {
+
+        $dir=Yii::getAlias('@frontend').'/web/img/products';
+        $arr = scandir($dir);
+        foreach ($arr as $value) {
+            if($this->getImg($value) == null ) {
+                if (($id = $this->getId((int)$value)) != null && strpos($value, '.')) {
+                    $this->addImg(
+                        $id,
+                        '/img/products/' . $value,
+                        $value);
+                }
+            }
+        }
+        return true;
+    }
 }

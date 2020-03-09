@@ -16,7 +16,7 @@ JS
 ?>
 
 
-
+<?php Pjax::begin(['timeout' => false]); ?>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','data-pjax' => '']]) ?>
     <h1>Оновлення Категорій</h1>
     <?php echo $session->getFlash('lala')?>
@@ -27,6 +27,6 @@ JS
 
 <?php ActiveForm::end() ?>
 
-<?php Pjax::begin(['timeout' => false]); ?>
+
 <?php Pjax::end(); ?>
 
