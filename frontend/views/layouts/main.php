@@ -116,7 +116,7 @@ AppAsset::register($this);
                     <?php endif ?>
                 </ul>
                 <div class="header-numbers">
-                    <span>+38 (067) 208 0241 / +38 (032) 476 6190</span>
+<!--                    <span>+38 (067) 208 0241 / +38 (032) 476 6190</span>-->
                 </div>
             </div>
             <div class="header-another">
