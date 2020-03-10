@@ -86,7 +86,8 @@ class ProductController extends Controller
     {
         $model = new Product();
 
-        $categories = Categories::find()->where(['<>', 'id_parent', 0])->all();
+        //$categories = Categories::find()->where(['<>', 'id_parent', 0])->all();
+        $categories = Categories::find()->all();
         $categories = ArrayHelper::map($categories, 'id', 'name');
 
         $modelUploadImgs = new UploadForm();
