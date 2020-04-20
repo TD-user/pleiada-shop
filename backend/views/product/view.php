@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="img-wrapper-container">
             <? foreach ($model->getImages()->all() as $image): ?>
             <div class="img-wrapper">
-                <img src="<?= str_replace('admin.','',Url::home(true)).$image->path; ?>" alt="">
+                <img src="<?= str_replace('admin-','',Url::home(true)).$image->path; ?>" alt="">
                 <a href="#" data-id="<?= $image->id ?>" title="Видалити зображення?"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
             </div>
             <? endforeach; ?>

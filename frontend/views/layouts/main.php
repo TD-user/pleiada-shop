@@ -163,6 +163,7 @@ AppAsset::register($this);
     <?= $content ?>
 </div>
 
+<div class="mp-toasts__wrapper"></div>
 <footer>
     <?= subscribeForm\SubscribeFormWidget::widget(); ?>
     <div class="footer-container">

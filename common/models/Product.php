@@ -87,7 +87,7 @@ class Product extends \yii\db\ActiveRecord
 
     public function beforeDelete()
     {
-        DeleteImage::deleteFolder(Yii::getAlias('@frontend').'/web/img/products/'.$this->id);
+        DeleteImage::deleteFolder(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->id);
 
         $images = $this->getImages()->all();
         foreach ($images as $image) {

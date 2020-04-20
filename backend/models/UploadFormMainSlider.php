@@ -33,12 +33,12 @@ class UploadFormMainSlider extends Model
     public function upload()
     {
         if($this -> validate()) {
-            if (!file_exists(Yii::getAlias('@frontend') . '/web/img/mainslider'))
-                mkdir(Yii::getAlias('@frontend') . '/web/img/mainslider', 0777);
+            if (!file_exists(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'mainslider'))
+                mkdir(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'mainslider', 0777);
 
             foreach ($this->imageFile as $key => $value) {
-                if (!file_exists(Yii::getAlias('@frontend') . '/web/img/mainslider/' . $value->name)) {
-                    $value->saveAs(Yii::getAlias('@frontend') . '/web/img/mainslider/' . $value->name);
+                if (!file_exists(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'mainslider' . DIRECTORY_SEPARATOR . $value->name)) {
+                    $value->saveAs(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'mainslider' . DIRECTORY_SEPARATOR . $value->name);
                     $this->image->path = '/img/mainslider/' . $value->name;
                     $this->image->save();
                 } else {

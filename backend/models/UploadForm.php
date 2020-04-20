@@ -33,15 +33,15 @@ class UploadForm extends Model
     public function upload()
     {
         if($this -> validate()) {
-            if (!file_exists(Yii::getAlias('@frontend') . '/web/img/products/' . $this->product->id))
-                mkdir(Yii::getAlias('@frontend') . '/web/img/products/' . $this->product->id, 0777);
+            if (!file_exists(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web'. DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->product->id))
+                mkdir(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->product->id, 0777);
 
             foreach ($this->imageFile as $key => $value) {
                 $image = new Images();
                 $image->product_id = $this->product->id;
 
-                if (!file_exists(Yii::getAlias('@frontend') . '/web/img/products/' . $this->product->id . '/' . $value->name)) {
-                    $value->saveAs(Yii::getAlias('@frontend') . '/web/img/products/' . $this->product->id . '/' . $value->name);
+                if (!file_exists(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->product->id . DIRECTORY_SEPARATOR . $value->name)) {
+                    $value->saveAs(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'products' . DIRECTORY_SEPARATOR . $this->product->id . DIRECTORY_SEPARATOR . $value->name);
                     $image->path = '/img/products/' . $this->product->id . '/' . $value->name;
                     $image->title = $value->name;
                     $image->save();

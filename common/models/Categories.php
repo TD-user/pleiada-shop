@@ -64,7 +64,7 @@ class Categories extends \yii\db\ActiveRecord
     public function beforeDelete()
     {
         if($this->id_parent == 0)
-            DeleteImage::deleteFolder(Yii::getAlias('@frontend').'/web/img/categories/'.$this->id);
+            DeleteImage::deleteFolder(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . DIRECTORY_SEPARATOR . 'img' . DIRECTORY_SEPARATOR . 'categories' . DIRECTORY_SEPARATOR . $this->id);
         return parent::beforeDelete();
     }
 

@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-sm-12 ">
             <div class="img-wrapper-max">
-                <img src="<?= str_replace('admin.','',Url::home(true)).$model->path; ?>" alt="">
+                <img src="<?= str_replace('admin-','',Url::home(true)).$model->path; ?>" alt="">
             </div>
         </div>
     </div>

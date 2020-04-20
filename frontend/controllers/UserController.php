@@ -24,6 +24,7 @@ class UserController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Для подальшої роботи з сайтом вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
 
@@ -65,6 +66,7 @@ class UserController extends Controller
     public function actionFavourite()
     {
         if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Для подальшої роботи з сайтом вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
         else {
@@ -87,6 +89,7 @@ class UserController extends Controller
     public function actionAllWatchedProducts()
     {
         if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Для подальшої роботи з сайтом вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
 
@@ -124,6 +127,7 @@ class UserController extends Controller
     public function actionCart()
     {
         if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Для подальшої роботи з сайтом вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
         else {
@@ -159,8 +163,10 @@ class UserController extends Controller
 
     public function actionOrder()
     {
-        if(Yii::$app->user->isGuest)
+        if(Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Для подальшої роботи з сайтом вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
+        }
 
         $order = new Order();
         if ($order->load(Yii::$app->request->post()) && $order->save() ) {
@@ -236,8 +242,10 @@ class UserController extends Controller
 
     public function actionOneClickOrder()
     {
-        if(Yii::$app->user->isGuest)
+        if(Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Для подальшої роботи з сайтом вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
+        }
 
         $modelOneClickOrder = new Oneclickorder();
 
@@ -309,6 +317,7 @@ class UserController extends Controller
             return $this->goHome();
 
         if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Щоб мати можливість зберігати товари в "Улюблених" Вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
         else {
@@ -327,6 +336,7 @@ class UserController extends Controller
             return $this->goHome();
 
         if (Yii::$app->user->isGuest) {
+            Yii::$app->session->setFlash('warning', 'Щоб мати можливість зберігати товари в "Улюблених" Вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
         else {
@@ -343,8 +353,7 @@ class UserController extends Controller
             return $this->goHome();
 
         if (Yii::$app->user->isGuest) {
-            //todo for guest, use cookie
-
+            Yii::$app->session->setFlash('warning', 'Щоб мати можливість добавляти товари в "Кошик" та здійснювати покупки Вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
         else {
@@ -365,8 +374,7 @@ class UserController extends Controller
             return $this->goHome();
 
         if (Yii::$app->user->isGuest) {
-            //todo for guest, use cookie
-
+            Yii::$app->session->setFlash('warning', 'Щоб мати можливість добавляти товари в "Кошик" та здійснювати покупки Вам необхідно зареєструватися або увійти у свій аккаунт');
             return $this->goHome();
         }
         else {

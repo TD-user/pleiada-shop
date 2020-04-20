@@ -16,10 +16,12 @@ class AppAsset extends AssetBundle
         'css/bootstrap-slider.min.css',
         'css/style.css?v=5',
         'css/changedStyle.css?v=4',
+        'libs/MP_Toasts/MP_Toasts.css',
     ];
     public $js = [
-        'js/main.js',
-        'js/ajaxToServer.js?v=15',
+        'libs/MP_Toasts/MP_Toasts.js',
+        'js/main.js?v=1',
+        'js/ajaxToServer.js',
         'js/bootstrap-slider.min.js',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js',
     ];

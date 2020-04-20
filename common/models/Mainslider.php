@@ -45,9 +45,17 @@ class Mainslider extends \yii\db\ActiveRecord
         ];
     }
 
+    protected function updateSeparator()
+    {
+        $path = $this->path;
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+        return $path;
+    }
+
     public function beforeDelete()
     {
-        DeleteImage::deleteImg(Yii::getAlias('@frontend').'/web'.$this->path);
+        DeleteImage::deleteImg(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . $this->updateSeparator());
         return parent::beforeDelete();
     }
 
