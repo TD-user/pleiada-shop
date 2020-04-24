@@ -49,7 +49,7 @@ class XmlCategory extends \yii\base\Model
         }
         return null;
     }
-    public function getCategories($id)
+    public function getCategoriesId($id)
     {
         $query = new Query();
         $query->select(['id'])
@@ -60,6 +60,19 @@ class XmlCategory extends \yii\base\Model
         if (!empty($data)) {
             $id = $data[0]['id'];
             return $id;
+        }
+        return null;
+    }
+    public function getCategories()
+    {
+        $query = new Query();
+        $query->select(['*'])
+            ->from('categories');
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        if (!empty($data)) {
+
+            return $data;
         }
         return null;
     }
@@ -105,9 +118,24 @@ class XmlCategory extends \yii\base\Model
     public function ArrayToDB()
     {
 
-        if (is_array($array=$this->getArrayByXML())) {
+        if (is_array($array=$this->getArrayByXML()) && $array['Category'] != NULL) {
             $array = $array['Category'];
+            var_dump($this->getCategories());
 
+            if ($this->getCategories() != null) {
+                $product = new XmlToDB();
+                $data = $product->getAll();
+                $this->addCategory("TMP", -1, -1);
+                $tmp = $this->getCategoriesId(-1);
+
+                foreach ($data as $value) {
+                    $product->addProduct($value['id'], $tmp, $value['name'], $value['price'], $value['remains'], $value['code_1c'], $value['parent_code_1c'], $value['promotionPrice'], $value['currency'], $value['unit'], $value['article'], $value['manufacturer'], $value['description'], $value['alias']);
+                }
+                foreach ($this->getCategories() as $value) {
+                    if (strcmp($value['id'], $tmp))
+                        Yii::$app->db->createCommand()->delete('categories', 'id =' . $value['id'])->execute();
+                }
+            }
 
             $array_p=[];
             $array_c=[];

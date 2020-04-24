@@ -107,6 +107,9 @@ class SiteController extends Controller
 //        $role->description = 'Менеджер';
 //        Yii::$app->authManager->add($role);
 
+//        $role = Yii::$app->authManager->createRole('baned');
+//        $role->description = 'Заблоковані користувачі';
+//        Yii::$app->authManager->add($role);
 //  ---------------Створення правил RBAC-------
 
 //        $permit = Yii::$app->authManager->createPermission('canAdmin');

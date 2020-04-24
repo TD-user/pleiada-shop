@@ -85,7 +85,8 @@ class SiteController extends Controller
     public function actionIndex()
     {
 
-        if ( strcmp(array_keys(Yii::$app->authManager->getRolesByUser(Yii::$app->user->id))[0],'baned') ===0)
+
+        if ( Yii::$app->authManager->getRolesByUser(Yii::$app->user->id)['baned'])
         {
             Yii::$app->user->logout();
             Yii::$app->session->setFlash('error', 'Нажаль ви були заблоковані! Зв\'яжітись з нами у розділі Контакти');

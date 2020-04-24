@@ -14,12 +14,12 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/bootstrap-slider.min.css',
-        'css/style.css?v=9',
+        'css/style.css?v=5',
         'css/changedStyle.css?v=4',
         'libs/MP_Toasts/MP_Toasts.css?v=1',
     ];
     public $js = [
-        'libs/MP_Toasts/MP_Toasts.js',
+        'libs/MP_Toasts/MP_Toasts.js?v=1',
         'js/main.js?v=2',
         'js/ajaxToServer.js?v=1',
         'js/bootstrap-slider.min.js',

@@ -16,15 +16,16 @@ use \yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="form-group">
-        <?php if (strcmp(array_keys(Yii::$app->authManager->getRolesByUser($model->id))[0],'baned') !==0) :?>
-                <a href="<?= Url::to(['user/bane', 'id' => $model->id ])?>" class="btn btn-danger">
-                    Закрити доступ користувачеві
-                </a>
-        <?php  else :?>
+        <?php  if ( Yii::$app->authManager->getRolesByUser($model->id)['baned']!=null) :?>
 
             <a href="<?= Url::to(['user/unbane', 'id' => $model->id ])?>" class="btn btn-primary">
                 Відкрити  доступ користувачеві
             </a>
+        <?php  else :?>
+            <a href="<?= Url::to(['user/bane', 'id' => $model->id ])?>" class="btn btn-danger">
+                Закрити доступ користувачеві
+            </a>
+
         <?php  endif;?>
     </div>
 

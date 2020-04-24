@@ -18,7 +18,7 @@ $this->registerJs(<<<JS
 JS
 );
 ?>
-<?php Pjax::begin(['timeout' => false]); ?>
+
 
 <?php $form = ActiveForm::begin([ 'action' => Url::to(['site/upload']),'options' => ['enctype' => 'multipart/form-data','data-pjax' => '']]) ?>
 
@@ -34,6 +34,7 @@ JS
     <div id='loading'  style="display: none;"><h3>Завантаження ...</h3></div>
     <input type="submit"  class="btn btn-success"  value="Завантажити" >
 <?php ActiveForm::end() ?>
+<?php Pjax::begin(['timeout' => false]); ?>
 <?php Pjax::end(); ?>
 <?php $form = ActiveForm::begin(['action' => Url::to(['site/img']),'options' => ['enctype' => 'multipart/form-data','data-pjax' => '' ]]) ?>
     <h1>Зантаження картинок до Бази даних</h1>
@@ -44,6 +45,7 @@ JS
 </ul>
     <h3 id = "load1"><?=$processIMG?></h3>
     <input type="submit"  class="btn btn-success" value="Завантажити картинки"  >
+
 <?php ActiveForm::end() ?>
 
 

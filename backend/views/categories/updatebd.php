@@ -15,7 +15,6 @@ JS
 );
 ?>
 
-
 <?php Pjax::begin(['timeout' => false]); ?>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data','data-pjax' => '']]) ?>
     <h1>Оновлення Категорій</h1>

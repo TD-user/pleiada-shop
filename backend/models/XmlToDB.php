@@ -88,9 +88,22 @@ class XmlToDB extends \yii\base\Model
         $product->alias=$alias;
         return $product->save();
     }
+    public  function getAll()
+    {
+        $query = new Query();
+        $query->select(['*'])
+            ->from('product');
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        if (!empty($data)) {
+            return $data;
+        }
+        return null;
+    }
 
     public  function  getId($a)
     {
+
         $query = new Query();
         $query->select(['id'])
             ->from('product')
@@ -132,8 +145,9 @@ return floatval(str_replace (',','.',$value));
 public function ArrayToDB()
 {
 
-    if (is_array($array=$this->getArrayByXML())) {
+    if (is_array($array=$this->getArrayByXML()) && $array['item'] != null) {
         $array = $array['item'];
+
 //        $counter = 0;
 
 
@@ -158,6 +172,12 @@ public function ArrayToDB()
 
 //            $counter++;
 //            if($counter == 1) return true;
+        }
+        $categ = new XmlCategory();
+        if ($categ->getCategoriesId(-1)!= null) {
+            $idcat = $categ->getCategoriesId(-1);
+            Yii::$app->db->createCommand()->delete('product', 'category_id = ' . $idcat)->execute();
+            Yii::$app->db->createCommand()->delete('categories', 'id = ' . $idcat)->execute();
         }
 
         return true;
@@ -187,6 +207,7 @@ public function ArrayToDB()
     }
     public  function  setImgToDb ()
     {
+
         $dir=Yii::getAlias('@www').DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'products';
         $arr = scandir($dir);
         foreach ($arr as $value) {
@@ -194,7 +215,7 @@ public function ArrayToDB()
                 if (($id = $this->getId((int)$value)) != null && strpos($value, '.')) {
                     $this->addImg(
                         $id,
-                        '/img/products/' . $value,
+                        DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'products'.DIRECTORY_SEPARATOR . $value,
                         $value);
                 }
             }
