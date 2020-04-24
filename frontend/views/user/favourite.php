@@ -57,9 +57,11 @@ $this->title = 'Плеяда - улюблені товари';
             </div>
         <? endforeach; ?>
     </div>
-    <div class="row">
-        <div class="col-sm-12 center">
-            <?= LinkPager::widget(['pagination' => $pagination]); ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 center">
+                <?= LinkPager::widget(['pagination' => $pagination]); ?>
+            </div>
         </div>
     </div>
 </div>

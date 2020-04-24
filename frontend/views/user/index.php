@@ -119,15 +119,42 @@ $this->title = 'Плеяда - особистий кабінет';
                             </div>
                         </div>
                     </div>
+                <? else: ?>
+                    <div class="curt-product">
+                        <div class="curt-good-img">
+                            <img src="/img/noimage.png" alt="no image">
+                        </div>
+                        <div class="curt-description">
+                            <div class="curt-info-title">
+                                <a href="/404" class="curt-product-name">
+                                    <?= $product->name; ?>
+                                </a>
+                                <span>Сума</span>
+                            </div>
+                            <div class="curt-info-body">
+                            <span class="curt-price">
+                                <?= number_format($product->price, 2); ?> грн
+                            </span>
+                                <div class="curt-counter">
+                                    <span class="curn-number-products"><?= $product->count?></span>
+                                </div>
+                                <span class="curt-summary-price">
+                                <?= number_format($product->summa, 2); ?> грн
+                            </span>
+                            </div>
+                        </div>
+                    </div>
                 <? endif;?>
                 <? endforeach;?>
                 </div>
             </details>
         <? endforeach; ?>
 
-        <div class="row">
-            <div class="col-sm-12 center">
-                <?= LinkPager::widget(['pagination' => $pagination]); ?>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 center">
+                    <?= LinkPager::widget(['pagination' => $pagination]); ?>
+                </div>
             </div>
         </div>
     </div>
