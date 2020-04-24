@@ -126,7 +126,7 @@ $this->title = 'Плеяда - корзина';
                             <div class="curt-counter">
                                 <span class="curn-symbols curt-minus">-</span>
                                 <span class="curn-number-products">
-                                    <?= $totalCount ?>
+                                    <input type="number" value="<?= $totalCount ?>" max="<?= $product->remains?>">
                                 </span>
                                 <span class="curn-symbols curt-plus" maxcount="<?= $product->remains?>">+</span>
                             </div>

@@ -226,12 +226,15 @@ class UserController extends Controller
 //                return $this->redirect(Url::to(['user/payment', 'id' => $order->id]));
 //            }
 
-            if($flag) {
-                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
-                Yii::$app->user->identity->clearCarts();
-            }
-            else
-                Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+//            if($flag) {
+//                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+//                Yii::$app->user->identity->clearCarts();
+//            }
+//            else
+//                Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+
+            Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+            Yii::$app->user->identity->clearCarts();
 
             return $this->goHome();
         }
@@ -297,10 +300,12 @@ class UserController extends Controller
             }
             $modelOneClickOrder->save();
 
-            if($flag)
-                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
-            else
-                Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+//            if($flag)
+//                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+//            else
+//                Yii::$app->session->setFlash('warning', 'Дякуємо за замовлення. Нажаль під час обробки замовлення, виникли певні проблеми. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
+
+            Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
 
             return $this->goHome();
         }
