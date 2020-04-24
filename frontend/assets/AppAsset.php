@@ -14,7 +14,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/bootstrap-slider.min.css',
-        'css/style.css?v=8',
+        'css/style.css?v=9',
         'css/changedStyle.css?v=4',
         'libs/MP_Toasts/MP_Toasts.css?v=1',
     ];

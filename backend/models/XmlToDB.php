@@ -187,8 +187,7 @@ public function ArrayToDB()
     }
     public  function  setImgToDb ()
     {
-
-        $dir=Yii::getAlias('@frontend').'/web/img/products';
+        $dir=Yii::getAlias('@www').DIRECTORY_SEPARATOR.'web'.DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.'products';
         $arr = scandir($dir);
         foreach ($arr as $value) {
             if($this->getImg($value) == null ) {
