@@ -120,7 +120,7 @@ class XmlCategory extends \yii\base\Model
 
         if (is_array($array=$this->getArrayByXML()) && $array['Category'] != NULL) {
             $array = $array['Category'];
-            var_dump($this->getCategories());
+
 
             if ($this->getCategories() != null) {
                 $product = new XmlToDB();
