@@ -32,7 +32,7 @@ class CategoriesController extends Controller
                 },
                 'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','upload'],
+                        'actions' => ['index','view','create','update','delete','upload','delete-img'],
                         'allow' => true,
                         'roles' => ['superAdmin','admin'],
                     ],
@@ -207,5 +207,18 @@ class CategoriesController extends Controller
         }
 
         return $this->render('updatebd',['model'=>$model,'process'=>$process]);
+    }
+
+    public function actionDeleteImg($id)
+    {
+        if(!Yii::$app->request->isAjax)
+            return $this->goHome();
+
+        $model = $this->findModel($id);
+        $model->deleteImg();
+        $model->img_url = null;
+        $model->save();
+        return true;
+
     }
 }

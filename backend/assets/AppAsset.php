@@ -16,7 +16,7 @@ class AppAsset extends AssetBundle
         'css/backstyle.css',
     ];
     public $js = [
-        'js/backmain.js'
+        'js/backmain.js?v=1'
     ];
     public $depends = [
         'yii\web\YiiAsset',
