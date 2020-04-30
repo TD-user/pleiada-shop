@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Categories */
@@ -36,5 +37,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'alias',
         ],
     ]) ?>
+
+    <? if(isset($model->img_url) && !empty($model->img_url)):?>
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="img-wrapper-container">
+                <div class="img-wrapper category-img">
+                    <img src="<?= str_replace('admin-','',Url::home(true)).$model->img_url; ?>" alt="">
+                    <a href="#" data-id="<?= $model->id ?>" title="Видалити зображення?"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <? endif; ?>
 
 </div>

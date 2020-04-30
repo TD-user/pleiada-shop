@@ -77,9 +77,11 @@ $this->title = 'Плеяда - результати пошуку';
             </div>
         <? endforeach; ?>
     </div>
-    <div class="row">
-        <div class="col-sm-12 center">
-            <?= LinkPager::widget(['pagination' => $pagination]); ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 center">
+                <?= LinkPager::widget(['pagination' => $pagination]); ?>
+            </div>
         </div>
     </div>
     <? else: ?>

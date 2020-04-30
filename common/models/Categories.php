@@ -68,12 +68,28 @@ class Categories extends \yii\db\ActiveRecord
         return parent::beforeDelete();
     }
 
+    protected function updateSeparator()
+    {
+        $path = $this->img_url;
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        $path = str_replace('\\', DIRECTORY_SEPARATOR, $path);
+        return $path;
+    }
+
+    public function deleteImg()
+    {
+        if($this->id_parent == 0)
+            DeleteImage::deleteImg(Yii::getAlias('@www') . DIRECTORY_SEPARATOR . 'web' . $this->updateSeparator());
+        return true;
+    }
+
     public static function getTreeMenuArray()
     {
         $categories = self::find()->asArray()->all();
         $cats = array();
         foreach ($categories as $category) {
-            $cats[$category['id']] = $category;
+            if($category['id_parent'] != -1)
+                $cats[$category['id']] = $category;
         }
         $tree = array();
         foreach ($cats as $id => &$node) {
