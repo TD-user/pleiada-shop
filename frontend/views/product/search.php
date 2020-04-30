@@ -11,7 +11,7 @@ $this->title = 'Плеяда - результати пошуку';
 ?>
 <?= widgets\CategoriesAsideWidget::widget()?>
 <div class="main-catalog">
-    <? if (isset($products)): ?>
+    <? if (isset($products) and !empty($products)): ?>
     <h2 class="inner-title">Результат пошуку: "<?= $search ?>". Знайдено <?= $count.' '.WriteCorrectly::corecllyResults($count)  ?></h2>
         <div class="col-sm-5 col-sm-offset-7" style="margin-bottom: 15px;">
             <?php $form_f = ActiveForm::begin([
