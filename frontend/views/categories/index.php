@@ -2,6 +2,7 @@
 
 use yii\helpers\Url;
 use frontend\widgets;
+use common\models\WriteCorrectly;
 
 $this->title = 'Плеяда - каталог товарів';
 ?>
@@ -18,17 +19,17 @@ $this->title = 'Плеяда - каталог товарів';
                         <? else: ?>
                             <img src="<?= $category['img_url']?>" alt="<?= $category['name']?>" title="<?= $category['name']?>">
                         <? endif;?>
-                        <span class="main-good-name"><?= $category['name']?></span>
+                        <span class="main-good-name"><?= WriteCorrectly::mb_ucfirst($category['name'])?></span>
                     </div>
                     <ul class="main-list good-list">
                         <? if(isset($category['childs'])): ?>
                             <?php foreach ($category['childs'] as $subcategory):?>
                                 <li>
-                                    <a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>"><?= $subcategory['name']?></a>
+                                    <a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>"><?= WriteCorrectly::mb_ucfirst($subcategory['name'])?></a>
                                     <? if(isset($subcategory['childs'])): ?>
                                         <ul>
                                             <?php foreach ($subcategory['childs'] as $sub_subcategory):?>
-                                                <li><a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias']])?>" style="padding-left: 10px;"><?= $sub_subcategory['name']?></a></li>
+                                                <li><a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias']])?>" style="padding-left: 10px;"><?= WriteCorrectly::mb_ucfirst($sub_subcategory['name']) ?></a></li>
                                             <?php endforeach; ?>
                                         </ul>
                                     <? endif;?>

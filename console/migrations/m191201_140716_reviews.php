@@ -36,7 +36,7 @@ class m191201_140716_reviews extends Migration
             'product_id',
             '{{%product}}',
             'id',
-            'NO ACTION'
+            'CASCADE'
         );
 
         $this->createIndex('idx-reviews-user_id', '{{%reviews}}', 'user_id');
@@ -46,7 +46,7 @@ class m191201_140716_reviews extends Migration
             'user_id',
             '{{%user}}',
             'id',
-            'NO ACTION'
+            'CASCADE'
         );
     }
 

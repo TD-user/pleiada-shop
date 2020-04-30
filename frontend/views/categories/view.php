@@ -7,11 +7,11 @@ use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 use common\models\WriteCorrectly;
 
-$this->title = 'Плеяда - '.$model->name;
+$this->title = 'Плеяда - ' . WriteCorrectly::mb_ucfirst($model->name);
 ?>
 <?= widgets\CategoriesAsideWidget::widget()?>
 <div class="main-catalog">
-    <h2 class="inner-title"><?= $model->name?></h2>
+    <h2 class="inner-title"><?= WriteCorrectly::mb_ucfirst($model->name) ?></h2>
     <div class="col-sm-5 col-sm-offset-7" style="margin-bottom: 15px;">
         <?php $form_f = ActiveForm::begin([
             'action' => Url::to(['categories/view', 'alias' => $model->alias]),
