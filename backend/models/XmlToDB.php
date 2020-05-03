@@ -144,9 +144,19 @@ return floatval(str_replace (',','.',$value));
 
 public function ArrayToDB()
 {
-
+    $categ = new XmlCategory();
     if (is_array($array=$this->getArrayByXML()) && $array['item'] != null) {
         $array = $array['item'];
+        if ($categ->getCategoriesId(-1) == null && $this->getAll() != null) {
+            $categ->addCategory("TMP", -1, -1);
+            $tmp = $categ->getCategoriesId(-1);
+            $data = $this->getAll();
+            foreach ($data as $value)
+                $this->addProduct($value['id'], $tmp, $value['name'], $value['price'], $value['remains'], $value['code_1c'], $value['parent_code_1c'], $value['promotionPrice'], $value['currency'], $value['unit'], $value['article'], $value['manufacturer'], $value['description'], $value['alias']);
+
+
+        }
+
 
 //        $counter = 0;
 
@@ -173,9 +183,8 @@ public function ArrayToDB()
 //            $counter++;
 //            if($counter == 1) return true;
         }
-        $categ = new XmlCategory();
-        if ($categ->getCategoriesId(-1)!= null) {
-            $idcat = $categ->getCategoriesId(-1);
+
+        if ( $idcat =  $categ->getCategoriesId(-1) != null) {
             Yii::$app->db->createCommand()->delete('product', 'category_id = ' . $idcat)->execute();
             Yii::$app->db->createCommand()->delete('categories', 'id = ' . $idcat)->execute();
         }
