@@ -165,7 +165,7 @@ class CategoriesController extends Controller
             Yii::$app->session->setFlash('error', 'Категорію не можливо видалити тому що у ній є товари');
             return $this->redirect(array('index','param1'=>'val1'));
         }
-        else if ($model->getCategories($id)!=null)
+        else if ($model->getCategoriesId($id)!=null)
         {
             Yii::$app->session->setFlash('error','Категорію не можливо видалити тому що у ній є підкатегорії');
             return $this->redirect(array('index','param1'=>'val1'));

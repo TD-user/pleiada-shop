@@ -24,7 +24,7 @@ use kartik\file\FileInput;
     <?= $form->field($modelUpload, 'imageFile')->widget(FileInput::classname(), [
 
         'name' => 'input-ru[]',
-        'language' => 'ru',
+        'language' => 'uk',
         'attribute' => 'attachment_1[]',
         //'options' => ['multiple' => true ],
         'pluginOptions' => [
