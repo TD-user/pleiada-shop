@@ -9,7 +9,7 @@ $this->title = 'Плеяда - каталог товарів';
 <?= widgets\CategoriesAsideWidget::widget()?>
 <div class="main-catalog">
     <div class="main-inner-goods no-border">
-        <h2>Всі товари</h2>
+        <h2>Каталог товарів</h2>
         <div class="main-all-goods">
             <?php foreach ($categories as $category):?>
                 <div class="main-good">
@@ -19,7 +19,11 @@ $this->title = 'Плеяда - каталог товарів';
                         <? else: ?>
                             <img src="<?= $category['img_url']?>" alt="<?= $category['name']?>" title="<?= $category['name']?>">
                         <? endif;?>
-                        <span class="main-good-name"><?= WriteCorrectly::mb_ucfirst($category['name'])?></span>
+                        <span class="main-good-name">
+                            <a href="<?= Url::to(['categories/view', 'alias' => $category['alias']])?>">
+                                <?= WriteCorrectly::mb_ucfirst($category['name'])?>
+                            </a>
+                        </span>
                     </div>
                     <ul class="main-list good-list">
                         <? if(isset($category['childs'])): ?>
@@ -36,7 +40,6 @@ $this->title = 'Плеяда - каталог товарів';
                                 </li>
                             <?php endforeach; ?>
                         <? endif; ?>
-                        <li><a href="<?= Url::to(['categories/view', 'alias' => $category['alias']])?>">Уся продукція</a></li>
                     </ul>
                 </div>
             <?php endforeach; ?>

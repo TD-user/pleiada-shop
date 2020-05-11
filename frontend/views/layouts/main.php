@@ -13,6 +13,7 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 use frontend\widgets\SocialWidget;
 use frontend\widgets\subscribeForm;
+use frontend\widgets\phonesForHeader;
 
 AppAsset::register($this);
 ?>
@@ -116,7 +117,7 @@ AppAsset::register($this);
                     <?php endif ?>
                 </ul>
                 <div class="header-numbers">
-<!--                    <span>+38 (067) 208 0241 / +38 (032) 476 6190</span>-->
+                    <?= phonesForHeader\PhonesForHeaderWidget::widget(); ?>
                 </div>
             </div>
             <div class="header-another">
@@ -182,6 +183,9 @@ AppAsset::register($this);
                 <li><a href="<?= Url::to(['site/contacts'])?>">Контакти</a></li>
             </ul>
         </div>
+    </div>
+    <div class="footer-numbers">
+        <?= phonesForHeader\PhonesForHeaderWidget::widget(); ?>
     </div>
     <div class="copyright-block">
         <small>Copyright &copy; 2019-<?= date('Y'); ?> ТзОВ "....." pleiada.com.ua <br> Всі права захищено</small>

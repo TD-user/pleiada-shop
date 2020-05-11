@@ -205,6 +205,8 @@ class UserController extends Controller
                         $validateOrder[] = $prodOrder;
                     }
                     $newTotal += $prodOrder->summa;
+
+                    //todo:
                 }
             }
             $order->products_json = json_encode($validateOrder);
@@ -299,6 +301,8 @@ class UserController extends Controller
                 $flag = false;
             }
             $modelOneClickOrder->save();
+
+            //todo: 
 
 //            if($flag)
 //                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');
