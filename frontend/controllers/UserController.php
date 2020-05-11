@@ -302,7 +302,7 @@ class UserController extends Controller
             }
             $modelOneClickOrder->save();
 
-            //todo: 
+            //todo:
 
 //            if($flag)
 //                Yii::$app->session->setFlash('success', 'Дякуємо за замовлення. Наш менеджер зателефонує вам найблищим часом для уточнення деталей');

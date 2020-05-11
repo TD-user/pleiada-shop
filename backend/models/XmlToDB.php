@@ -184,7 +184,8 @@ public function ArrayToDB()
 //            if($counter == 1) return true;
         }
 
-        if ( $idcat =  $categ->getCategoriesId(-1) != null) {
+        $idcat = $categ->getCategoriesId(-1);
+        if ($idcat != null) {
             Yii::$app->db->createCommand()->delete('product', 'category_id = ' . $idcat)->execute();
             Yii::$app->db->createCommand()->delete('categories', 'id = ' . $idcat)->execute();
         }

@@ -110,4 +110,28 @@ class Categories extends \yii\db\ActiveRecord
         return $this->hasMany(Product::className(), ['category_id' => 'id']);
     }
 
+    public function hasChilds()
+    {
+        $categor = Categories::findOne(['id_parent' => $this->id]);
+        if ($categor == null)
+            return false;
+        return true;
+    }
+
+    public function getTree()
+    {
+        $categor = Categories::find()->where(['id_parent' => $this->id])->asArray()->all();
+        $cat = array();
+        foreach ($categor as $value)
+        {
+            $cat[$value['id']] = $value;
+            $subcategor = Categories::find()->where(['id_parent' => $value['id']])->asArray()->all();
+            foreach ($subcategor as $item)
+            {
+                $cat[$value['id']]['childs'][$item['id']] = $item;
+            }
+        }
+        return $cat;
+    }
+
 }

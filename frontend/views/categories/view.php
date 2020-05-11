@@ -11,7 +11,64 @@ $this->title = 'Плеяда - ' . WriteCorrectly::mb_ucfirst($model->name);
 ?>
 <?= widgets\CategoriesAsideWidget::widget()?>
 <div class="main-catalog">
-    <h2 class="inner-title"><?= WriteCorrectly::mb_ucfirst($model->name) ?></h2>
+
+    <div class="subcategories-list">
+        <ul class="categories-list">
+            <li>
+                <div class="li__inner">
+                    <div class="a__wrapper">
+                        <h2 class="inner-title"><?= WriteCorrectly::mb_ucfirst($model->name) ?></h2>
+                    </div>
+                    <div class="button__wrapper">
+                        <? if($model->hasChilds()): ?>
+                        <button>
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <? endif; ?>
+                    </div>
+                </div>
+                <? if($model->hasChilds()): ?>
+                <?php $subcategories = $model->getTree(); ?>
+                    <ul>
+                        <?php foreach ($subcategories as $subcategory):?>
+                            <li>
+                                <div class="li__inner">
+                                    <div class="a__wrapper">
+                                        <a href="<?= Url::to(['categories/view', 'alias' => $subcategory['alias']])?>">
+                                            <?= WriteCorrectly::mb_ucfirst($subcategory['name'])?>
+                                        </a>
+                                    </div>
+                                    <div class="button__wrapper">
+                                        <?php if(isset($subcategory['childs'])): ?>
+                                            <button><i class="fas fa-chevron-down"></i></button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                                <?php if(isset($subcategory['childs'])): ?>
+                                    <ul>
+                                        <?php foreach ($subcategory['childs'] as $sub_subcategory):?>
+                                            <li>
+                                                <div class="li__inner">
+                                                    <div class="a__wrapper">
+                                                        <a href="<?= Url::to(['categories/view', 'alias' => $sub_subcategory['alias']])?>">
+                                                            <?= WriteCorrectly::mb_ucfirst($sub_subcategory['name']) ?>
+                                                        </a>
+                                                    </div>
+                                                    <div class="button__wrapper"></div>
+                                                </div>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php endif; ?>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <? endif; ?>
+            </li>
+        </ul>
+    </div>
+    <?php $this->registerJsFile("@web/js/categoriesAccordion.js", ['depends' => [\yii\web\JqueryAsset::className()]]);?>
+
     <div class="col-sm-5 col-sm-offset-7" style="margin-bottom: 15px;">
         <?php $form_f = ActiveForm::begin([
             'action' => Url::to(['categories/view', 'alias' => $model->alias]),
