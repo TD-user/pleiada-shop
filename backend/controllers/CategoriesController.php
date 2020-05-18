@@ -93,14 +93,14 @@ class CategoriesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if($model->id_parent == 0) {
+            //if($model->id_parent == 0) {
                 $modelUpload->category = $model;
 
                 if (Yii::$app->request->post()) {
                     $modelUpload->imageFile = UploadedFile::getInstances($modelUpload, 'imageFile');
                     $modelUpload->upload();
                 }
-            }
+            //}
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -131,14 +131,14 @@ class CategoriesController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            if($model->id_parent == 0) {
+            //if($model->id_parent == 0) {
                 $modelUpload->category = $model;
 
                 if (Yii::$app->request->post()) {
                     $modelUpload->imageFile = UploadedFile::getInstances($modelUpload, 'imageFile');
                     $modelUpload->upload();
                 }
-            }
+            //}
 
             return $this->redirect(['view', 'id' => $model->id]);
         }

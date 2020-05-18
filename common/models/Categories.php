@@ -134,4 +134,155 @@ class Categories extends \yii\db\ActiveRecord
         return $cat;
     }
 
+    public function getChilds()
+    {
+        $categories = Categories::find()->where(['id_parent' => $this->id])->all();
+        return $categories;
+    }
+
+    public function getAllProducts($sort)
+    {
+        $products1      = null;
+        $products2      = null;
+        $sortType       = null;
+        $categoriesArr  = [];
+
+        switch ($sort) {
+            case 1:
+                $sortType = ['price' => SORT_DESC];
+                break;
+            case 2:
+                $sortType = ['price' => SORT_ASC];
+                break;
+            case 3:
+                $sortType = ['name' => SORT_ASC];
+                break;
+            case 4:
+                $sortType = ['name' => SORT_DESC];
+                break;
+        }
+
+        $categoriesArr[] = $this->id;
+
+        if($this->hasChilds()) {
+            $firstChilds = $this->getChilds();
+            foreach ($firstChilds as $firstChild) {
+                $categoriesArr[] = $firstChild->id;
+                if($firstChild->hasChilds()) {
+                    $secondChilds = $firstChild->getChilds();
+                    foreach ($secondChilds as $secondChild) {
+                        $categoriesArr[] = $secondChild->id;
+                        if($secondChild->hasChilds()) {
+                            $thirdChilds = $secondChild->getChilds();
+                            foreach ($thirdChilds as $thirdChild) {
+                                $categoriesArr[] = $thirdChild->id;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $products1 = Product::find()->where(['in', 'category_id', $categoriesArr])->andWhere(['>','remains',0])->orderBy($sortType)->asArray()->all();
+        $products2 = Product::find()->where(['in', 'category_id', $categoriesArr])->andWhere(['remains' => 0])->orderBy($sortType)->asArray()->all();
+
+        $products = array_merge($products1, $products2);
+
+        return $products;
+    }
+
+    public function getAllProducts2($sort)
+    {
+        $products1 = null;
+        $products2 = null;
+        $sortType = null;
+
+        switch ($sort) {
+            case 1:
+                $sortType = ['price' => SORT_DESC];
+                break;
+            case 2:
+                $sortType = ['price' => SORT_ASC];
+                break;
+            case 3:
+                $sortType = ['name' => SORT_ASC];
+                break;
+            case 4:
+                $sortType = ['name' => SORT_DESC];
+                break;
+        }
+
+        $products1 = $this->getProducts()->where(['>','remains',0])->orderBy($sortType)->asArray()->all();
+        $products2 = $this->getProducts()->where(['remains' => 0])->orderBy($sortType)->asArray()->all();
+
+        if($this->hasChilds()) {
+            $firstChilds = $this->getChilds();
+
+            foreach ($firstChilds as $firstChild) {
+                $firstChildProduct1 = $firstChild->getProducts()->where(['>','remains',0])->orderBy($sortType)->asArray()->all();
+                $firstChildProduct2 = $firstChild->getProducts()->where(['remains' => 0])->orderBy($sortType)->asArray()->all();
+
+                $products1 = array_merge($products1, $firstChildProduct1);
+                $products2 = array_merge($products2, $firstChildProduct2);
+
+                if($firstChild->hasChilds()) {
+                    $secondChilds = $firstChild->getChilds();
+
+                    foreach ($secondChilds as $secondChild) {
+                        $secondChildProduct1 = $secondChild->getProducts()->where(['>','remains',0])->orderBy($sortType)->asArray()->all();
+                        $secondChildProduct2 = $secondChild->getProducts()->where(['remains' => 0])->orderBy($sortType)->asArray()->all();
+
+                        $products1 = array_merge($products1, $secondChildProduct1);
+                        $products2 = array_merge($products2, $secondChildProduct2);
+
+                        if($secondChild->hasChilds()) {
+                            $thirdChilds = $secondChild->getChilds();
+
+                            foreach ($thirdChilds as $thirdChild) {
+                                $thirdChildProduct1 = $thirdChild->getProducts()->where(['>','remains',0])->orderBy($sortType)->asArray()->all();
+                                $thirdChildProduct2 = $thirdChild->getProducts()->where(['remains' => 0])->orderBy($sortType)->asArray()->all();
+
+                                $products1 = array_merge($products1, $thirdChildProduct1);
+                                $products2 = array_merge($products2, $thirdChildProduct2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        $products = array_merge($products1, $products2);
+
+        return $products;
+    }
+
+    public function getSingleProducts($sort)
+    {
+        $products1      = null;
+        $products2      = null;
+        $sortType       = null;
+
+        switch ($sort) {
+            case 1:
+                $sortType = ['price' => SORT_DESC];
+                break;
+            case 2:
+                $sortType = ['price' => SORT_ASC];
+                break;
+            case 3:
+                $sortType = ['name' => SORT_ASC];
+                break;
+            case 4:
+                $sortType = ['name' => SORT_DESC];
+                break;
+        }
+
+        $products1 = $this->getProducts()->where(['>','remains',0])->orderBy($sortType)->asArray()->all();
+        $products2 = $this->getProducts()->where(['remains' => 0])->orderBy($sortType)->asArray()->all();
+
+        $products = array_merge($products1, $products2);
+
+        return $products;
+    }
+
 }

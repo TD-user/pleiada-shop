@@ -23,7 +23,7 @@ use kartik\file\FileInput;
 
     <?= $form->field($model, 'img_url')->hiddenInput(['maxlength' => true])->label("") ?>
 
-    <? if($model->id_parent == 0): ?>
+<!--    --><?// if($model->id_parent == 0): ?>
     <div class="hide-if-not-parent">
         <?= $form->field($modelUpload, 'imageFile')->widget(FileInput::classname(), [
 
@@ -48,7 +48,7 @@ use kartik\file\FileInput;
         ])->label('Завантажити зображення товару (лише для батьківської категорії)');
         ?>
     </div>
-    <? endif;?>
+<!--    --><?// endif;?>
 
     <div class="form-group">
         <?= Html::submitButton('Зберегти', ['class' => 'btn btn-success']) ?>
@@ -56,10 +56,10 @@ use kartik\file\FileInput;
 
     <?php ActiveForm::end(); ?>
 
-    <?php $this->registerJsFile("@web/js/hideIfNotParent.js", [
-        'depends' => [
-            \yii\web\JqueryAsset::className()
-        ]
-    ]);?>
+<!--    --><?php //$this->registerJsFile("@web/js/hideIfNotParent.js", [
+//        'depends' => [
+//            \yii\web\JqueryAsset::className()
+//        ]
+//    ]);?>
 
 </div>

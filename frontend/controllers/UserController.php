@@ -207,6 +207,8 @@ class UserController extends Controller
                     $newTotal += $prodOrder->summa;
 
                     //todo:
+                    //$product->remains = $product->remains - $prodOrder->count;
+                    //$product->save();
                 }
             }
             $order->products_json = json_encode($validateOrder);
@@ -290,6 +292,10 @@ class UserController extends Controller
                         $validateOrder[] = $prodOrder;
                     }
                     $newTotal += $prodOrder->summa;
+
+
+                    //$product->remains = $product->remains - $prodOrder->count;
+                    //$product->save();
                 }
             }
             $modelOneClickOrder->products_json = json_encode($validateOrder);

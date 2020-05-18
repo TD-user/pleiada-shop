@@ -62,98 +62,14 @@ class CategoriesController extends Controller
             return $this->goHome();
         }
 
-//        $sort = Yii::$app->request->get('sort');
-//        if($sort != 1) var_dump($sort);
-
-        //$products = $model->getProducts()->where(['>','remains',0])->union($model->getProducts()->where(['remains' => 0]));
-
         $products = null;
-
-//        if($model->id_parent != 0) {
-//          $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
-//        //todo:
-//        } else {
-//            $catArr = Categories::find()->select('id')->where(['id_parent' => $model->id]);
-//            $products = Product::find()
-//                ->where(['category_id' => $catArr])
-//                ->orderBy(['remains' => SORT_DESC]);
-//        }
-
-//        $products = $model->getProducts()->orderBy(['remains' => SORT_DESC]);
-
-//        $joinedQuery = $model->getProducts()->where(['>','remains',0]);
-//        $joinedQuery = $joinedQuery->union($model->getProducts()->where(['remains' => 0]));
-
-//        $products = $model->getProducts()->where(['>','remains',0]);
-//        $products2 = $model->getProducts()->where(['remains' => 0]);
-//
-//        $products->orWhere($products2->where);
-//        $products->addParams($products2->params);
-
-
-
-
-
-//        $products = new SqlDataProvider([
-//            'sql' => $products->createCommand()->rawSql,
-//            //'totalCount' => $joinedQuery->count(),
-//        ]);
-
-//        $pagination = $products->getPagination();
-
-//        $pagination = new Pagination([
-//            'defaultPageSize' => 20,
-//            'totalCount' => $products->count(),
-//        ]);
-//
-//        $products = $products->offset($pagination->offset)->limit($pagination->limit)->all();
-
-//        $products = $products->getModels();
-
-//        $dataProvider = new ActiveDataProvider([
-//            'query' => $joinedQuery,
-//            'pagination' => [
-//                'pageSize' => 20,
-//            ],
-//        ]);
-
-
-
-//
-//        return $this->render('view', [
-//            'model' => $model,
-//            'products' => $products,
-//            'pagination' => $pagination,
-//            //'products' => $dataProvider->getModels(),
-//            //'pagination' => $dataProvider->getPagination(),
-//        ]);
-
-        $products1 = null;
-        $products2 = null;
 
         $sort = Yii::$app->request->get('sort');
         if(empty($sort)) $sort = 1;
 
-        switch ($sort) {
-            case 1:
-                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_DESC])->asArray()->all();
-                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['price' => SORT_DESC])->asArray()->all();
-                break;
-            case 2:
-                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_ASC])->asArray()->all();
-                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['price' => SORT_ASC])->asArray()->all();
-                break;
-            case 3:
-                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['name' => SORT_ASC])->asArray()->all();
-                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['name' => SORT_ASC])->asArray()->all();
-                break;
-            case 4:
-                $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['name' => SORT_DESC])->asArray()->all();
-                $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['name' => SORT_DESC])->asArray()->all();
-                break;
-        }
+        $products = $model->getAllProducts($sort);
 
-        $products = array_merge($products1, $products2);
+        //$products = $model->getSingleProducts($sort);
 
         $dataProvider = new ArrayDataProvider([
             'allModels' => $products,
@@ -169,42 +85,6 @@ class CategoriesController extends Controller
 
         $products = $dataProvider->getModels();
 
-
-//        $products1 = $model->getProducts()->where(['>','remains',0])->orderBy(['price' => SORT_DESC]);
-//        $products2 = $model->getProducts()->where(['remains' => 0])->orderBy(['price' => SORT_DESC]);
-//
-//        $products = $products1->union($products2);
-//
-//        $dataProvider = new ActiveDataProvider([
-//            'query' => $products,
-//            'pagination' => [
-//                'pageSize' => 20,
-//            ],
-//        ]);
-//
-//        $pagination = new Pagination([
-//            'defaultPageSize' => 20,
-//            'totalCount' => $dataProvider->getTotalCount(),
-//        ]);
-//
-//        $products = $dataProvider->getModels();
-
-
-
-//        echo '<pre>';
-//        var_dump($products);
-//        echo '</pre>';
-
-
-//        $products = $model->getProducts()->orderBy(['remains' => SORT_DESC])->addOrderBy(['price' => SORT_DESC]);
-//
-//        $pagination = new Pagination([
-//            'defaultPageSize' => 20,
-//            'totalCount' => $products->count(),
-//        ]);
-//
-//        $products = $products->offset($pagination->offset)->limit($pagination->limit)->all();
-//
         return $this->render('view', [
             'model' => $model,
             'products' => $products,
